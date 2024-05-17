@@ -1,0 +1,236 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/constant/CustomAppbar.dart';
+import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/modules/profile/Information.dart';
+
+class Profileview extends StatefulWidget {
+  const Profileview({super.key});
+
+  @override
+  State<Profileview> createState() => _ProfileviewState();
+}
+
+class _ProfileviewState extends State<Profileview> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+      backgroundColor: AppColors.greyColor,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: 160.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(5.r),
+                    bottomRight: Radius.circular(5.r)),
+                color: AppColors.primaryBlue,
+              ),
+            ),
+            const CustomAppBar(
+              label: "My Profile",
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: .0, left: 20),
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 70.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 40.r,
+                            backgroundColor: Colors.grey,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 60.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Pragyan Maharjan,",
+                            style: TextStyle(
+                                fontSize: 25.sp,
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            "9860721670",
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 180.0, left: 20),
+              child: Profiletitle(),
+            ),
+            Padding(
+                padding: const EdgeInsets.only(top: 210.0, left: 20, right: 20),
+                child: Container(
+                
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.r),
+                      color: Colors.white,
+                      boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 2), // changes position of shadow
+            ),
+          ],
+                  ),
+
+
+
+                  child: Column(
+                    children: [
+                      ProfileItems(
+                        label: "My Information",
+                        sublabel: "View your basic information",
+                        onTap: (){
+                          Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyInformation()),
+                );
+
+                        },
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+                      ProfileItems(
+                        label: "Logout",
+                        sublabel: "Logout of this app",
+                        onTap: (){
+                          
+                        },
+                      ),
+                    ],
+                  ),
+                )),
+          ],
+        ),
+      ),
+    ));
+  }
+}
+
+class ProfileItems extends StatelessWidget {
+  final String label;
+  final String sublabel;
+    final VoidCallback onTap; 
+
+  const ProfileItems({
+    super.key,
+    required this.label,
+    required this.sublabel,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+
+
+      child: Container(
+        height: 55.h,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.white),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0,top: 8, bottom: 8),
+              child: Container(
+                height: 30.h,
+                width: 30.w,
+                color: Colors.white,
+                child: Image.asset(AppImages.information),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 7.0, left: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        label,
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            color: AppColors.primaryColor,
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      // SizedBox(width: 120.w,),
+                      // const Icon(
+                      //   Icons.arrow_forward_ios_rounded,
+                      //   size: 15,
+                      //   color: Colors.grey,
+                      // )
+                    ],
+                  ),
+                  Text(
+                    sublabel,
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.grey,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            )
+          ],
+          
+        ),
+        
+      ),
+    );
+  }
+}
+
+class Profiletitle extends StatelessWidget {
+  const Profiletitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "Basic Information",
+      style: TextStyle(
+          fontSize: 14.sp,
+          color: AppColors.primaryColor,
+          decoration: TextDecoration.none,
+          fontWeight: FontWeight.w600),
+    );
+  }
+}

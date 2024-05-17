@@ -35,26 +35,47 @@ class ApiBaseHelper {
     // }
   }
 
-  Future<dynamic> postMethod(String url, dynamic body) async {
-    // try {
-    debugPrint("this is body server $body");
-    debugPrint("this is body url server $url");
-    var header = {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    };
+  // Future<dynamic> postMethod(String url, dynamic body) async {
+  //   // try {
+  //   debugPrint("this is body server $body");
+  //   debugPrint("this is body url server $url");
+  //   var header = {
+  //     "Accept": "application/json",
+  //     "Content-Type": "application/json",
+  //   };
 
 
-    final response =
-        await http.post(Uri.parse(url), body: body, headers: header,);
+  //   final response =
+  //       await http.post(Uri.parse(url), body: body, headers: header,);
        
-    debugPrint("this is errror $response");
-    debugPrint("this is response code ${response.statusCode}");
-    return json.decode(response.body);
-    // } catch (e) {
-    //   throw FetchDataException('Failed to perform POST request. Error: $e');
-    // }
-  }
+  //   debugPrint("this is errror $response");
+  //   debugPrint("this is response code ${response.statusCode}");
+  //   return json.decode(response.body);
+  //   // } catch (e) {
+  //   //   throw FetchDataException('Failed to perform POST request. Error: $e');
+  //   // }
+  // }
+  Future<dynamic> postMethod(String url, dynamic body) async {
+  debugPrint("this is body server $body");
+  debugPrint("this is body url server $url");
+  
+  var header = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  };
+
+  final response = await http.post(
+    Uri.parse(url),
+    body: body,
+    headers: header,
+  );
+
+  debugPrint("this is error $response");
+  debugPrint("this is response code ${response.statusCode}");
+
+  return json.decode(response.body);
+}
+
 
   Future<dynamic> postMethodWithOutContainType(String url, dynamic body) async {
     // try {

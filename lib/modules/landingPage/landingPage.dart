@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/modules/auth/login.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
+import 'package:moneycollection/modules/landingPage/bottomNav.dart';
 import 'package:moneycollection/view/dashboard/dashboardmain.dart';
 
 class LandingPage extends StatefulWidget {
@@ -100,7 +101,7 @@ class _LandingPageState extends State<LandingPage> {
                 onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const DashboardHome()),
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
                  child: Container(

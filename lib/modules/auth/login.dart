@@ -18,33 +18,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-   bool rememberMeValue = false;
-   final _formKey = GlobalKey<FormState>();
+  bool rememberMeValue = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return   Consumer<AuthState>(builder: (context, authController, child) {
+    return Consumer<AuthState>(builder: (context, authController, child) {
       return Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20),
-            child: Form(
+            child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20),
+          child: Form(
               key: _formKey,
-              child: Column(children: [
-                
-               Center(
-                 child: SizedBox(
-                          
-                          
-                          height: 150.h,
-                          child: Image.asset(
-                                          AppImages.logo,
-                                        ),
-                                         
-                               
-                                         ),
-               ),
-               const SizedBox(
+              child: Column(
+                children: [
+                  Center(
+                    child: SizedBox(
+                      height: 150.h,
+                      child: Image.asset(
+                        AppImages.logo,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
                     height: 10,
                   ),
                   Center(
@@ -61,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       'Please enter the credentials below to start using the app.',
                       style: subtitleStyle.copyWith(fontSize: 12),
-                      
                     ),
                   ),
                   const SizedBox(
@@ -77,26 +72,19 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   MyInputField(
-                      labelText: 'Password',
-                      textInputAction: TextInputAction.done,
-                      controller: authController
-                                                    .loginPassword,
-                                                    validator: CustomValidator
-                                                    .validatePassword,
-                      suffix: IconButton(
-                                                    onPressed: () {
-                                                      authController
-                                                          .showPassword();
-                                                    },
-                                                    icon: authController
-                                                            .hidePassword
-                                                        ? const Icon(
-                                                            Icons.visibility)
-                                                        : const Icon(Icons
-                                                            .visibility_off)),
-                      
-                    ),
-                    const SizedBox(
+                    labelText: 'Password',
+                    textInputAction: TextInputAction.done,
+                    controller: authController.loginPassword,
+                    validator: CustomValidator.validatePassword,
+                    suffix: IconButton(
+                        onPressed: () {
+                          authController.showPassword();
+                        },
+                        icon: authController.hidePassword
+                            ? const Icon(Icons.visibility)
+                            : const Icon(Icons.visibility_off)),
+                  ),
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -107,65 +95,60 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           'Forgot password?',
                           style: subtitleStyle.copyWith(
-                            color: AppColors.logoblueColor,
-                            fontSize: 12.sp
-                            
+                              color: AppColors.logoblueColor, fontSize: 12.sp),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPasswordView()),
+                          );
+                        },
+                      ),
+                      Expanded(
+                        child: CheckboxListTile(
+                          activeColor: AppColors.textColorBlack,
+                          value: rememberMeValue,
+                          onChanged: (value) {
+                            setState(() {
+                              rememberMeValue = value!;
+                              // AppStorage.saveRememberme(value);
+                            });
+                          },
+                          contentPadding: EdgeInsets.zero,
+                          title: Text(
+                            'Remember Me',
+                            style: subtitleStyle.copyWith(fontSize: 12.sp),
+                            textAlign: TextAlign.right,
                           ),
                         ),
-                       onPressed: () {
-        Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ForgotPasswordView()),
-        );
-      },
                       ),
-                     Expanded(
-        child: CheckboxListTile(
-      activeColor: AppColors.textColorBlack,
-      value: rememberMeValue,
-      onChanged: (value) {
-        setState(() {
-          rememberMeValue = value!;
-          // AppStorage.saveRememberme(value);
-        });
-      },
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        'Remember Me',
-        style: subtitleStyle.copyWith(fontSize: 12.sp),
-        textAlign: TextAlign.right,
-      ),
-        ),
-      ),
                     ],
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-      
+
                   SizedBox(
-                      height: 50,
-                      width: double.infinity,
-                      child:  CustomButtons(
-                              label: 'Sign In',
-                              txtClr: Colors.white,
-                              btnClr: AppColors.logoblueColor,
-                              ontap: () {
-                                if (_formKey.currentState!
-                                                        .validate()) {
-                                                      authController
-                                                          .Login(
-                                                              context);
-                                                              print('Email: ${authController.loginEmail.text}');
-    print('Password: ${authController.loginPassword.text}');
-                                                    } else {
-                                                      Utilities.showCustomSnackBar(
-                                                          "Invalid Email and Password.");
-                                                    }
-                              },
-                            ),
-        
+                    height: 50,
+                    width: double.infinity,
+                    child: CustomButtons(
+                      label: 'Sign In',
+                      txtClr: Colors.white,
+                      btnClr: AppColors.logoblueColor,
+                      ontap: () {
+                        if (_formKey.currentState!.validate()) {
+                          authController.Login(context);
+                          print('Emailsss: ${authController.loginEmail.text}');
+                          print(
+                              'Passwordssss: ${authController.loginPassword.text}');
+                        } else {
+                          Utilities.showCustomSnackBar(
+                              "Invalid Email and Password.");
+                        }
+                      },
                     ),
+                  ),
                   // SizedBox(
                   //     height: 50,
                   //     width: double.infinity,
@@ -199,11 +182,10 @@ class _LoginPageState extends State<LoginPage> {
                   //             },
                   //           ),
                   //   ),
-            ],)),
-          )
-        ),
+                ],
+              )),
+        )),
       );
-    
-  });
+    });
   }
 }
