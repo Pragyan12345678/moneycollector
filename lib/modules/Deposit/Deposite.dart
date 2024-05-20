@@ -15,55 +15,53 @@ class DepositList extends StatefulWidget {
 
 class _DepositListState extends State<DepositList> {
   @override
+  void initState() {
+    super.initState();
+    // Fetch deposit accounts data during initialization
+    Provider.of<DepositAccountsProvider>(context, listen: false).fetchDepositAccounts();
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    
+    return SafeArea(
+      
       child: Consumer<DepositAccountsProvider>(
-         builder: (context, provider, _) {
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: Stack(
-              children: [
-                
-                Container(
-                      
-                      height: 120.h,
-                      
+        builder: (context, provider, _) {
+          var depositProvider = Provider.of<DepositAccountsProvider>(context); // Access the provider
+    var depositAccounts = depositProvider.depositAccounts; // Access the deposit accounts data
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Container(
+                    height: 120.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5.r), bottomRight: Radius.circular(5.r)),
+                      color: AppColors.primaryBlue,
+                    ),
+                  ),
+                  const CustomAppBar(
+                    label: "Deposit",
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
+                    child: Container(
+                      height: 650,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(5.r), bottomRight: Radius.circular(5.r)),
-                        color: AppColors.primaryBlue,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      
-          
+                      // child: MyTable(),
+                      child: Text(" length : ${depositAccounts.length}"),
                     ),
-                     const CustomAppBar(
-                      label: "Deposit",
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
-                      child: Container(
-                        height: 650,
-                        decoration:BoxDecoration(
-                          
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5))
-                          
-                      
-                      
-                        ),
-                        child: MyTable(),
-          
-                    
-                      ),
-                    )
-          
-          
-          
-          
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
-        );
-         }
+          );
+        },
       ),
     );
   }
