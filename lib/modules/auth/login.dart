@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/Button.dart';
@@ -20,15 +22,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool rememberMeValue = false;
   final _formKey = GlobalKey<FormState>();
+  String? selectedLocation;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthState>(builder: (context, authController, child) {
       return Scaffold(
         body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20),
-          child: Form(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20),
+            child: Form(
               key: _formKey,
               child: Column(
                 children: [
@@ -62,11 +65,43 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 40,
                   ),
+                  DropdownButtonFormField<String>(
+                    value: authController.selectedLocation,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                       selectedLocation = newValue;
+      authController.selectedLocation = newValue; 
+                      });
+                    },
+                    items: <String>['Head Office', 'New Road']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      labelText: 'Location',
+                      border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please select a location';
+                      }
+                      return null;
+                    },
+                  ),
+                   const SizedBox(
+                    height: 20,
+                  ),
+                  
+                  
                   MyInputField(
                     labelText: 'Email',
                     controller: authController.loginEmail,
                     textInputAction: TextInputAction.next,
-                    validator: CustomValidator.validateEmail,
+                    // validator: CustomValidator.validateEmail,
                   ),
                   const SizedBox(
                     height: 20,
@@ -77,12 +112,13 @@ class _LoginPageState extends State<LoginPage> {
                     controller: authController.loginPassword,
                     validator: CustomValidator.validatePassword,
                     suffix: IconButton(
-                        onPressed: () {
-                          authController.showPassword();
-                        },
-                        icon: authController.hidePassword
-                            ? const Icon(Icons.visibility)
-                            : const Icon(Icons.visibility_off)),
+                      onPressed: () {
+                        authController.showPassword();
+                      },
+                      icon: authController.hidePassword
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -101,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ForgotPasswordView()),
+                              builder: (context) => ForgotPasswordView(),
+                            ),
                           );
                         },
                       ),
@@ -125,10 +162,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
+                 
                   const SizedBox(
                     height: 20,
                   ),
-
                   SizedBox(
                     height: 50,
                     width: double.infinity,
@@ -149,42 +186,11 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                   ),
-                  // SizedBox(
-                  //     height: 50,
-                  //     width: double.infinity,
-                  //     child: controller.loginLoading.isTrue
-                  //         ? CustomButtons(
-                  //             label: '. . . ',
-                  //             txtClr: Colors.white,
-                  //             btnClr: AppColor.kalaAppMainColor,
-                  //             ontap: () {},
-                  //           )
-                  //         : CustomButtons(
-                  //             label: 'Sign In',
-                  //             txtClr: Colors.white,
-                  //             btnClr: AppColor.kalaAppMainColor,
-                  //             ontap: () {
-                  //               if (_formKey.currentState!.validate()) {
-                  //                 controller.loginLoading.value
-                  //                     ? null
-                  //                     : controller.login();
-                  //                 // then(
-                  //                 //         () {
-                  //                 //           landingcontroller.onInit();
-                  //                 //           landingcontroller.fetchJustForYou(
-                  //                 //             landingcontroller
-                  //                 //                 .selectedSlug.value,
-                  //                 //           );
-                  //                 //         },
-                  //                 //       );
-                  //                 controller.rememberMeData();
-                  //               }
-                  //             },
-                  //           ),
-                  //   ),
                 ],
-              )),
-        )),
+              ),
+            ),
+          ),
+        ),
       );
     });
   }

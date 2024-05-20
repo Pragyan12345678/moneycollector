@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:developer' as developer; 
+import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/provider/utils/api_helper/app_exception.dart';
 
 
@@ -51,6 +53,36 @@ class ApiBaseHelper {
     //   throw FetchDataException('Failed to perform POST request. Error: $e');
     // }
   }
+
+ Future getdepositeaccount(String token) async {
+    try {
+      var header = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token', // Add token to Authorization header
+      };
+      var response = await http.get(
+        Uri.parse(ApiUrl.collectionsheet), 
+        headers: header,
+      );
+      if (response.statusCode == 200) {
+        print("respose");
+        var data = jsonDecode(response.body);
+        return data;
+      }
+    } catch (e) {
+      developer.log(e.toString()); 
+    }
+  }
+}
+
+
+
+
+
+
+
+
 
   Future<dynamic> postMethodWithOutContainType(String url, dynamic body) async {
     // try {
@@ -195,4 +227,4 @@ class ApiBaseHelper {
             'Error occurred while communicating with the server. StatusCode: ${response.statusCode}');
     }
   }
-}
+

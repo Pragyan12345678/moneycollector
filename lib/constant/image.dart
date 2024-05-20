@@ -27,6 +27,7 @@ static const push = 'assets/icons/push.png';
 
 ///profile
 static const information = 'assets/icons/information.png'; 
+static const logout = 'assets/icons/logout.png'; 
 
 
 

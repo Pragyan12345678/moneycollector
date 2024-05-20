@@ -41,7 +41,7 @@ class _FormCustomTextFieldState extends State<FormCustomTextField> {
               height: 12,
             ),
         Container(
-          height: 60.h,
+          height: 50.h,
           decoration: BoxDecoration(
             color: _isFocused ? Colors.white : Colors.white,
             borderRadius: BorderRadius.circular(10),

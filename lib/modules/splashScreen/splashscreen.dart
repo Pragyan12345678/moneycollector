@@ -36,7 +36,7 @@ class _ViewSplashScreenState extends State<ViewSplashScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: Image(
-          image: AssetImage(AppImages.logo),
+          image: const AssetImage(AppImages.logo),
           fit: BoxFit.fill,
           height: 120.h,
           width: 120.w,

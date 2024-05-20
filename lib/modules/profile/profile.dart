@@ -35,55 +35,54 @@ class _ProfileviewState extends State<Profileview> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: .0, left: 20),
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 70.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 40.r,
-                            backgroundColor: Colors.grey,
-                          ),
-                        ],
-                      ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 70.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          radius: 40.r,
+                          backgroundColor: Colors.grey,
+                          child: const Icon(Icons.person, size: 60, color: Colors.blue),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 20,
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 60.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Pragyan Maharjan,",
+                          style: TextStyle(
+                              fontSize: 18.sp,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          "9860721670",
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 60.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Pragyan Maharjan,",
-                            style: TextStyle(
-                                fontSize: 25.sp,
-                                color: Colors.white,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            "9860721670",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.white,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 180.0, left: 20),
+            const Padding(
+              padding: EdgeInsets.only(top: 180.0, left: 20),
               child: Profiletitle(),
             ),
             Padding(
@@ -97,8 +96,8 @@ class _ProfileviewState extends State<Profileview> {
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 2), // changes position of shadow
+              blurRadius: 2,
+              offset: const Offset(0, 2), // changes position of shadow
             ),
           ],
                   ),
@@ -110,6 +109,7 @@ class _ProfileviewState extends State<Profileview> {
                       ProfileItems(
                         label: "My Information",
                         sublabel: "View your basic information",
+                        imagePath:  AppImages.information,
                         onTap: (){
                           Navigator.push(
                   context,
@@ -125,6 +125,7 @@ class _ProfileviewState extends State<Profileview> {
                       ProfileItems(
                         label: "Logout",
                         sublabel: "Logout of this app",
+                         imagePath:  AppImages.logout,
                         onTap: (){
                           
                         },
@@ -143,12 +144,15 @@ class ProfileItems extends StatelessWidget {
   final String label;
   final String sublabel;
     final VoidCallback onTap; 
+      final String imagePath;
+
 
   const ProfileItems({
     super.key,
     required this.label,
     required this.sublabel,
     required this.onTap,
+     required this.imagePath,
   });
 
   @override
@@ -167,10 +171,11 @@ class ProfileItems extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 15.0,top: 8, bottom: 8),
               child: Container(
-                height: 30.h,
-                width: 30.w,
+                height: 25.h,
+                width: 25.w,
                 color: Colors.white,
-                child: Image.asset(AppImages.information),
+                child:Image.asset(imagePath),
+                
               ),
             ),
             Padding(

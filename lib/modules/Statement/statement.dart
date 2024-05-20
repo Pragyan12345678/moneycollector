@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
-import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
 
@@ -49,7 +47,7 @@ class _StatementState extends State<Statement> {
                       color: AppColors.primaryColor,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w400),),
-                      SizedBox(height: 5,),
+                      const SizedBox(height: 5,),
                    Container(
                       height: 60.h,
                    
@@ -61,7 +59,7 @@ class _StatementState extends State<Statement> {
           color: Colors.grey.withOpacity(0.5),
           spreadRadius: 2,
           blurRadius: 5,
-          offset: Offset(0, 2), // changes position of shadow
+          offset: const Offset(0, 2), // changes position of shadow
         ),
       ],
                       ),
@@ -99,9 +97,9 @@ class _StatementState extends State<Statement> {
                                                     color: Colors.red,
                                                     decoration: TextDecoration.none,
                                                     fontWeight: FontWeight.w400, ),),
-                                                    SizedBox(width: 5,),
+                                                    SizedBox(width: 5.w,),
 
-                                                  Container(
+                                                  SizedBox(
                                                     height: 15.h,
                                                     width: 15.w,
 
@@ -154,7 +152,7 @@ class StatementCountview extends StatelessWidget {
           color: Colors.grey.withOpacity(0.5),
           spreadRadius: 2,
           blurRadius: 5,
-          offset: Offset(0, 2), // changes position of shadow
+          offset: const Offset(0, 2), // changes position of shadow
         ),
       ],
         ),
@@ -180,7 +178,7 @@ class StatementCountview extends StatelessWidget {
                     fontWeight: FontWeight.w400),),],
               ),
             ),
-            Divider(
+            const Divider(
               thickness: 1,
               color: Colors.black,
             ),

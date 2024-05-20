@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/modules/Deposit/DepositTable.dart';
+import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:provider/provider.dart';
 
 class DepositList extends StatefulWidget {
   const DepositList({super.key});
@@ -15,49 +17,53 @@ class _DepositListState extends State<DepositList> {
   @override
   Widget build(BuildContext context) {
     return  SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              
-              Container(
-                    
-                    height: 120.h,
-                    
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(bottomLeft:Radius.circular(5.r), bottomRight: Radius.circular(5.r)),
-                      color: AppColors.primaryBlue,
+      child: Consumer<DepositAccountsProvider>(
+         builder: (context, provider, _) {
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Stack(
+              children: [
+                
+                Container(
+                      
+                      height: 120.h,
+                      
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(5.r), bottomRight: Radius.circular(5.r)),
+                        color: AppColors.primaryBlue,
+                      ),
+                      
+          
                     ),
-                    
-        
-                  ),
-                   const CustomAppBar(
-                    label: "Deposit",
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
-                    child: Container(
-                      height: 650,
-                      decoration:BoxDecoration(
-                        
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5))
-                        
-                    
+                     const CustomAppBar(
+                      label: "Deposit",
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
+                      child: Container(
+                        height: 650,
+                        decoration:BoxDecoration(
+                          
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5))
+                          
+                      
+                      
+                        ),
+                        child: MyTable(),
+          
                     
                       ),
-                      child: MyTable(),
-        
-                  
-                    ),
-                  )
-        
-        
-        
-        
-            ],
+                    )
+          
+          
+          
+          
+              ],
+            ),
           ),
-        ),
+        );
+         }
       ),
     );
   }

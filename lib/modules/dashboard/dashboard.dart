@@ -6,10 +6,14 @@ import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/modules/Deposit/Deposite.dart';
 import 'package:moneycollection/modules/Loan/Loan.dart';
+import 'package:moneycollection/modules/Notification/Notification.dart';
 import 'package:moneycollection/modules/Statement/statement.dart';
 
 import 'package:moneycollection/modules/Collection/Collection.dart';
+import 'package:moneycollection/modules/dashboard/RecentTransaction.dart';
 import 'package:moneycollection/modules/profile/profile.dart';
+import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:provider/provider.dart';
 
 class DashboardHome extends StatefulWidget {
   const DashboardHome({super.key});
@@ -26,405 +30,241 @@ class _DashboardHomeState extends State<DashboardHome> {
       isContentVisible = !isContentVisible;
     });
   }
+    void initState() {
+    super.initState();
+     Provider.of<DepositAccountsProvider>(context, listen: false).fetchDepositAccounts();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.greyColor,
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Stack(
-            children: [
-              Container(
-                height: 120.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(5.r),
-                      bottomRight: Radius.circular(5.r)),
-                  color: AppColors.primaryBlue,
-                ),
+        child: Stack(
+          children: [
+            Container(
+              height: 120.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(5.r),
+                    bottomRight: Radius.circular(5.r)),
+                color: AppColors.primaryBlue,
               ),
-              const DashboardAppBAr(),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding:  EdgeInsets.only(top: 70.h),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:  EdgeInsets.only(
-                          left: 10.w, right: 20.w, top: 10.h, bottom: 10.h),
-                      child: Container(
-                        height: 190.h,
-                        width: double.infinity,
-                        color: AppColors.greyColor,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 74.h,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5).r,
-                              ),
-                              child: Padding(
-                                padding:  EdgeInsets.only(
-                                    left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Collected Balance",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Colors.grey,
-                                              decoration: TextDecoration.none,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        SizedBox(
-                                          height: 4.h,
-                                        ),
-                                        isContentVisible
-                                            ? FirstContent()
-                                            : SecondContent(),
-                                      ],
-                                    ),
-                                    IconButton(
-                                      icon: Icon(isContentVisible
-                                          ? Icons.visibility
-                                          : Icons.visibility_off),
-                                      onPressed: toggleContentVisibility,
-                                    ),
-                                  ],
-                                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top:20.0),
+              child: const DashboardAppBAr(),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding:  EdgeInsets.only(top: 70.h),
+              child: Column(
+                children: [
+                  Padding(
+                    padding:  EdgeInsets.only(
+                        left: 20.w, right: 20.w, top: 10.h, bottom: 10.h),
+                    child: Container(
+                      height: 190.h,
+                      width: double.infinity,
+                      color: AppColors.greyColor,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 74.h,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5).r,
+                            ),
+                            child: Padding(
+                              padding:  EdgeInsets.only(
+                                  left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Collected Balance",
+                                        style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: Colors.grey,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      SizedBox(
+                                        height: 4.h,
+                                      ),
+                                      isContentVisible
+                                          ? FirstContent()
+                                          : SecondContent(),
+                                    ],
+                                  ),
+                                  IconButton(
+                                    icon: Icon(isContentVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    onPressed: toggleContentVisibility,
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Dashboardbalance(
-                                  imagePath: AppImages.moneycollection,
-                                  text: "Collection",
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Deposite()),
-                                    );
-                                  },
-                                ),
-                                // const SizedBox(
-                                //   width: 10,
-                                // ),
-                                // Dashboardbalance(
-                                //   imagePath: AppImages.statement,
-                                //   text: "Statement",
-                                //   onTap: () {
-                                //     Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //           builder: (context) => const Statement()),
-                                //     );
-                                //   },
-                                // ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Dashboardbalance(
-                                  imagePath: AppImages.deposit,
-                                  text: "Deposit",
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const DepositList()),
-                                    );
-                                  },
-                                ),
-                               
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                 Dashboardbalance(
-                                  imagePath: AppImages.loan,
-                                  text: "Loan",
-                                  onTap: () {
-                                     Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const LoanList()),
-                                    );
-                                  },
-                                ),
-                                
-                              ],
-                            )
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Dashboardbalance(
+                                imagePath: AppImages.moneycollection,
+                                text: "Collection",
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Deposite()),
+                                  );
+                                },
+                              ),
+                              // const SizedBox(
+                              //   width: 10,
+                              // ),
+                              // Dashboardbalance(
+                              //   imagePath: AppImages.statement,
+                              //   text: "Statement",
+                              //   onTap: () {
+                              //     Navigator.push(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => const Statement()),
+                              //     );
+                              //   },
+                              // ),
+                              const SizedBox(
+                                width: 60,
+                              ),
+                              Dashboardbalance(
+                                imagePath: AppImages.deposit,
+                                text: "Deposit",
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const DepositList()),
+                                  );
+                                },
+                              ),
+                             
+                              const SizedBox(
+                                width: 60,
+                              ),
+                               Dashboardbalance(
+                                imagePath: AppImages.loan,
+                                text: "Loan",
+                                onTap: () {
+                                   Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const LoanList()),
+                                  );
+                                },
+                              ),
+                              
+                            ],
+                          )
+                        ],
                       ),
                     ),
+                  ),
+                ],
+              ),
+            ),
+            
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15, top: 280),
+              child: Container(
+                height: 405.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: AppColors.greyColor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Recent Transactions",
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Colors.black,
+                                decoration: TextDecoration.none,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+        Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Statement()),
+                                  );
+        
+                            },
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "View All",
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        color: Colors.grey,
+                                        decoration: TextDecoration.none,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 15,
+                                  color: Colors.grey,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    Container(
+                      height: 365.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.r),
+                        
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TransactionRecent(),
+                      ),
+                    )
+                    
+                  //  TransactionRecent(),
                   ],
                 ),
               ),
-              
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0, right: 15, top: 280),
-                child: Container(
-                  height: 450,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: AppColors.greyColor,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Recent Transactions",
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: Colors.black,
-                                  decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            GestureDetector(
-                              onTap: (){
-Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Statement()),
-                                    );
-
-                              },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "View All",
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: Colors.grey,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    const Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      size: 15,
-                                    color: Colors.grey,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                flex: 12,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "Recent Transactions",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      ),
-                                                      Text(
-                                                        "Recent Transactions",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            color: Colors.grey,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                  "NPR. 70000",
-                                                  style: TextStyle(
-                                                      fontSize: 14.sp,
-                                                      color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Image.asset(
-                                                    AppImages.more,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 4),
-                                          const Divider(
-                                              color: Colors.grey, thickness: 1),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  // Repeat similar structure for other items
-                                ],
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                flex: 12,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "Recent Transactions",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      ),
-                                                      Text(
-                                                        "Recent Transactions",
-                                                        style: TextStyle(
-                                                            fontSize: 14.sp,
-                                                            color: Colors.grey,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                  "NPR. 70000",
-                                                  style: TextStyle(
-                                                      fontSize: 14.sp,
-                                                      color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Image.asset(
-                                                    AppImages.more,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 4),
-                                          const Divider(
-                                              color: Colors.grey, thickness: 1),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  // Repeat similar structure for other items
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
@@ -550,13 +390,25 @@ class DashboardAppBAr extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Image.asset(
-                  AppImages.notification,
-                  fit: BoxFit.fill,
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => NotificationPage()),
+                                    );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Image.asset(
+                      AppImages.notification,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
               ),
             ),

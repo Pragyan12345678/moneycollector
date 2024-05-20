@@ -19,15 +19,15 @@ Future<dynamic> customShowDialog({
           title,
           style: TextStyle(
             fontWeight: FontWeight.w700,
-            fontSize: 22.sp,
-            color: AppColors.primaryBrown,
+            fontSize: 18.sp,
+            color: AppColors.primaryColor,
           ),
         ),
         content: Text(
           content,
           style: TextStyle(
             fontWeight: FontWeight.w700,
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             color: AppColors.primaryBrown,
           ),
         ),
@@ -38,7 +38,7 @@ Future<dynamic> customShowDialog({
               "No",
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 color: AppColors.primaryBrown,
               ),
             ),
@@ -49,7 +49,7 @@ Future<dynamic> customShowDialog({
               "Yes",
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 color: AppColors.primaryBrown,
               ),
             ),
