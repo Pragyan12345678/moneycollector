@@ -6,13 +6,15 @@ import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/provider/service/services.dart';
 
-class CollectionState with ChangeNotifier {
+class LoanStateProvider with ChangeNotifier {
 
 
   final TextEditingController trandatead = TextEditingController();
   final TextEditingController trandatebs = TextEditingController();
   final TextEditingController accountnumber = TextEditingController();
   final TextEditingController amount = TextEditingController();
+   final TextEditingController depositeby = TextEditingController();
+  final TextEditingController sourceIncome = TextEditingController();
 
   bool loadingAuth = false;
   

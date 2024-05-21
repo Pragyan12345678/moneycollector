@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:moneycollection/modules/Deposit/DepositForm.dart';
+import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:provider/provider.dart';
 
 class MyTable extends StatefulWidget {
   @override
@@ -12,55 +14,63 @@ class _MyTableState extends State<MyTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          onChanged: (value) {
-            setState(() {
-              _searchQuery = value.toLowerCase();
-            });
-          },
-          decoration: InputDecoration(
-            labelText: 'Search',
-            prefixIcon: Icon(Icons.search),
-          ),
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Table(
-               border: TableBorder.lerp(
-    TableBorder.all( color: Colors.black,width: 3), // First border
-    TableBorder.all(color: Colors.grey, width: 0.1), // Second border
-    1, // Interpolation value
-  ),
-
-              children: [
-                TableRow(
-                  children: [
-                    TitleCell(
-                      label: 'Account no.',
-                    ),
-                    TitleCell(
-                      label: 'Account Type',
-                    ),
-                    TitleCell(
-                      label: 'Client ID',
-                    ),
-                    TitleCell(
-                      label: 'Full Name',
-                    ),
-                    TitleCell(
-                      label: 'Mobile no.',
-                    ),
-                    
-                  ],
-                ),
-                ..._filteredRows.map((row) => _buildDataRow(row)).toList(),
-              ],
+    return Consumer<DepositAccountsProvider>(
+      builder: (context, provider, _) {
+        var depositAccounts = provider.depositAccounts;
+      return Column(
+        children: [
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                _searchQuery = value.toLowerCase();
+              });
+            },
+            decoration: InputDecoration(
+              labelText: 'Search',
+              prefixIcon: Icon(Icons.search),
             ),
           ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Table(
+                 border: TableBorder.lerp(
+      TableBorder.all( color: Colors.black,width: 3), // First border
+      TableBorder.all(color: Colors.grey, width: 0.1), // Second border
+      1, // Interpolation value
         ),
-      ],
+      
+                children: [
+                  TableRow(
+                    children: [
+                      TitleCell(
+                        label: 'Account no.',
+                      ),
+                      TitleCell(
+                        label: 'Account Type',
+                      ),
+                      TitleCell(
+                        label: 'Client ID',
+                      ),
+                      TitleCell(
+                        label: 'Full Name',
+                      ),
+                      TitleCell(
+                        label: 'Mobile no.',
+                      ),
+                      
+                    ],
+                  ),
+                  ..._filteredRows.map((row) => _buildDataRow(row, provider)).toList(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    
+  }
+    
+
     );
   }
 
@@ -106,7 +116,7 @@ class _MyTableState extends State<MyTable> {
       }).toList();
     }
   }
-TableRow _buildDataRow(Map<String, String> row) {
+TableRow _buildDataRow(Map<String, String> row, DepositAccountsProvider provider) {
   return TableRow(
     children: [
       TableCell(
@@ -121,7 +131,7 @@ TableRow _buildDataRow(Map<String, String> row) {
           },
           child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text(row['Account no.'] ?? '',style: TextStyle(
+            child: Text("${provider.depositAccounts.first.aCCOUNT?? ""}",style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,
@@ -134,7 +144,7 @@ TableRow _buildDataRow(Map<String, String> row) {
       TableCell(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text(row['Account Type'] ?? '',style: TextStyle(
+          child: Text( " ${provider.depositAccounts.first.dEPOSITTYPE?? ""}",style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,
@@ -146,7 +156,7 @@ TableRow _buildDataRow(Map<String, String> row) {
       TableCell(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text(row['Client ID'] ?? '',style: TextStyle(
+          child: Text("${provider.depositAccounts.first.cUSTID?? ""}",style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,
@@ -158,7 +168,7 @@ TableRow _buildDataRow(Map<String, String> row) {
       TableCell(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text(row['Full Name'] ?? '',style: TextStyle(
+          child: Text("${provider.depositAccounts.first.cUSTOMERNAME?? ""}",style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,
@@ -170,7 +180,7 @@ TableRow _buildDataRow(Map<String, String> row) {
       TableCell(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text(row['Mobile no.'] ?? '',style: TextStyle(
+          child: Text("${provider.depositAccounts.first.mOBILE?? ""}",style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,

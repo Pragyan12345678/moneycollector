@@ -31,7 +31,10 @@ class _DepositListState extends State<DepositList> {
         builder: (context, provider, _) {
 
           // var depositProvider = Provider.of<DepositAccountsProvider>(context); // Access the provider
-    var depositAccounts = provider.depositAccounts; // Access the deposit accounts data
+    var depositAccounts = provider.depositAccounts; 
+    print("k xa te ema $depositAccounts");
+    
+    // Access the deposit accounts data
           return Scaffold(
             body: SingleChildScrollView(
               child: Stack(
@@ -54,8 +57,8 @@ class _DepositListState extends State<DepositList> {
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      // child: MyTable(),
-                      child: Text(" length : ${provider.depositAccounts.first.aCCOUNT?? ""}"),
+                      child: MyTable(),
+                      // child: Text(" length : ${provider.depositAccounts.first.aCCOUNT?? ""}"),
                     ),
                   )
                 ],

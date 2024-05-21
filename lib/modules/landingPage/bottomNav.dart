@@ -7,6 +7,7 @@ import 'package:moneycollection/modules/Statement/statement.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/modules/profile/profile.dart';
 import 'package:moneycollection/provider/controller/home_state.dart';
+import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +43,8 @@ class MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Consumer<HomeState>(
   builder: (context, homeState, child) {
+    return Consumer<AuthState>(
+      builder: (context, authController, child) {
     return Consumer<ThemeModel>(
       builder: (context, theme, child) {
         return PopScope(
@@ -143,6 +146,7 @@ class MainPageState extends State<MainPage> {
         );
       },
     );
+      });
   },
 );
   }

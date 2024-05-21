@@ -105,7 +105,7 @@ class AuthState extends ChangeNotifier {
   bool? get isAuthenticated => _isLoggedIn;
   bool _isLoggedIn = false;
 
-  Login(BuildContext context) async {
+  login(BuildContext context) async {
     final authServices = ApiBaseHelper();
 
     loadingAuth = true;
@@ -115,7 +115,8 @@ class AuthState extends ChangeNotifier {
     print("trhi body${body}");
 
     var value = await authServices.postMethod(ApiUrl.login, jsonEncode(body));
-    print("tssshi body${value}");
+    print("tssshi body${value["user"]}");
+    print("tssshi body${value["user"]}");
     loadingAuth = false;
     notifyListeners();
     if (value == null) {
@@ -123,14 +124,18 @@ class AuthState extends ChangeNotifier {
       notifyListeners();
       Utilities.showCustomSnackBar("Login Failed !");
     } else {
-      if (value["status"] == 200) {
+      if (value["status"] == 200 || value["message"]== "Logged in.") {
+        print("printting thgeksdjldsvalue ${value["user"]["TOKEN"]}");
+        
         _isLoggedIn = false;
-        Preference.storeUser(value["data"]["access_token"].toString());
+         Constant.loginToken = value["user"]["TOKEN"].toString();
+        Preference.storeUser(value["user"]["TOKEN"].toString());
 
         loadingAuth = false;
 
         Utilities.showCustomSnackBar(value['message']);
-        if (context.mounted) {
+        print("object");
+        
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -138,13 +143,9 @@ class AuthState extends ChangeNotifier {
             ),
             (route) => false,
           );
-        }
+        
         notifyListeners();
-      } else {
-        loadingAuth = false;
-        notifyListeners();
-        Utilities.showCustomSnackBar(value["message"]);
-      }
+      
     }
     loadingAuth = false;
     notifyListeners();
@@ -154,4 +155,8 @@ class AuthState extends ChangeNotifier {
 
 
   
+}
+
+
+
 }

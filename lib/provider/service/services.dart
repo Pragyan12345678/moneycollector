@@ -55,7 +55,7 @@ class ApiBaseHelper {
   }
 
  Future getdepositeaccount(String token) async {
-  print("kxa");
+  print("kxxxxa");
     try {
       var header = {
         'Content-Type': 'application/json',
@@ -78,7 +78,39 @@ print("printing $header");
       developer.log(e.toString()); 
     }
   }
+///getprofiledetails
+Future getprofiledetails(String token) async {
+  print("kxa");
+    try {
+      var header = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token', // Add token to Authorization header
+      };
+print("printing $header");
+
+      var response = await http.get(
+        Uri.parse(ApiUrl.user), 
+        headers: header,
+      );
+ 
+      if (response.statusCode == 200) {
+       
+        var data = jsonDecode(response.body);
+        return data;
+      }
+    } catch (e) {
+      developer.log(e.toString()); 
+    }
+  }
+
 }
+
+
+
+
+
+
 
 
 

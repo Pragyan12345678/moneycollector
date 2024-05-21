@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                   
                   
                   MyInputField(
-                    labelText: 'Email',
+                    labelText: 'Username',
                     controller: authController.loginEmail,
                     textInputAction: TextInputAction.next,
                     // validator: CustomValidator.validateEmail,
@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                       btnClr: AppColors.logoblueColor,
                       ontap: () {
                         if (_formKey.currentState!.validate()) {
-                          authController.Login(context);
+                          authController.login(context);
                           print('Emailsss: ${authController.loginEmail.text}');
                           print(
                               'Passwordssss: ${authController.loginPassword.text}');
