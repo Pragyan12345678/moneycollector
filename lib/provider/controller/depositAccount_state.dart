@@ -66,22 +66,21 @@ Future<void> fetchDepositAccounts() async {
   print(" lamo");
   var data = await ApiBaseHelper().getdepositeaccount("18|1KcJzWkcfxk2PTLZxX6W3Xl8LbN2HmOvtQIfXEyM53e53f2c"); 
   if (data != null) {
-    if (data is Map && data.containsKey('data') && data['data'] is List) {
-      _depositAccounts.clear();
-      for (var v in data['data']) {
-        if (v is Map<String, dynamic>) {
-          _depositAccounts.add(DepositAccounts.fromJson(v));
-        } else {
-          print('Unexpected data format for item: $v');
-        }
-      }
-      notifyListeners();
-    } else {
-      print('This is real data $data');
-      // print('Invalid data format: $data');
+  _depositAccounts.clear(); // Clear the existing list
+  
+  // Check if data is a list
+  
+    for (var item in data) {
+      // Assuming DepositAccounts.fromJson(item) returns a single object
+      _depositAccounts.add(DepositAccounts.fromJson(item));
     }
-  } else {
-    print('No data received from the server');
-  }
+  
+
+  notifyListeners();
+  print('Data received and added to the list');
+} else {
+  print('No data received from the server');
+}
+
 }
 }
