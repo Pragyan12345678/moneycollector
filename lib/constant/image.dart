@@ -30,6 +30,8 @@ static const information = 'assets/icons/information.png';
 static const logout = 'assets/icons/logout.png'; 
 
 
-
+//collection
+static const edit = 'assets/icons/edit.png'; 
+static const remove = 'assets/icons/remove.png'; 
 
 }

@@ -4,6 +4,7 @@ import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/collectionsheet_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,11 @@ class _DepositeState extends State<Deposite> {
   @override
   Widget build(BuildContext context) {
     return Consumer<CollectionState>(builder: (context, collectionn, child) {
+          return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
+
+
+
+            var profiledetails = profile.ProfileDatas;
       return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -66,7 +72,7 @@ class _DepositeState extends State<Deposite> {
                             height: 10,
                           ),
                            FormCustomTextField("2072-1-2",
-                              controller: collectionn.trandatead,
+                              controller: collectionn.trandatebs,
                               label: "Tran Date(BS)"),
                           const SizedBox(
                             height: 10,
@@ -80,7 +86,10 @@ class _DepositeState extends State<Deposite> {
                                 fontWeight: FontWeight.w400),
                           ),
                           const SizedBox(height: 10),
-                          AccountTextField(),
+                          AccountTextField(
+                            label: '${profiledetails.first.branchCode ?? ""}-',
+                            controller: collectionn.accountnumber
+                          ),
                           const SizedBox(height: 10),
                            FormCustomTextField(
                             "0.00",
@@ -92,10 +101,8 @@ class _DepositeState extends State<Deposite> {
                             padding: EdgeInsets.only(left: 100.w, right: 100.w),
                             child: GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) => const MainPage()),
-                                // );
+
+                              collectionn.collectionsheet(context);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -126,5 +133,6 @@ class _DepositeState extends State<Deposite> {
         ),
       );
     });
+     });
   }
 }

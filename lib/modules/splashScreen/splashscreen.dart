@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/Collection/Collectionhome.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/main.dart';
 import 'package:moneycollection/modules/landingPage/landingPage.dart';
@@ -24,7 +25,7 @@ class _ViewSplashScreenState extends State<ViewSplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const LandingPage())
+              MaterialPageRoute(builder: (context) =>  Collectionsheets())
           
             );
     });

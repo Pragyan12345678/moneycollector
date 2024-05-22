@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:moneycollection/constant/colors.dart';
 
-class AccountTextField extends StatefulWidget {
-  late TextEditingController _controller;
-  @override
-  State<AccountTextField> createState() => _AccountTextFieldState();
-}
 
-class _AccountTextFieldState extends State<AccountTextField> {
+class AccountTextField extends StatelessWidget {
+ final TextEditingController? controller;
+  final String? label;
+
+  const AccountTextField({super.key, this.controller,  required this.label});
   @override
   Widget build(BuildContext context) {
-    return Container(
+
+
+   return  Container(
       height: 60,
     
-      padding: EdgeInsets.all(0.0),
+      padding: const EdgeInsets.all(0.0),
       decoration: BoxDecoration(
         color:Colors.white,
         border: Border.all(color: AppColors.textColorBlack,), // Border color set to black
@@ -33,7 +34,7 @@ class _AccountTextFieldState extends State<AccountTextField> {
               child: Center(
                 child:
                  Text(
-                  'KTM001-',
+                  label!, 
                    style: subtitleStyle.copyWith(
                     color: Colors.black,
                   ),
@@ -54,10 +55,12 @@ class _AccountTextFieldState extends State<AccountTextField> {
                     hintText: 'xxxxx-xxxx-xx',
                     hintStyle: subtitleStyle.copyWith(
                     color: Colors.grey,
+
                     ),
                     
                     border: InputBorder.none,
                   ),
+                  controller: controller,
                 ),
               ),
             ),
@@ -67,3 +70,4 @@ class _AccountTextFieldState extends State<AccountTextField> {
     );
   }
 }
+

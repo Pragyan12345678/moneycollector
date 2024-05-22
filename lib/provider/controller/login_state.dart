@@ -136,6 +136,7 @@ class AuthState extends ChangeNotifier {
         Utilities.showCustomSnackBar(value['message']);
         print("object");
         
+           
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

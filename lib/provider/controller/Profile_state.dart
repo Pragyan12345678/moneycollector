@@ -13,7 +13,7 @@ class ProfileDataProvider with ChangeNotifier {
 Future<void> fetchProfiledata() async {
   print("printing the valuee: $_profiledata");// khali
   print(" lamo");
-  var data = await ApiBaseHelper().getprofiledetails("53|NLUxFO5fWJYtpIywcXRK2hOgKMh3QAri77k8SSFLe801a664");
+  var data = await ApiBaseHelper().getprofiledetails("69|X3whfUOo3RJUHQwzIEPvlqK1Rgou4TFhpaJwpv6a507f171e");
   print("printing the $data") ;
   if (data != null) {
   _profiledata.clear(); // Clear the existing list//paile ko dataharu

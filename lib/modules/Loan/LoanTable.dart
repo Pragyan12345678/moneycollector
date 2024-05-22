@@ -65,34 +65,7 @@ class _LoanTableState extends State<LoanTable> {
   }
 
   List<Map<String, String>> _data = [
-    {
-      'Account no.': 'KTM002-001-11-0000031',
-      'Account Type': 'SHARE DEPOSIT (CURRENT DEPOSIT)',
-      'Client ID': 'KTM002-0000013',
-      'Full Name': 'Pragya Maharjan',
-      'Mobile no.': '1234564',
-    },
-    {
-      'Account no.': 'KTM002-001-11-0000035',
-      'Account Type': 'SHARE DEPOSIT (CURRENT DEPOSIT)',
-      'Client ID': 'KTM002-0000013',
-      'Full Name': 'terry Maharjan',
-      'Mobile no.': '1234564',
-    },
-    {
-      'Account no.': 'KTM002-001-11-0000036',
-      'Account Type': 'SHARE DEPOSIT (CURRENT DEPOSIT)',
-      'Client ID': 'KTM002-0000013',
-      'Full Name': 'nick Maharjan',
-      'Mobile no.': '1234564',
-    },
-    {
-      'Account no.': 'KTM002-001-11-0000034',
-      'Account Type': 'SHARE DEPOSIT (CURRENT DEPOSIT)',
-      'Client ID': 'KTM002-0000013',
-      'Full Name': 'nickss Maharjan',
-      'Mobile no.': '1234564',
-    },
+
     // Add more data...
   ];
 

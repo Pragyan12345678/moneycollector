@@ -65,9 +65,9 @@ class _DashboardHomeState extends State<DashboardHome> {
                   color: AppColors.primaryBlue,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top:20.0),
-                child: const DashboardAppBAr(),
+               Padding(
+                padding: EdgeInsets.only(top:20.h),
+                child: DashboardAppBAr(),
               ),
               const SizedBox(
                 height: 15,
@@ -295,7 +295,7 @@ class Dashboardbalance extends StatelessWidget {
   const Dashboardbalance({
     required this.imagePath,
     required this.text,
-    required this.onTap,
+     this.onTap,
     super.key,
   });
 
@@ -356,7 +356,7 @@ class DashboardAppBAr extends StatelessWidget {
         builder: (context, authController, _) {
            return Consumer<ProfileDataProvider>(
       builder: (context, profiledata, child) {
-          List<ProfileData> profiledetails = profiledata.ProfileDatas;
+         var profiledetails = profiledata.ProfileDatas;
       return Padding(
         padding:  EdgeInsets.only(left: 5.0.w, right: 40.w),
         child: Container(
@@ -378,14 +378,18 @@ class DashboardAppBAr extends StatelessWidget {
                     radius: 20.r,
                     
                     backgroundColor: Colors.grey,
-//                     backgroundImage: profiledetails.first.profilePhotoUrl!== null 
-//                     ? NetworkImage(
-//   profiledetails.first.profilePhotoUrl ?? "",
-// ) : AssetImage('path_to_placeholder_image'),
+                  backgroundImage: NetworkImage(
+                        
+                                            profiledetails.first.profilePhotoUrl == null
+                                                ? "${profiledetails.first.profilePhotoUrl}"
+                                                : "${profiledetails.first.profilePhotoUrl}",
+                                          ),
+                          
+                          ),
                   ),
                   ),
                 
-              ),
+              
               Expanded(
                 flex: 8,
                 child: Padding(

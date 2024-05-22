@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/constant/utils.dart';
@@ -13,6 +14,7 @@ class CollectionState with ChangeNotifier {
   final TextEditingController trandatebs = TextEditingController();
   final TextEditingController accountnumber = TextEditingController();
   final TextEditingController amount = TextEditingController();
+  final TextEditingController branchcode = TextEditingController();
 
   bool loadingAuth = false;
   
@@ -20,20 +22,30 @@ class CollectionState with ChangeNotifier {
   bool _isLoggedIn = false;
 
 
-Login(BuildContext context) async {
+
+    ProfileData? get profileDetails => _profiledata;
+    ProfileData? _profiledata;
+    
+
+collectionsheet(BuildContext context) async {
     final authServices = ApiBaseHelper();
+    print("printhing profile${profileDetails}");
+
+
+
 
     loadingAuth = true;
     notifyListeners();
+
  
     var body = {
-      // "branch_code":,
+      "branch_code":profileDetails?.branchCode,
       "customer_account_uid":accountnumber.text,
-      // "customer_uid":,
-      // "deposit_scheme_master_code":,
+      "customer_uid":profileDetails?.uid,
+      "deposit_scheme_master_code":"1231",
       "tran_date_ad":trandatead.text,
       "tran_date_bs":trandatebs.text ,
-      // "customer_name":,
+      "customer_name":profileDetails?.firstName,
       "deposit_amount":amount.text,
 
  
@@ -52,7 +64,7 @@ Login(BuildContext context) async {
     } else {
       if (value["status"] == 200) {
         _isLoggedIn = false;
-        Preference.storeUser(value["data"]["access_token"].toString());
+        // Preference.storeUser(value["data"]["access_token"].toString());
 
         loadingAuth = false;
 
