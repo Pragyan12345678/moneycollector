@@ -60,6 +60,8 @@ class AuthState extends ChangeNotifier {
     var auth = await Preference.getUser();
     var profile = await Preference.getProfile();
     var userType = await Preference.getUserType();
+    
+
 
     debugPrint("this is profile $profile");
     if (auth != null) {
@@ -78,12 +80,13 @@ class AuthState extends ChangeNotifier {
       isFirstTime = viewedOnBoarding;
     }
   }
-
+// to store the value
   viewedOnBoarding() {
     Preference.storeOnBoarding(false);
 
     notifyListeners();
   }
+  
 
   void showPassword() {
     hidePassword = !hidePassword;

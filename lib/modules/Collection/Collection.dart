@@ -9,14 +9,14 @@ import 'package:moneycollection/provider/controller/collectionsheet_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:provider/provider.dart';
 
-class Deposite extends StatefulWidget {
-  const Deposite({super.key});
+class EditCollectionForm extends StatefulWidget {
+  const EditCollectionForm({super.key});
 
   @override
-  State<Deposite> createState() => _DepositeState();
+  State<EditCollectionForm> createState() => _EditCollectionFormState();
 }
 
-class _DepositeState extends State<Deposite> {
+class _EditCollectionFormState extends State<EditCollectionForm> {
   @override
   Widget build(BuildContext context) {
     return Consumer<CollectionState>(builder: (context, collectionn, child) {
@@ -107,7 +107,7 @@ class _DepositeState extends State<Deposite> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
-                                  color: AppColors.primaryBlue,
+                                  color: Colors.green,
                                 ),
                                 height: 40.h,
                                 child: Center(

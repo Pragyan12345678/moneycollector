@@ -215,8 +215,11 @@
 //   }
 // }
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/Collection/editcollection.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
@@ -232,14 +235,14 @@ class Collectionsheets extends StatefulWidget {
 }
 
 class _CollectionsheetsState extends State<Collectionsheets> {
-
-    @override
+  @override
   void initState() {
     super.initState();
     // Fetch deposit accounts data during initialization
-    Provider.of<DepositAccountsProvider>(context, listen: false).fetchDepositAccounts();
-    
+    Provider.of<DepositAccountsProvider>(context, listen: false)
+        .fetchDepositAccounts();
   }
+
   int _currentIndex = 0;
 
   void _changePage(int index) {
@@ -265,13 +268,16 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                   ),
                   color: AppColors.primaryBlue,
                 ),
-                
               ),
-               const CustomAppBar(
-                  label: "Collection Sheet",
-                ),
+              const CustomAppBar(
+                label: "Collection Sheet",
+              ),
               Padding(
-                padding: const EdgeInsets.only(top: 70.0,left: 10, right: 10,),
+                padding: const EdgeInsets.only(
+                  top: 70.0,
+                  left: 10,
+                  right: 10,
+                ),
                 child: Column(
                   children: [
                     Container(
@@ -292,8 +298,6 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                               child: const Dashboardbalance(
                                 imagePath: AppImages.moneycollection,
                                 text: "Collection ",
-                               
-                                
                               ),
                             ),
                           ),
@@ -307,7 +311,6 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                               child: const Dashboardbalance(
                                 imagePath: AppImages.moneycollection,
                                 text: "Saving",
-                                
                               ),
                             ),
                           ),
@@ -321,7 +324,6 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                               child: const Dashboardbalance(
                                 imagePath: AppImages.moneycollection,
                                 text: "Loan",
-                                
                               ),
                             ),
                           ),
@@ -332,64 +334,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                     IndexedStack(
                       index: _currentIndex,
                       children: [
-                        Container(
-                            alignment: Alignment.center,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.white,
-                              ),
-                              width: double.infinity,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Collection Sheet",
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          color: Colors.grey,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ),
-                                  Table(
-                                    border: TableBorder.lerp(
-                                      TableBorder.all(
-                                          color: Colors.black, width: 3),
-                                      TableBorder.all(
-                                          color: Colors.grey, width: 0.1),
-                                      1, // Interpolation value
-                                    ),
-                                    children:  [
-                                      TableRow(
-                                        children: [
-                                          TitleCell(
-                                            label: 'SN',
-                                          ),
-                                          TitleCell(
-                                            label: 'Customer',
-                                          ),
-                                          TitleCell(
-                                            label: 'Amount',
-                                          ),
-                                          TitleCell(
-                                            label: 'Actions',
-                                          ),
-                                         
-                                        ],
-                                        
-                                      ),
-                                      
-
-
-                                      
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        Collection(),
                         SavingAccount(),
                         LoanAccount(),
                       ],
@@ -405,6 +350,120 @@ class _CollectionsheetsState extends State<Collectionsheets> {
   }
 }
 
+class Collection extends StatelessWidget {
+  const Collection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<DepositAccountsProvider>(
+        builder: (context, loanacc, child) {
+      return Container(
+        alignment: Alignment.center,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+          ),
+          width: double.infinity,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Collection Sheet",
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      color: Colors.grey,
+                      decoration: TextDecoration.none,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+              Table(
+                border: TableBorder.lerp(
+                  TableBorder.all(color: Colors.black, width: 3),
+                  TableBorder.all(color: Colors.grey, width: 0.1),
+                  1, // Interpolation value
+                ),
+                children: [
+                  _buildTableRow([
+                    _buildTableHeaderCell('Sn'),
+                    _buildTableHeaderCell('Customer'),
+                    _buildTableHeaderCell('Account'),
+                    _buildTableHeaderCell('Amount'),
+                    _buildTableHeaderCell('Action'),
+                  ]),
+                  for (int i = 0; i < loanacc.depositAccounts.length; i++)
+                    _buildTableRow([
+                      _buildTableCell(
+                          '${loanacc.depositAccounts.first.aCCOUNT}'),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.dEPOSITTYPE}}',
+                      ),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.cUSTID}}',
+                      ),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.cUSTOMERNAME}}',
+                      ),
+                      TableCell(
+                        child: Container(
+                            // height: 30,
+                            // width: 30,
+
+                            child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => CollectionForm(),
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: Image.asset(
+                                        AppImages.edit,
+                                        color: Colors.green,
+                                      )),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: Image.asset(
+                                        AppImages.remove,
+                                        color: Colors.red,
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )),
+                      ),
+                    ]),
+                  
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+}
+
 class SavingAccount extends StatelessWidget {
   const SavingAccount({
     super.key,
@@ -412,12 +471,11 @@ class SavingAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return Consumer<DepositAccountsProvider>(
+    return Consumer<DepositAccountsProvider>(
         builder: (context, loanacc, child) {
-         
-                 print('Length of depositAccounts: ${loanacc.depositAccounts.length}');
+      print('Length of depositAccounts: ${loanacc.depositAccounts.length}');
 
-    return Container(
+      return Container(
         alignment: Alignment.center,
         child: Container(
           decoration: BoxDecoration(
@@ -440,44 +498,46 @@ class SavingAccount extends StatelessWidget {
               ),
               Table(
                 border: TableBorder.lerp(
-                  TableBorder.all(
-                      color: Colors.black, width: 3),
-                  TableBorder.all(
-                      color: Colors.grey, width: 0.1),
+                  TableBorder.all(color: Colors.black, width: 3),
+                  TableBorder.all(color: Colors.grey, width: 0.1),
                   1, // Interpolation value
                 ),
-                children:  [
+                children: [
                   _buildTableRow([
-              _buildTableHeaderCell('Account n0.'),
-              _buildTableHeaderCell('Account Type'),
-              _buildTableHeaderCell('Cilent Id'),
-              _buildTableHeaderCell('Full Name'),
-              _buildTableHeaderCell('Mobile no.'),
-            ]),
-            for (int i = 0;
-                i < loanacc.depositAccounts.length;
-                i++)
-              _buildTableRow([
-                _buildTableCell(
-                    '${loanacc.depositAccounts.first.aCCOUNT }'),
-                _buildTableCell(
-                  '${loanacc.depositAccounts.first.dEPOSITTYPE}}',
-                ),
-                _buildTableCell(
-                   '${loanacc.depositAccounts.first.cUSTID}}',),
-                     _buildTableCell(
-                   '${loanacc.depositAccounts.first.cUSTOMERNAME}}',),
-                     _buildTableCell(
-                   '${loanacc.depositAccounts.first.mOBILE}}',),
-              ]),
+                    _buildTableHeaderCell('Account n0.'),
+                    _buildTableHeaderCell('Account Type'),
+                    _buildTableHeaderCell('Cilent Id'),
+                    _buildTableHeaderCell('Full Name'),
+                    _buildTableHeaderCell('Mobile no.'),
+                  ]),
+
+                  
+                  for (int i = 0; i < loanacc.depositAccounts.length; i++)
+                  
+                    _buildTableRow([
+                      _buildTableCell(
+                          '${loanacc.depositAccounts.first.aCCOUNT}'),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.dEPOSITTYPE}}',
+                      ),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.cUSTID}}',
+                      ),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.cUSTOMERNAME}}',
+                      ),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.mOBILE}}',
+                      ),
+                    ]),
                 ],
               ),
             ],
           ),
         ),
       );
+    });
   }
-      );}
 }
 
 class LoanAccount extends StatelessWidget {
@@ -489,7 +549,7 @@ class LoanAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DepositAccountsProvider>(
         builder: (context, loanacc, child) {
-    return Container(
+      return Container(
         alignment: Alignment.center,
         child: Container(
           decoration: BoxDecoration(
@@ -512,44 +572,44 @@ class LoanAccount extends StatelessWidget {
               ),
               Table(
                 border: TableBorder.lerp(
-                  TableBorder.all(
-                      color: Colors.black, width: 3),
-                  TableBorder.all(
-                      color: Colors.grey, width: 0.1),
+                  TableBorder.all(color: Colors.black, width: 3),
+                  TableBorder.all(color: Colors.grey, width: 0.1),
                   1, // Interpolation value
                 ),
-                children:  [
+                children: [
                   _buildTableRow([
-              _buildTableHeaderCell('Account n0.'),
-              _buildTableHeaderCell('Account Type'),
-              _buildTableHeaderCell('Cilent Id'),
-              _buildTableHeaderCell('Full Name'),
-              _buildTableHeaderCell('Mobile no.'),
-            ]),
-            for (int i = 0;
-                i < loanacc.depositAccounts.length;
-                i++)
-              _buildTableRow([
-                _buildTableCell(
-                    '${loanacc.depositAccounts.first.aCCOUNT }'),
-                _buildTableCell(
-                  '${loanacc.depositAccounts.first.dEPOSITTYPE}}',
-                ),
-                _buildTableCell(
-                   '${loanacc.depositAccounts.first.cUSTID}}',),
-                     _buildTableCell(
-                   '${loanacc.depositAccounts.first.cUSTOMERNAME}}',),
-                     _buildTableCell(
-                   '${loanacc.depositAccounts.first.mOBILE}}',),
-              ]),
+                    _buildTableHeaderCell('Account n0.'),
+                    _buildTableHeaderCell('Account Type'),
+                    _buildTableHeaderCell('Cilent Id'),
+                    _buildTableHeaderCell('Full Name'),
+                    _buildTableHeaderCell('Mobile no.'),
+                  ]),
+                  for (int i = 0; i < loanacc.depositAccounts.length; i++)
+                    _buildTableRow([
+                      _buildTableCell(
+                          '${loanacc.depositAccounts.first.aCCOUNT}'),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.dEPOSITTYPE}}',
+                      ),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.cUSTID}}',
+                      ),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.cUSTOMERNAME}}',
+                      ),
+                      _buildTableCell(
+                        '${loanacc.depositAccounts.first.mOBILE}}',
+                      ),
+                    ]),
+                  
                 ],
               ),
             ],
           ),
         ),
       );
+    });
   }
-    );}
 }
 
 Widget _buildTableHeaderCell(String text) {
@@ -580,12 +640,55 @@ Widget _buildTableCell(String text) {
           text,
           style: TextStyle(
             color: Colors.black87,
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w400
           ),
         ),
       ),
     ),
   );
 }
+
+// Widget _buildTableCellAction() {
+//   return TableCell(
+//     child: Container(
+//         // height: 30,
+//         // width: 30,
+
+//         child: Center(
+//       child: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Column(
+//           children: [
+//             GestureDetector(
+//               onTap: () {},
+//               child: SizedBox(
+//                   height: 20,
+//                   width: 20,
+//                   child: Image.asset(
+//                     AppImages.edit,
+//                     color: Colors.green,
+//                   )),
+//             ),
+//             const SizedBox(
+//               height: 10,
+//             ),
+//             GestureDetector(
+//               onTap: () {},
+//               child: SizedBox(
+//                   height: 20,
+//                   width: 20,
+//                   child: Image.asset(
+//                     AppImages.remove,
+//                     color: Colors.red,
+//                   )),
+//             ),
+//           ],
+//         ),
+//       ),
+//     )),
+//   );
+// }
 
 // Helper function to create a TableRow with given cells
 TableRow _buildTableRow(List<Widget> cells) {
@@ -594,67 +697,3 @@ TableRow _buildTableRow(List<Widget> cells) {
   );
 }
   
-      // Column(
-      //   children: [
-      //     Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //       children: [
-      //         GestureDetector(
-      //           onTap: () {
-      //             _changePage(0);
-      //           },
-      //           child: Container(
-      //             padding: EdgeInsets.all(10),
-      //             color: _currentIndex == 0 ? Colors.blue : Colors.grey,
-      //             child: Text('Page 1', style: TextStyle(color: Colors.white)),
-      //           ),
-      //         ),
-      //         GestureDetector(
-      //           onTap: () {
-      //             _changePage(1);
-      //           },
-      //           child: Container(
-      //             padding: EdgeInsets.all(10),
-      //             color: _currentIndex == 1 ? Colors.blue : Colors.grey,
-      //             child: Text('Page 2', style: TextStyle(color: Colors.white)),
-      //           ),
-      // //         ),
-      // //         GestureDetector(
-      // //           onTap: () {
-      // //             _changePage(2);
-      // //           },
-      // //           child: Container(
-      // //             padding: EdgeInsets.all(10),
-      // //             color: _currentIndex == 2 ? Colors.blue : Colors.grey,
-      // //             child: Text('Page 3', style: TextStyle(color: Colors.white)),
-      // //           ),
-      //         ),
-      //       ],
-      //     ),
-      //     Expanded(
-      //       child: IndexedStack(
-      //         index: _currentIndex,
-      //         children: [
-      //           Container(
-      //             color: Colors.red,
-      //             child: Center(
-      //               child: Text('Content of Page 1', style: TextStyle(color: Colors.white, fontSize: 20)),
-      //             ),
-      //           ),
-      //           Container(
-      //             color: Colors.green,
-      //             child: Center(
-      //               child: Text('Content of Page 2', style: TextStyle(color: Colors.white, fontSize: 20)),
-      //             ),
-      //           ),
-      //           Container(
-      //             color: Colors.orange,
-      //             child: Center(
-      //               child: Text('Content of Page 3', style: TextStyle(color: Colors.white, fontSize: 20)),
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),

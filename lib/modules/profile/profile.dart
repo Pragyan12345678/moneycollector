@@ -6,9 +6,11 @@ import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/modules/profile/Information.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:provider/provider.dart';
 
 class Profileview extends StatefulWidget {
@@ -19,14 +21,30 @@ class Profileview extends StatefulWidget {
 }
 
 class _ProfileviewState extends State<Profileview> {
+   String? profileData;
   @override
   void initState() {
     super.initState();
+    loadProfileData();
      Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
   }
+  
+
+  
+   Future<void> loadProfileData() async {
+    String? data = await Preference.getProfile();
+    setState(() {
+      profileData = data;
+      print("thisssss is sprikle${profileData}");
+      
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    return  Consumer<AuthState>(
+      builder: (context, auuth, child) {
     return  Consumer<ProfileDataProvider>(
       builder: (context, profiledata, child) {
           List<ProfileData> profileDatas = profiledata.ProfileDatas;
@@ -46,7 +64,8 @@ class _ProfileviewState extends State<Profileview> {
                 ),
               ),
               const CustomAppBar(
-                label: "My Profile",
+                label: ""
+                // "My Profile",
               ),
               Padding(
                 padding: const EdgeInsets.only(top: .0, left: 20),
@@ -63,9 +82,9 @@ class _ProfileviewState extends State<Profileview> {
                             backgroundColor: Colors.grey,
                             backgroundImage: NetworkImage(
                         
-                                            profileDatas.first.profilePhotoUrl == null
-                                                ? "${profileDatas.first.profilePhotoUrl}"
-                                                : "${profileDatas.first.profilePhotoUrl}",
+                                                 profileDatas.isEmpty
+                        ?""
+                        : "${profileDatas.first.profilePhotoUrl}"
                                           ),
                           
                           ),
@@ -83,7 +102,10 @@ class _ProfileviewState extends State<Profileview> {
                           Row(
                             children: [
                               Text(
-                                profileDatas.first.firstName ?? "",
+                                profileDatas.isEmpty
+                              ? ""
+                              : profileDatas.first.firstName ?? "",
+                                
                                 style: TextStyle(
                                     fontSize: 18.sp,
                                     color: Colors.white,
@@ -92,7 +114,10 @@ class _ProfileviewState extends State<Profileview> {
                               ),
                               SizedBox(width: 7,),
                               Text(
-                            profileDatas.first.lastName ?? "",
+                               profileDatas.isEmpty
+                              ? ""
+                              : profileDatas.first.lastName ?? "",
+                                
                             style: TextStyle(
                                 fontSize: 18.sp,
                                 color: Colors.white,
@@ -103,7 +128,10 @@ class _ProfileviewState extends State<Profileview> {
                           ),
                            
                           Text(
-                            profileDatas.first.email ?? "",
+                               profileDatas.isEmpty
+                              ? ""
+                              : profileDatas.first.email ?? "",
+                                
                             style: TextStyle(
                                 fontSize: 14.sp,
                                 color: Colors.white,
@@ -172,6 +200,7 @@ class _ProfileviewState extends State<Profileview> {
           ),
         ),
       ),);
+  });
   });
     
 }

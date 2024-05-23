@@ -7,9 +7,16 @@ class Preference {
   static const _getProfile = 'profile';
   static const String _onBoarding = 'onBoarding';
   static const String _userType = 'user';
+  static const String _depositAccounts = 'deposit';
+
 
   static Future<void> storeUser(String data) async {
     await saveData(_authData, data);
+  }
+
+
+  static Future<void> deposituser(String data) async {
+    await getData(_depositAccounts);
   }
 
   static Future<String?> getUser() async {
@@ -24,16 +31,18 @@ class Preference {
   static Future<String?> getUserType() async {
     return getData(_userType);
   }
-
+///user profile
   static Future<void> storeProfile(String data) async {
     await saveData(_getProfile, data);
-    // debugPrint("Stored profile lang data: $data");
+    debugPrint("Stored profile lang data: $data");
   }
 
   static Future<String?> getProfile() async {
     return getData(_getProfile);
   }
 
+
+////
   static Future<bool> storeOnBoarding(bool data) async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();

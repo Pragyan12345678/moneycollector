@@ -43,7 +43,7 @@
 
 // void main() async {
 //   String token = "16|rAS95XAXhsjNw6chXHWEW6Z4ffsD4t4JNePeHxX37beedd84";
-  
+
 //   try {
 //     List<DepositAccounts> accounts = await fetchAccounts(token);
 //     // Now you can use the fetched accounts
@@ -52,8 +52,11 @@
 //     print('Error: $e');
 //   }
 // }
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:moneycollection/Model/DepositAccounts.dart';
+import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/provider/service/services.dart';
 
 class DepositAccountsProvider with ChangeNotifier {
@@ -61,32 +64,26 @@ class DepositAccountsProvider with ChangeNotifier {
 
   List<DepositAccounts> get depositAccounts => _depositAccounts;
 
-Future<void> fetchDepositAccounts() async {
-  print("printing the valuee: $depositAccounts");
-  print(" lamo");
-  var data = await ApiBaseHelper().getdepositeaccount("71|yyVsTgA3hxlYMhRzUi6vFSP9VZGhjIBlmPAF3uSDfb02bae9");
+  Future<void> fetchDepositAccounts() async {
+    print("printing the valuee: $depositAccounts");
+    print(" lamo");
+    var data = await ApiBaseHelper().getdepositeaccount(
+        "71|yyVsTgA3hxlYMhRzUi6vFSP9VZGhjIBlmPAF3uSDfb02bae9");
 
+    if (data != null) {
+      _depositAccounts.clear(); // Clear the existing list//paile ko dataharu
+      print(data);
+    
+      for (var item in data) {
+        _depositAccounts.add(DepositAccounts.fromJson(item));
+      }
+      String jsonData = json.encode(data);
+      Preference.deposituser(jsonData);
 
-  
-   
-  if (data != null) {
-  _depositAccounts.clear(); // Clear the existing list//paile ko dataharu
-  
-  // Check if data is a list
-  
-    for (var item in data) {
-      // Assuming DepositAccounts.fromJson(item) returns a single object
-      _depositAccounts.add(DepositAccounts.fromJson(item));
+      notifyListeners();
+      print('Data received and added to the list');
+    } else {
+      print('No data received from the server');
     }
-  
-
-  notifyListeners();
-  print('Data received and added to the list');
-} else {
-  print('No data received from the server');
-}
-
-}
-
-
+  }
 }
