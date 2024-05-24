@@ -19,6 +19,8 @@ class FormCustomTextField extends StatefulWidget {
 
 class _FormCustomTextFieldState extends State<FormCustomTextField> {
   bool _isFocused = false;
+    bool _hasData = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +30,21 @@ class _FormCustomTextFieldState extends State<FormCustomTextField> {
         Text(
           widget.label,
           style: TextStyle(
-              fontSize: 14.sp,
-              color: Colors.grey,
-              decoration: TextDecoration.none,
-              fontWeight: FontWeight.w400),
+            fontSize: 14.sp,
+            color: Colors.black,
+            decoration: TextDecoration.none,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         const SizedBox(
-          height: 12,
+          height: 5,
         ),
         Container(
           height: 50.h,
           decoration: BoxDecoration(
-            color: _isFocused ? Colors.white : Colors.white,
-            borderRadius: BorderRadius.circular(10),
+            color: _isFocused ? AppColors.greyColor : AppColors.greyColor ,
+            borderRadius: BorderRadius.circular(5),
+            
           ),
           child: TextFormField(
             style: subtitleStyle,
@@ -60,21 +64,22 @@ class _FormCustomTextFieldState extends State<FormCustomTextField> {
               hintStyle: subtitleStyle.copyWith(
                 color: Colors.grey,
               ),
+              border: InputBorder.none,
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.textColorBlack,
                 ),
               ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Color.fromARGB(255, 110, 98, 98),
-                ),
-              ),
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.red,
-                ),
-              ),
+              // enabledBorder: const OutlineInputBorder(
+              //   borderSide: BorderSide(
+              //     color: Color.fromARGB(255, 110, 98, 98),
+              //   ),
+              // ),
+              // errorBorder: const OutlineInputBorder(
+              //   borderSide: BorderSide(
+              //     color: Colors.red,
+              //   ),
+              // ),
             ),
             onTap: () {
               setState(() {

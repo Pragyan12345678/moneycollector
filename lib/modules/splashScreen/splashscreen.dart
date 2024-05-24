@@ -40,7 +40,7 @@ class _ViewSplashScreenState extends State<ViewSplashScreen> {
         child: Image(
           image: const AssetImage(AppImages.logo),
           fit: BoxFit.fill,
-          height: 120.h,
+          height: 150.h,
           width: 120.w,
         ),
       ),

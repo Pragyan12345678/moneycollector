@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/constant/colors.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart' as nepali;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 class CalenderField extends StatefulWidget {
   final TextEditingController controller;
   final String label;
-  final bool useNepaliCalendar; // Dynamic parameter to determine whether to use Nepali calendar
+  final bool
+      useNepaliCalendar; // Dynamic parameter to determine whether to use Nepali calendar
 
   const CalenderField({
     Key? key,
@@ -40,8 +42,10 @@ class _CalenderFieldState extends State<CalenderField> {
       );
       if (picked != null && picked != _selectedNepaliDate) {
         setState(() {
-          _selectedNepaliDate = nepali.NepaliDateTime(picked.year, picked.month, picked.day);
-          widget.controller.text = '${_selectedNepaliDate.year}-${_selectedNepaliDate.month}-${_selectedNepaliDate.day}'; // Format this as needed
+          _selectedNepaliDate =
+              nepali.NepaliDateTime(picked.year, picked.month, picked.day);
+          widget.controller.text =
+              '${_selectedNepaliDate.year}-${_selectedNepaliDate.month}-${_selectedNepaliDate.day}'; // Format this as needed
         });
       }
     } else {
@@ -54,7 +58,8 @@ class _CalenderFieldState extends State<CalenderField> {
       if (picked != null && picked != _selectedDate) {
         setState(() {
           _selectedDate = DateTime(picked.year, picked.month, picked.day);
-          widget.controller.text = _selectedDate.toString().split(' ')[0]; // Format this as needed
+          widget.controller.text =
+              _selectedDate.toString().split(' ')[0]; // Format this as needed
         });
       }
     }
@@ -69,38 +74,47 @@ class _CalenderFieldState extends State<CalenderField> {
           widget.label,
           style: TextStyle(
             fontSize: 14.sp,
-            color: Colors.grey,
+            color: Colors.black,
             decoration: TextDecoration.none,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(
-          height: 12,
+          height: 5,
         ),
         Container(
-          height: 60.h, // Set height to 50
+          height: 50.h, // Set height to 50
+          decoration: BoxDecoration(
+            color: AppColors.greyColor,
+            borderRadius: BorderRadius.all(Radius.circular(5))
+          ),
           child: Column(
             children: [
               TextField(
-                  // cursorColor: Colors.transparent,
+                // cursorColor: Colors.transparent,
                 controller: widget.controller,
                 readOnly: true,
                 onTap: () => _selectDate(context),
                 decoration: InputDecoration(
-                  
-                  hintText: widget.useNepaliCalendar ? 'Select Nepali Date' : 'Select Date',
-                  contentPadding: EdgeInsets.symmetric(vertical: 17, horizontal: 20), // Adjust vertical padding
+                  hintText: widget.useNepaliCalendar
+                      ? 'Select Nepali Date'
+                      : 'Select Date',
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 10, horizontal: 20), // Adjust vertical padding
                   suffixIcon: IconButton(
-                    icon: Icon(Icons.calendar_today),
+                    icon: const Icon(Icons.calendar_today),
                     onPressed: () => _selectDate(context),
                     color: Colors.grey,
                   ),
-                  
-                  border: OutlineInputBorder(
+                  border: InputBorder.none
+
+                  // border: const OutlineInputBorder(
                     
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
                   
+                  //   borderSide: BorderSide(
+                  //     color: AppColors.textColorBlack,
+                  //   ),
+                  // ),
                 ),
               ),
             ],

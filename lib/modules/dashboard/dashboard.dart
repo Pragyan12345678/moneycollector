@@ -54,7 +54,7 @@ class _DashboardHomeState extends State<DashboardHome> {
               child: Stack(
                 children: [
                   Container(
-                    height: 120.h,
+                    height: 150.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(5.r),
@@ -62,24 +62,31 @@ class _DashboardHomeState extends State<DashboardHome> {
                       color: AppColors.primaryBlue,
                     ),
                   ),
+                   
                   Padding(
-                    padding: EdgeInsets.only(top: 20.h),
+                    padding: EdgeInsets.only(top:30.h),
                     child: DashboardAppBAr(),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 70.h),
+                    padding: EdgeInsets.only(top: 100.h),
                     child: Column(
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
-                              left: 20.w, right: 20.w, top: 10.h, bottom: 10.h),
+                              left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
                           child: Container(
-                            height: 190.h,
+                            height: 220.h,
                             width: double.infinity,
-                            color: AppColors.greyColor,
+                            
+                            
+                             decoration:  BoxDecoration(
+                                    color: AppColors.greyColor,
+                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                              
+                                  ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -88,7 +95,16 @@ class _DashboardHomeState extends State<DashboardHome> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5).r,
+                                    borderRadius: BorderRadius.circular(5),
+                                     boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(
+                                0, 2), // changes position of shadow
+                          ),
+                        ],
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.only(
@@ -134,68 +150,73 @@ class _DashboardHomeState extends State<DashboardHome> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Dashboardbalance(
-                                      imagePath: AppImages.moneycollection,
-                                      text: "Collection",
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Collectionsheets()),
-                                        );
-                                      },
-                                    ),
-                                    // const SizedBox(
-                                    //   width: 10,
-                                    // ),
-                                    // Dashboardbalance(
-                                    //   imagePath: AppImages.statement,
-                                    //   text: "Statement",
-                                    //   onTap: () {
-                                    //     Navigator.push(
-                                    //       context,
-                                    //       MaterialPageRoute(
-                                    //           builder: (context) => const Statement()),
-                                    //     );
-                                    //   },
-                                    // ),
-                                    const SizedBox(
-                                      width: 60,
-                                    ),
-                                    Dashboardbalance(
-                                      imagePath: AppImages.deposit,
-                                      text: "Deposit",
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const DepositList()),
-                                        );
-                                      },
-                                    ),
-
-                                    const SizedBox(
-                                      width: 60,
-                                    ),
-                                    Dashboardbalance(
-                                      imagePath: AppImages.loan,
-                                      text: "Loan",
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const LoanList()),
-                                        );
-                                      },
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    
+                                    children: [
+                                      Dashboardbalance(
+                                        width: 90,
+                                        imagePath: AppImages.moneycollection,
+                                        text: "Collection",
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Collectionsheets()),
+                                          );
+                                        },
+                                      ),
+                                      // const SizedBox(
+                                      //   width: 10,
+                                      // ),
+                                      // Dashboardbalance(
+                                      //   imagePath: AppImages.statement,
+                                      //   text: "Statement",
+                                      //   onTap: () {
+                                      //     Navigator.push(
+                                      //       context,
+                                      //       MaterialPageRoute(
+                                      //           builder: (context) => const Statement()),
+                                      //     );
+                                      //   },
+                                      // ),
+                                      const SizedBox(
+                                        width: 56,
+                                      ),
+                                      Dashboardbalance(
+                                        width: 90,
+                                        imagePath: AppImages.deposit,
+                                        text: "Deposit",
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const DepositList()),
+                                          );
+                                        },
+                                      ),
+                                  
+                                      const SizedBox(
+                                        width: 56,
+                                      ),
+                                      Dashboardbalance(
+                                        width: 90,
+                                        imagePath: AppImages.loan,
+                                        text: "Loan",
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const LoanList()),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
@@ -204,81 +225,81 @@ class _DashboardHomeState extends State<DashboardHome> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15.0, right: 15, top: 280),
-                    child: Container(
-                      height: 405.h,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: AppColors.greyColor,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Recent Transactions",
-                                  style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: Colors.black,
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Statement()),
-                                    );
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "View All",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Colors.grey,
-                                              decoration: TextDecoration.none,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const Icon(
-                                          Icons.arrow_forward_ios_rounded,
-                                          size: 15,
-                                          color: Colors.grey,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 15.0, right: 15, top: 280),
+                  //   child: Container(
+                  //     height: 405.h,
+                  //     width: double.infinity,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(5),
+                  //       color: AppColors.greyColor,
+                  //     ),
+                  //     child: Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         Padding(
+                  //           padding: const EdgeInsets.all(5.0),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //             children: [
+                  //               Text(
+                  //                 "Recent Transactions",
+                  //                 style: TextStyle(
+                  //                     fontSize: 14.sp,
+                  //                     color: Colors.black,
+                  //                     decoration: TextDecoration.none,
+                  //                     fontWeight: FontWeight.w600),
+                  //               ),
+                  //               GestureDetector(
+                  //                 onTap: () {
+                  //                   Navigator.push(
+                  //                     context,
+                  //                     MaterialPageRoute(
+                  //                         builder: (context) =>
+                  //                             const Statement()),
+                  //                   );
+                  //                 },
+                  //                 child: Container(
+                  //                   child: Row(
+                  //                     children: [
+                  //                       Text(
+                  //                         "View All",
+                  //                         style: TextStyle(
+                  //                             fontSize: 12.sp,
+                  //                             color: Colors.grey,
+                  //                             decoration: TextDecoration.none,
+                  //                             fontWeight: FontWeight.w500),
+                  //                       ),
+                  //                       const Icon(
+                  //                         Icons.arrow_forward_ios_rounded,
+                  //                         size: 15,
+                  //                         color: Colors.grey,
+                  //                       )
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
 
-                          Container(
-                            height: 365.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.r),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: TransactionRecent(),
-                            ),
-                          )
+                  //         Container(
+                  //           height: 365.h,
+                  //           decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(5.r),
+                  //           ),
+                  //           child: Padding(
+                  //             padding: const EdgeInsets.all(4.0),
+                  //             child: TransactionRecent(),
+                  //           ),
+                  //         )
 
-                          //  TransactionRecent(),
-                        ],
-                      ),
-                    ),
-                  )
+                  //         //  TransactionRecent(),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
@@ -293,11 +314,12 @@ class Dashboardbalance extends StatelessWidget {
   final String imagePath;
   final String text;
   final VoidCallback? onTap;
+  final double width;
   const Dashboardbalance({
     required this.imagePath,
     required this.text,
     this.onTap,
-    super.key,
+    super.key, required this.width,
   });
 
   @override
@@ -305,15 +327,25 @@ class Dashboardbalance extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 80,
+        width: width,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
+           boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(
+                                0, 2), // changes position of shadow
+                          ),
+                        ],
         ),
         child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
+                
                   borderRadius: BorderRadius.circular(25), color: Colors.white),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -327,18 +359,20 @@ class Dashboardbalance extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 2,
+              height: 12,
             ),
-            Text(
-              text,
-              style: TextStyle(
-                  fontSize: 12.sp,
-                  color: AppColors.primaryColor,
-                  decoration: TextDecoration.none,
-                  fontWeight: FontWeight.w500),
+            Center(
+              child: Text(
+                text,
+                style: TextStyle(
+                    fontSize: 12.sp,
+                    color: AppColors.primaryColor,
+                    decoration: TextDecoration.none,
+                    fontWeight: FontWeight.w500),
+              ),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
           ],
         ),
@@ -360,8 +394,10 @@ class DashboardAppBAr extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.only(left: 5.0.w, right: 40.w),
           child: Container(
-            color: Colors.transparent,
+            
             height: 60.h,
+            decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(5),
+            color: Colors.transparent,),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

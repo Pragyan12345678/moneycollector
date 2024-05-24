@@ -1,5 +1,6 @@
 class AppImages {
-  static const logo = 'assets/icons/logo.png';
+  static const logo = 'assets/icons/logo.jpg';
+  static const logo2 = 'assets/icons/logo2.jpg';
   static const statement = 'assets/icons/statement.png';
   static const loan = 'assets/icons/loancollection.png';
   static const home = 'assets/icons/home.png';
@@ -33,5 +34,6 @@ static const logout = 'assets/icons/logout.png';
 //collection
 static const edit = 'assets/icons/edit.png'; 
 static const remove = 'assets/icons/remove.png'; 
+static const saving = 'assets/icons/saving.png'; 
 
 }

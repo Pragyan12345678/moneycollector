@@ -78,7 +78,7 @@ class DepositAccountsProvider with ChangeNotifier {
         _depositAccounts.add(DepositAccounts.fromJson(item));
       }
       String jsonData = json.encode(data);
-      Preference.deposituser(jsonData);
+      Preference.storedepositaccount(jsonData);
 
       notifyListeners();
       print('Data received and added to the list');

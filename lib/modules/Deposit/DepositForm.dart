@@ -1,20 +1,71 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/Model/StoreDeposite.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
+import 'package:moneycollection/constant/both.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/loan_state.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class DepositForm extends StatelessWidget {
+class DepositForm extends StatefulWidget {
   final Map<String, String> datas;
+ 
 
   const DepositForm({Key? key, required this.datas}) : super(key: key);
 
   @override
+  State<DepositForm> createState() => _DepositFormState();
+}
+
+class _DepositFormState extends State<DepositForm> {
+//   late SharedPreferences sp;
+//     late Future<void> _initSPFuture; // Future for initializing SharedPreferences
+//  // Define SharedPreferences instance here
+//   List<DepositeEntries> depositentries = [];
+  
+//   @override
+//   void initState() {
+//     super.initState();
+//     getSharedPrefernce();
+//     ReadFromspDeposite(); // Call function to initialize SharedPreferences
+//   }
+
+//    getSharedPrefernce()async {
+//       sp = await SharedPreferences.getInstance();
+//    }
+
+// saveIntoSpDeposit(){
+// List<String> depsitentriesListString= depositentries.map((depositentrie) => jsonEncode(depositentrie.toJson())).toList();
+//  sp.setStringList( 'mydata', depsitentriesListString);
+// }
+
+
+
+// ReadFromspDeposite(){
+//  List<String> ? depsitentriesListString = sp.getStringList("mydata");
+//  if (depsitentriesListString!= null){
+//   depositentries =depsitentriesListString.map((depositentrie) => DepositeEntries.fromJson(jsonDecode(depositentrie))).toList();
+//  }
+//  setState(() {
+   
+//  });
+
+// }
+
+
+
+
+
+   
+  @override
   Widget build(BuildContext context) {
+    int selectedIndex = -1;
     return Consumer<LoanStateProvider>(builder: (context, loan, child) {
       return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
@@ -38,7 +89,7 @@ class DepositForm extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
                   child: Container(
-                    height: 800.h,
+                    height: 650.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.r),
                       color: Colors.white,
@@ -56,17 +107,17 @@ class DepositForm extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FormCustomTextField(
-                            "2022-10-22",
-                            label: "Tran Date(AD)",
-                            controller: loan.trandatead,
+                          CalenderField(
+                            label: " Tran Date(Bs)",
+                            useNepaliCalendar: true,
+                            controller: loan.trandatebs,
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          FormCustomTextField(
-                            "2072-1-2",
-                            label: "Tran Date(BS)",
+                          CalenderField(
+                            label: " Tran Date(Ad)",
+                            useNepaliCalendar: false,
                             controller: loan.trandatead,
                           ),
                           const SizedBox(
@@ -75,32 +126,24 @@ class DepositForm extends StatelessWidget {
                           Text(
                             "Account Number",
                             style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.grey,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w400),
+                              fontSize: 14.sp,
+                              color: Colors.black,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 5),
                           AccountTextField(
-                            label: '${profiledetails.first.branchCode ?? ""}-',
-                          ),
+                              label:
+                                  '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
+                              controller: loan.accountnumber),
                           const SizedBox(height: 10),
-                          FormCustomTextField(
-                            "2022-10-22",
-                            label: "Tran Date(AD)",
-                            controller: loan.trandatead,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
                           FormCustomTextField(
                             "0.00",
-                            label: " Deposit Amount",
+                            label: "Amount",
                             controller: loan.amount,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 20),
                           FormCustomTextField(
                             "",
                             label: "Deposite By",
@@ -122,10 +165,40 @@ class DepositForm extends StatelessWidget {
                             padding: EdgeInsets.only(left: 100.w, right: 100.w),
                             child: GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) => const MainPage()),
-                                // );
+                                String tranad = loan.trandatead.text;
+                                String tranbs = loan.trandatebs.text;
+                                String accountno = loan.accountnumber.text;
+                                String amount = loan.amount.text;
+                                String depositby = loan.depositeby.text;
+                                String sourceIncome = loan.sourceIncome.text;
+
+                                print('tranad: $tranad');
+                                print('tranbs: $tranbs');
+                                print('tranad: $accountno');
+                                print('tranbs: $amount');
+                                print('tranad: $depositby');
+                                print('tranbs: $sourceIncome');
+
+                                if (tranad.isNotEmpty ||
+                                    tranbs.isNotEmpty ||
+                                    accountno.isNotEmpty ||
+                                    amount.isNotEmpty ||
+                                    depositby.isNotEmpty ||
+                                    sourceIncome.isNotEmpty) {
+                                  loan.trandatebs.text = "";
+                                  loan.trandatebs.text == "";
+                                  loan.accountnumber.text == "";
+                                  loan.amount.text == "";
+                                  loan.depositeby.text == "";
+                                  loan.sourceIncome.text == "";
+                                  // depositentries.add(DepositeEntries(tranad: tranad,tranbs: tranbs,accountno: accountno,amount: amount, depositby: depositby,sourceIncome: sourceIncome));
+                                  // ReadFromspDeposite();
+
+
+
+
+
+                                }
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -156,21 +229,6 @@ class DepositForm extends StatelessWidget {
         );
       });
     });
-    // Use the data passed from the previous page
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: Text('Deposit Form'),
-    //   ),
-    //   body: Center(
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         Text('Account Number: ${datas['Account no.']}'),
-    //         Text('Account Type: ${datas['Account Type']}'),
-    //         // Add more fields as needed
-    //       ],
-    //     ),
-    //   ),
-    // );
+   
   }
 }

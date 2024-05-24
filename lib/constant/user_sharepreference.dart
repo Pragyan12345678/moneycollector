@@ -7,16 +7,11 @@ class Preference {
   static const _getProfile = 'profile';
   static const String _onBoarding = 'onBoarding';
   static const String _userType = 'user';
-  static const String _depositAccounts = 'deposit';
+  static const String _getDepositeaccount = 'deposit';
 
 
   static Future<void> storeUser(String data) async {
     await saveData(_authData, data);
-  }
-
-
-  static Future<void> deposituser(String data) async {
-    await getData(_depositAccounts);
   }
 
   static Future<String?> getUser() async {
@@ -31,7 +26,7 @@ class Preference {
   static Future<String?> getUserType() async {
     return getData(_userType);
   }
-///user profile
+///user store profile
   static Future<void> storeProfile(String data) async {
     await saveData(_getProfile, data);
     debugPrint("Stored profile lang data: $data");
@@ -40,6 +35,18 @@ class Preference {
   static Future<String?> getProfile() async {
     return getData(_getProfile);
   }
+
+
+//deposit account
+  static Future<void> storedepositaccount(String data) async {
+    await saveData(_getDepositeaccount, data);
+    debugPrint("Stored depositeaccount lang data: $data");
+  }
+
+  static Future<String?> getDepositeaccount() async {
+    return getData(_getDepositeaccount);
+  }
+
 
 
 ////
@@ -103,5 +110,15 @@ class Preference {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+
+
+
+
+
+
+  saveDepositentry(){
+
   }
 }

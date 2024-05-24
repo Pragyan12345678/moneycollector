@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/colors.dart';
 
 
@@ -13,13 +14,14 @@ class AccountTextField extends StatelessWidget {
 
 
    return  Container(
-      height: 60,
+      height: 50.h,
     
       padding: const EdgeInsets.all(0.0),
       decoration: BoxDecoration(
-        color:Colors.white,
-        border: Border.all(color: AppColors.textColorBlack,), // Border color set to black
+        color:AppColors.greyColor,
+        // border: Border.all(color: AppColors.textColorBlack,), // Border color set to black
         borderRadius: BorderRadius.circular(5.0),
+        
       ),
       child: Row(
         
@@ -28,9 +30,13 @@ class AccountTextField extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              height: 64,
-              color: Colors.grey,
+              height: 50.h,
+            
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),topLeft: Radius.circular(5))),
               padding: EdgeInsets.only(right: 10.0,left: 10),
+
               child: Center(
                 child:
                  Text(
@@ -48,7 +54,7 @@ class AccountTextField extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: Container(
-                color: Colors.white, // Background color set to grey
+                // color: Colors.white, // Background color set to grey
                 child: TextField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(

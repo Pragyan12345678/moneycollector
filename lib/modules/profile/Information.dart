@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +18,21 @@ class MyInformation extends StatefulWidget {
 }
 
 class _MyInformationState extends State<MyInformation> {
+  Map<String, dynamic>? _profileData;
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileData();
+  }
+   Future<void> _loadProfileData() async {
+    String? profileJson = await Preference.getProfile();
+    if (profileJson != null) {
+      setState(() {
+        _profileData = jsonDecode(profileJson);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
      return Consumer<ProfileDataProvider>(
@@ -87,20 +105,32 @@ class _MyInformationState extends State<MyInformation> {
                         children: [
                           InformationContent(
                             name: "Name",
-                            label: profileDatas.first.firstName ?? "",
+                            label:  profileDatas.isEmpty
+                        ?""
+                        : "${profileDatas.first.firstName}"
+                            
+                            // profileDataaaaa
+                            
+                        
                           ),
           
                            InformationContent(
                             name: "Email",
-                            label: profileDatas.first.email ?? ""
+                              label:  profileDatas.isEmpty
+                        ?""
+                        : "${profileDatas.first.email}"
                           ),
                            InformationContent(
                             name: "Joined At",
-                            label: profileDatas.first.joinedAt ?? "",
+                               label:  profileDatas.isEmpty
+                        ?""
+                        : "${profileDatas.first.joinedAt}"
                           ),
                            InformationContent(
                             name: "Branch Code",
-                            label: profileDatas.first.branchCode ?? "",
+                               label:  profileDatas.isEmpty
+                        ?""
+                        : "${profileDatas.first.branchCode}"
                           )
                         ],
                       ),

@@ -26,6 +26,7 @@ class _ProfileviewState extends State<Profileview> {
   void initState() {
     super.initState();
     loadProfileData();
+    loadDepositeData();
      Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
   }
   
@@ -39,6 +40,16 @@ class _ProfileviewState extends State<Profileview> {
       
     });
   }
+     Future<void> loadDepositeData() async {
+    String? data = await Preference.getDepositeaccount();
+    setState(() {
+      profileData = data;
+      print("thisssss is sprikle${profileData}");
+      
+    });
+  }
+
+
 
 
   @override
@@ -81,11 +92,10 @@ class _ProfileviewState extends State<Profileview> {
                             radius: 40.r,
                             backgroundColor: Colors.grey,
                             backgroundImage: NetworkImage(
-                        
-                                                 profileDatas.isEmpty
-                        ?""
-                        : "${profileDatas.first.profilePhotoUrl}"
-                                          ),
+  profileDatas.isEmpty || profileDatas.first.profilePhotoUrl == null
+    ? "" // Return an empty string or a placeholder image URL
+    : "${profileDatas.first.profilePhotoUrl}"
+),
                           
                           ),
                         ],
