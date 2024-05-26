@@ -53,7 +53,7 @@ class _DepositListState extends State<DepositList> {
                     padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
                     child: Container(
                       height: 650,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),

@@ -45,10 +45,10 @@ List<SingleChildWidget> getProviders() {
       lazy: false,
       create: (context) => CollectionState(),
     ),
-    // ChangeNotifierProvider(
-    //   lazy: false,
-    //   create: (context) => LoanStateProvider(),
-    // ),
+    ChangeNotifierProvider(
+      lazy: false,
+      create: (context) => LoanStateProvider(),
+    ),
   ];
 }
 

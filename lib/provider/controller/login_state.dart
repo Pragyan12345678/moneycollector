@@ -60,8 +60,6 @@ class AuthState extends ChangeNotifier {
     var auth = await Preference.getUser();
     var profile = await Preference.getProfile();
     var userType = await Preference.getUserType();
-    
-
 
     debugPrint("this is profile $profile");
     if (auth != null) {
@@ -80,13 +78,13 @@ class AuthState extends ChangeNotifier {
       isFirstTime = viewedOnBoarding;
     }
   }
+
 // to store the value
   viewedOnBoarding() {
     Preference.storeOnBoarding(false);
 
     notifyListeners();
   }
-  
 
   void showPassword() {
     hidePassword = !hidePassword;
@@ -113,8 +111,13 @@ class AuthState extends ChangeNotifier {
 
     loadingAuth = true;
     notifyListeners();
- 
-    var body = {"username": loginEmail.text, "password": loginPassword.text ,"branch" : selectedLocation,"device_name" : "ANDRIOD",};
+
+    var body = {
+      "username": loginEmail.text,
+      "password": loginPassword.text,
+      "branch": selectedLocation,
+      "device_name": "ANDRIOD",
+    };
     print("trhi body${body}");
 
     var value = await authServices.postMethod(ApiUrl.login, jsonEncode(body));
@@ -127,40 +130,30 @@ class AuthState extends ChangeNotifier {
       notifyListeners();
       Utilities.showCustomSnackBar("Login Failed !");
     } else {
-      if (value["status"] == 200 || value["message"]== "Logged in.") {
+      if (value["status"] == 200 || value["message"] == "Logged in.") {
         print("printting thgeksdjldsvalue ${value["user"]["TOKEN"]}");
-        
+
         _isLoggedIn = false;
-         Constant.loginToken = value["user"]["TOKEN"].toString();
+        Constant.loginToken = value["user"]["TOKEN"].toString();
         Preference.storeUser(value["user"]["TOKEN"].toString());
 
         loadingAuth = false;
 
         Utilities.showCustomSnackBar(value['message']);
         print("object");
-        
-           
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MainPage(),
-            ),
-            (route) => false,
-          );
-        
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MainPage(),
+          ),
+          (route) => false,
+        );
+
         notifyListeners();
-      
+      }
+      loadingAuth = false;
+      notifyListeners();
     }
-    loadingAuth = false;
-    notifyListeners();
   }
-
-
-
-
-  
-}
-
-
-
 }

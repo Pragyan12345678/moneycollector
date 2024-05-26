@@ -36,6 +36,7 @@ class _DashboardHomeState extends State<DashboardHome> {
     super.initState();
     Provider.of<DepositAccountsProvider>(context, listen: false)
         .fetchDepositAccounts();
+          Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
   }
 
   @override
@@ -58,9 +59,8 @@ class _DashboardHomeState extends State<DashboardHome> {
                       color: AppColors.primaryBlue,
                     ),
                   ),
-                   
                   Padding(
-                    padding: EdgeInsets.only(top:30.h),
+                    padding: EdgeInsets.only(top: 30.h),
                     child: const DashboardAppBAr(),
                   ),
                   const SizedBox(
@@ -76,13 +76,12 @@ class _DashboardHomeState extends State<DashboardHome> {
                           child: Container(
                             height: 220.h,
                             width: double.infinity,
-                            
-                            
-                             decoration:  const BoxDecoration(
-                                    color: AppColors.greyColor,
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                              
-                                  ),
+                            decoration: const BoxDecoration(
+                              color: AppColors.greyColor,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(5)),
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -92,15 +91,15 @@ class _DashboardHomeState extends State<DashboardHome> {
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5),
-                                     boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(
-                                0, 2), // changes position of shadow
-                          ),
-                        ],
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.2),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(
+                                            0, 2), // changes position of shadow
+                                      ),
+                                    ],
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.only(
@@ -149,7 +148,6 @@ class _DashboardHomeState extends State<DashboardHome> {
                                 Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Row(
-                                    
                                     children: [
                                       Dashboardbalance(
                                         width: 90,
@@ -164,20 +162,6 @@ class _DashboardHomeState extends State<DashboardHome> {
                                           );
                                         },
                                       ),
-                                      // const SizedBox(
-                                      //   width: 10,
-                                      // ),
-                                      // Dashboardbalance(
-                                      //   imagePath: AppImages.statement,
-                                      //   text: "Statement",
-                                      //   onTap: () {
-                                      //     Navigator.push(
-                                      //       context,
-                                      //       MaterialPageRoute(
-                                      //           builder: (context) => const Statement()),
-                                      //     );
-                                      //   },
-                                      // ),
                                       const SizedBox(
                                         width: 56,
                                       ),
@@ -194,7 +178,6 @@ class _DashboardHomeState extends State<DashboardHome> {
                                           );
                                         },
                                       ),
-                                  
                                       const SizedBox(
                                         width: 56,
                                       ),
@@ -221,81 +204,6 @@ class _DashboardHomeState extends State<DashboardHome> {
                       ],
                     ),
                   ),
-                  // Padding(
-                  //   padding:
-                  //       const EdgeInsets.only(left: 15.0, right: 15, top: 280),
-                  //   child: Container(
-                  //     height: 405.h,
-                  //     width: double.infinity,
-                  //     decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(5),
-                  //       color: AppColors.greyColor,
-                  //     ),
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         Padding(
-                  //           padding: const EdgeInsets.all(5.0),
-                  //           child: Row(
-                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //             children: [
-                  //               Text(
-                  //                 "Recent Transactions",
-                  //                 style: TextStyle(
-                  //                     fontSize: 14.sp,
-                  //                     color: Colors.black,
-                  //                     decoration: TextDecoration.none,
-                  //                     fontWeight: FontWeight.w600),
-                  //               ),
-                  //               GestureDetector(
-                  //                 onTap: () {
-                  //                   Navigator.push(
-                  //                     context,
-                  //                     MaterialPageRoute(
-                  //                         builder: (context) =>
-                  //                             const Statement()),
-                  //                   );
-                  //                 },
-                  //                 child: Container(
-                  //                   child: Row(
-                  //                     children: [
-                  //                       Text(
-                  //                         "View All",
-                  //                         style: TextStyle(
-                  //                             fontSize: 12.sp,
-                  //                             color: Colors.grey,
-                  //                             decoration: TextDecoration.none,
-                  //                             fontWeight: FontWeight.w500),
-                  //                       ),
-                  //                       const Icon(
-                  //                         Icons.arrow_forward_ios_rounded,
-                  //                         size: 15,
-                  //                         color: Colors.grey,
-                  //                       )
-                  //                     ],
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-
-                  //         Container(
-                  //           height: 365.h,
-                  //           decoration: BoxDecoration(
-                  //             borderRadius: BorderRadius.circular(5.r),
-                  //           ),
-                  //           child: Padding(
-                  //             padding: const EdgeInsets.all(4.0),
-                  //             child: TransactionRecent(),
-                  //           ),
-                  //         )
-
-                  //         //  TransactionRecent(),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -315,7 +223,8 @@ class Dashboardbalance extends StatelessWidget {
     required this.imagePath,
     required this.text,
     this.onTap,
-    super.key, required this.width,
+    super.key,
+    required this.width,
   });
 
   @override
@@ -327,21 +236,19 @@ class Dashboardbalance extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
-           boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(
-                                0, 2), // changes position of shadow
-                          ),
-                        ],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 2), // changes position of shadow
+            ),
+          ],
         ),
         child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
-                
                   borderRadius: BorderRadius.circular(25), color: Colors.white),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -390,10 +297,11 @@ class DashboardAppBAr extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.only(left: 5.0.w, right: 40.w),
           child: Container(
-            
             height: 60.h,
-            decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(5),
-            color: Colors.transparent,),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadiusDirectional.circular(5),
+              color: Colors.transparent,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -411,14 +319,9 @@ class DashboardAppBAr extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 20.r,
                       backgroundColor: Colors.grey,
-                      backgroundImage: NetworkImage(
-
-
-                        profiledetails.isEmpty
-                        ?""
-                        : "${profiledetails.first.profilePhotoUrl}"
-                       
-                      ),
+                      backgroundImage: NetworkImage(profiledetails.isEmpty
+                          ? ""
+                          : "${profiledetails.first.profilePhotoUrl}"),
                     ),
                   ),
                 ),

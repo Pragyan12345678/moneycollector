@@ -3,7 +3,7 @@ import 'package:moneycollection/modules/Collection/CustomTable.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';
 
-class YourWidget extends StatelessWidget {
+class SavingCollection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<DepositAccountsProvider>(
