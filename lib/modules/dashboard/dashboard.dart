@@ -1,18 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Collection/Collectionhome.dart';
-import 'package:moneycollection/Model/Profile.dart';
+import 'package:moneycollection/Collection/why.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/modules/Deposit/Deposite.dart';
 import 'package:moneycollection/modules/Loan/Loan.dart';
 import 'package:moneycollection/modules/Notification/Notification.dart';
-import 'package:moneycollection/modules/Statement/statement.dart';
 
-import 'package:moneycollection/modules/Collection/Collection.dart';
-import 'package:moneycollection/modules/dashboard/RecentTransaction.dart';
 import 'package:moneycollection/modules/profile/profile.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
@@ -36,6 +31,7 @@ class _DashboardHomeState extends State<DashboardHome> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     Provider.of<DepositAccountsProvider>(context, listen: false)
@@ -65,7 +61,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                    
                   Padding(
                     padding: EdgeInsets.only(top:30.h),
-                    child: DashboardAppBAr(),
+                    child: const DashboardAppBAr(),
                   ),
                   const SizedBox(
                     height: 15,
@@ -82,7 +78,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                             width: double.infinity,
                             
                             
-                             decoration:  BoxDecoration(
+                             decoration:  const BoxDecoration(
                                     color: AppColors.greyColor,
                                     borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
                               
@@ -133,8 +129,8 @@ class _DashboardHomeState extends State<DashboardHome> {
                                               height: 4.h,
                                             ),
                                             isContentVisible
-                                                ? FirstContent()
-                                                : SecondContent(),
+                                                ? const FirstContent()
+                                                : const SecondContent(),
                                           ],
                                         ),
                                         IconButton(
@@ -164,7 +160,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Collectionsheets()),
+                                                    YourWidget()),
                                           );
                                         },
                                       ),

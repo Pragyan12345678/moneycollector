@@ -9,10 +9,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileDataProvider with ChangeNotifier {
 
-  ProfileDataProvider(){
-   var _profile = Preference.getProfile();
-   _profiledata.add(ProfileData.fromJson(_profile!));
+
+
+
+ProfileDataProvider()  {
+  try {
+    var profile =  Preference.getProfile();
+    if (profile != null && profile is String) {
+      print("${profile}");
+      Map<String, dynamic> profileData = json.decode(profile);
+      _profiledata.add(ProfileData.fromJson(profileData));
+    } else {
+      // Handle null or invalid profile data
+      print("Profile ${_profiledata}");
+    }
+  } catch (error) {
+    // Handle error if any
+    print("Error fetching profile data: $error");
   }
+}
+
+//   ProfileDataProvider()  {
+//   var profile =  Preference.getProfile(); // Wait for the future to complete
+//   _profiledata.add(ProfileData.fromJson(profile));
+// }
   List<ProfileData> _profiledata = [];
 
   List<ProfileData> get ProfileDatas => _profiledata;
@@ -29,7 +49,11 @@ Future<void> fetchProfiledata() async {
    ProfileData profile = ProfileData.fromJson(data);
    _profiledata.add(profile);
    
-    Preference.storeProfile(profile.toString());
+
+      String jsonData = json.encode(data);
+      
+      Preference.storeProfile(jsonData);
+    // Preference.storeProfile(data);
    
   notifyListeners();
   print('Data received and added to the list');

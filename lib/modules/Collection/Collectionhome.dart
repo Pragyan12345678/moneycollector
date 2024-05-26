@@ -1,236 +1,22 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:moneycollection/constant/CustomAppbar.dart';
-// import 'package:moneycollection/constant/colors.dart';
-// import 'package:moneycollection/constant/image.dart';
-// import 'package:moneycollection/modules/Deposit/DepositTable.dart';
-// import 'package:moneycollection/modules/dashboard/dashboard.dart';
-
-// class CollectionHome extends StatefulWidget {
-//   @override
-//   _CollectionHomeState createState() => _CollectionHomeState();
-// }
-
-// class _CollectionHomeState extends State<CollectionHome> {
-//   String _selectedPage = 'Savings';
-
-//   void _selectPage(String page) {
-//     setState(() {
-//       _selectedPage = page;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//           backgroundColor: AppColors.greyColor,
-//           body: SingleChildScrollView(
-//             child: Stack(
-//               children: [
-//                 Container(
-//                   height: 120.h,
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.only(
-//                         bottomLeft: Radius.circular(5.r),
-//                         bottomRight: Radius.circular(5.r)),
-//                     color: AppColors.primaryBlue,
-//                   ),
-//                 ),
-//                 const CustomAppBar(
-//                   label: "Collection Sheet",
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(
-//                     top: 70.0,
-//                   ),
-//                   child: Column(
-//                     children: [
-//                       Padding(
-//                         padding: const EdgeInsets.all(10.0),
-//                         child: Container(
-//                           decoration: BoxDecoration(
-//                               borderRadius: BorderRadius.circular(15),
-//                               color: Colors.white),
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                             children: [
-//                               GestureDetector(
-//                                   onTap: () => _selectPage('Savings'),
-//                                   child: Dashboardbalance(
-//                                       imagePath: AppImages.deposit,
-//                                       text: "Saving")),
-//                               GestureDetector(
-//                                   onTap: () => _selectPage('Loan'),
-//                                   child: Dashboardbalance(
-//                                       imagePath: AppImages.deposit,
-//                                       text: "Loan")),
-//                               GestureDetector(
-//                                   onTap: () => _selectPage('Collection Data'),
-//                                   child: Dashboardbalance(
-//                                       imagePath: AppImages.deposit,
-//                                       text: "Sync Data")),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                       SizedBox(
-//                         height: 20.h,
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 Padding(
-//                   padding:
-//                       const EdgeInsets.only(top: 200.0, left: 10, right: 10),
-//                   child: Expanded(
-//                     child: _selectedPage == 'Savings'
-//                         ? Container(
-//                             alignment: Alignment.center,
-//                             child: Container(
-//                               decoration: BoxDecoration(
-//                                 borderRadius: BorderRadius.circular(15),
-//                                 color: Colors.white,
-//                               ),
-//                               width: double.infinity,
-//                               child: Column(
-//                                 children: [
-//                                   Padding(
-//                                     padding: const EdgeInsets.all(8.0),
-//                                     child: Text(
-//                                       "Saving Accounts",
-//                                       style: TextStyle(
-//                                           fontSize: 16.sp,
-//                                           color: Colors.grey,
-//                                           decoration: TextDecoration.none,
-//                                           fontWeight: FontWeight.w400),
-//                                     ),
-//                                   ),
-//                                   Table(
-//                                     border: TableBorder.lerp(
-//                                       TableBorder.all(
-//                                           color: Colors.black, width: 3),
-//                                       TableBorder.all(
-//                                           color: Colors.grey, width: 0.1),
-//                                       1, // Interpolation value
-//                                     ),
-//                                     children: const [
-//                                       TableRow(
-//                                         children: [
-//                                           TitleCell(
-//                                             label: 'Account no.',
-//                                           ),
-//                                           TitleCell(
-//                                             label: 'Account Type',
-//                                           ),
-//                                           TitleCell(
-//                                             label: 'Client ID',
-//                                           ),
-//                                           TitleCell(
-//                                             label: 'Full Name',
-//                                           ),
-//                                           TitleCell(
-//                                             label: 'Mobile no.',
-//                                           ),
-//                                         ],
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           )
-//                         : Container(
-//                             color: Colors.red,
-//                             width: double.infinity,
-//                             child: Column(
-//                               children: [
-//                                 Text('Loan'),
-//                               ],
-//                             ),
-//                           ),
-//                   ),
-//                 )
-//               ],
-//             ),
-//           )
-
-//           //  Column(
-//           //   children: [
-//           //     Row(
-//           //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           //       children: [
-//           //         ElevatedButton(
-//           //           onPressed: () => _selectPage('Savings'),
-//           //           child:   Dashboardbalance(
-//           //                             imagePath: AppImages.deposit,
-//           //                             text: "Saving ",
-
-//           //                           ),
-//           //         ),
-//           //         ElevatedButton(
-//           //           onPressed: () => _selectPage('Loan'),
-//           //           child:  Dashboardbalance(
-//           //                             imagePath: AppImages.deposit,
-//           //                             text: "Loan ",
-
-//           //                           ),
-//           //         ),
-//           //       ],
-//           //     ),
-//           //     SizedBox(
-//           //       height: 20.h,
-//           //     ),
-//           //     Expanded(
-//           //       child: _selectedPage == 'Savings'
-//           //           ? Container(
-//           //               alignment: Alignment.center,
-//           //               child: Container(
-//           //                 color: Colors.black,
-//           //                 width: double.infinity,
-//           //                 child: Column(children: [
-//           //                   Text('Saving Accounts'),
-//           //                 ],)
-//           //                 ,
-
-//           //               ),
-//           //             )
-//           //           : Container(
-//           //                 color: Colors.red,
-//           //                 width: double.infinity,
-//           //                 child: Column(children: [
-//           //                   Text('Saving Accounts'),
-//           //                 ],)
-//           //                 ,
-
-//           //               ),
-//           //             )
-
-//           //   ],
-//           // ),
-//           ),
-//     );
-//   }
-// }
-
-import 'package:flutter/cupertino.dart';
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/Collection/CustomTable.dart';
 import 'package:moneycollection/Collection/editcollection.dart';
+import 'package:moneycollection/Collection/table.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
-import 'package:moneycollection/modules/Collection/Collection.dart';
-import 'package:moneycollection/modules/Deposit/DepositTable.dart';
-import 'package:moneycollection/modules/dashboard/dashboard.dart';
+
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';
 
 class Collectionsheets extends StatefulWidget {
+  const Collectionsheets({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _CollectionsheetsState createState() => _CollectionsheetsState();
 }
 
@@ -307,7 +93,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                                   
                                 ),
                               ),
-                               SizedBox(
+                               const SizedBox(
                                 width: 10,
                               ),
                               
@@ -322,7 +108,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
 
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               GestureDetector(
@@ -337,7 +123,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                                 ),
                                
                               ),
-                               SizedBox(
+                               const SizedBox(
                                 width: 10,
                               ),
                               GestureDetector(
@@ -364,6 +150,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                         Collection(),
                         SavingAccount(),
                          LoanCollection(),
+                         
                         LoanAccount(),
                        
 
@@ -415,7 +202,7 @@ class CustomCollectionsheet extends StatelessWidget {
 
               fit: BoxFit.fill,
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Text(
@@ -583,6 +370,27 @@ class LoanCollection extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
+              TableHeaderRow(),
+              // Expanded(
+              //   child: ListView.builder( 
+              //     itemCount: loanacc.depositAccounts.length,
+              //     itemBuilder: (context, index) {
+              //     return TableBodyRow(
+              //       sn: "1",
+              //       customer: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
+              //       account: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
+              //       amount: "${loanacc.depositAccounts[index].aCCOUNT}",
+              //       action: "${loanacc.depositAccounts[index].cUSTOMERNAME}"
+                  
+              //     );
+
+              //   }
+              //   ),
+              //   ),
+
+
+
+
               Table(
                 border: TableBorder.lerp(
                   TableBorder.all(color: Colors.black, width: 3),

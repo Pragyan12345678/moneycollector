@@ -30,6 +30,7 @@ class Preference {
   static Future<void> storeProfile(String data) async {
     await saveData(_getProfile, data);
     debugPrint("Stored profile lang data: $data");
+  
   }
 
   static  getProfile() async {
@@ -50,6 +51,20 @@ class Preference {
 
 
 ////
+///
+///
+///
+
+
+
+
+
+
+
+
+
+
+
   static Future<bool> storeOnBoarding(bool data) async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();

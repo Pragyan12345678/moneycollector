@@ -59,10 +59,16 @@ import 'package:moneycollection/Model/DepositAccounts.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/provider/service/services.dart';
 
+
+
+
 class DepositAccountsProvider with ChangeNotifier {
   List<DepositAccounts> _depositAccounts = [];
 
+
+
   List<DepositAccounts> get depositAccounts => _depositAccounts;
+  
 
   Future<void> fetchDepositAccounts() async {
     print("printing the valuee: $depositAccounts");

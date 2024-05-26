@@ -6,11 +6,10 @@ import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/constant/textfield.dart';
 import 'package:moneycollection/constant/validation.dart';
 import 'package:moneycollection/modules/auth/changePassword.dart';
-import 'package:moneycollection/modules/auth/otp.dart';
 
 
 class ForgotPasswordView extends StatelessWidget {
-  ForgotPasswordView({Key? key}) : super(key: key);
+  ForgotPasswordView({super.key});
 
   final _formKey = GlobalKey<FormState>();
 
@@ -55,7 +54,7 @@ class ForgotPasswordView extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                MyInputField(
+                const MyInputField(
                   labelText: 'Example@gmail.com',
                   validator: CustomValidator.validateEmail,
                 ),
@@ -71,7 +70,7 @@ class ForgotPasswordView extends StatelessWidget {
                     ontap: () {
                       Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => ResetPassword()),
+    MaterialPageRoute(builder: (context) => const ResetPassword()),
   );
 
                       // if (_formKey.currentState!.validate()) {

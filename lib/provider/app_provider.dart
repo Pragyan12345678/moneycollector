@@ -1,12 +1,12 @@
 
 import 'package:moneycollection/provider/controller/Office_state.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
-import 'package:moneycollection/provider/controller/RecentTransaction_state.dart';
+
 import 'package:moneycollection/provider/controller/collectionsheet_state.dart';
-import 'package:moneycollection/provider/controller/dashboard_state.dart';
+import 'package:moneycollection/provider/controller/loan_state.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:moneycollection/provider/controller/home_state.dart';
-import 'package:moneycollection/provider/controller/loan_state.dart';
+import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -32,10 +32,7 @@ List<SingleChildWidget> getProviders() {
       lazy: false,
       create: (context) => DropdownProvider(),
     ),
-    ChangeNotifierProvider(
-      lazy: false,
-      create: (context) => TransactionProvider(),
-    ),
+  
       ChangeNotifierProvider(
       lazy: false,
       create: (context) => DepositAccountsProvider(),

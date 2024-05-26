@@ -9,9 +9,8 @@ import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/both.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
-import 'package:moneycollection/provider/controller/loan_state.dart';
+import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DepositForm extends StatefulWidget {
   final Map<String, String> datas;
@@ -191,6 +190,7 @@ class _DepositFormState extends State<DepositForm> {
                                   loan.amount.text == "";
                                   loan.depositeby.text == "";
                                   loan.sourceIncome.text == "";
+                                  loan.depositAccount(context);
                                   // depositentries.add(DepositeEntries(tranad: tranad,tranbs: tranbs,accountno: accountno,amount: amount, depositby: depositby,sourceIncome: sourceIncome));
                                   // ReadFromspDeposite();
 
