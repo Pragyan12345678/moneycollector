@@ -24,10 +24,10 @@ List<SingleChildWidget> getProviders() {
       lazy: false,
       create: (context) => HomeState(),
     ),
-    ChangeNotifierProvider(
-      lazy: false,
-      create: (context) => DashboardState(),
-    ),
+    // ChangeNotifierProvider(
+    //   lazy: false,
+    //   create: (context) => DashboardState(),
+    // ),
      ChangeNotifierProvider(
       lazy: false,
       create: (context) => DropdownProvider(),
@@ -45,10 +45,10 @@ List<SingleChildWidget> getProviders() {
       lazy: false,
       create: (context) => CollectionState(),
     ),
-    ChangeNotifierProvider(
-      lazy: false,
-      create: (context) => LoanStateProvider(),
-    ),
+    // ChangeNotifierProvider(
+    //   lazy: false,
+    //   create: (context) => LoanStateProvider(),
+    // ),
   ];
 }
 

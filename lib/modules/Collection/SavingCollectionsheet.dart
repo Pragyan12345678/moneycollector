@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moneycollection/Collection/CustomTable.dart';
+import 'package:moneycollection/modules/Collection/CustomTable.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';
 

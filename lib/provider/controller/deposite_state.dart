@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:moneycollection/Model/DepositAccounts.dart';
 import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';

@@ -16,7 +16,7 @@ ProfileDataProvider()  {
   try {
     var profile =  Preference.getProfile();
     if (profile != null && profile is String) {
-      print("${profile}");
+      print("printing the value${profile}");
       Map<String, dynamic> profileData = json.decode(profile);
       _profiledata.add(ProfileData.fromJson(profileData));
     } else {

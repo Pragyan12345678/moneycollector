@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/Collection/Collectionhome.dart';
-import 'package:moneycollection/Collection/why.dart';
+import 'package:moneycollection/modules/Collection/Collectionhome.dart';
+import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/modules/Deposit/Deposite.dart';
@@ -160,7 +160,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    YourWidget()),
+                                                    const Collectionsheets()),
                                           );
                                         },
                                       ),

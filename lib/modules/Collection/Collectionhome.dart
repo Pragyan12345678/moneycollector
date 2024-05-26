@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/Collection/CustomTable.dart';
-import 'package:moneycollection/Collection/editcollection.dart';
-import 'package:moneycollection/Collection/table.dart';
+import 'package:moneycollection/modules/Collection/CustomTable.dart';
+import 'package:moneycollection/modules/Collection/editcollection.dart';
+import 'package:moneycollection/modules/Collection/table.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
