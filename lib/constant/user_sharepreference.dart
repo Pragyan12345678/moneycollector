@@ -32,7 +32,7 @@ class Preference {
     debugPrint("Stored profile lang data: $data");
   }
 
-  static Future<String?> getProfile() async {
+  static  getProfile() async {
     return getData(_getProfile);
   }
 

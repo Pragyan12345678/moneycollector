@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:moneycollection/Model/DepositAccounts.dart';
 import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/constant/utils.dart';
@@ -40,12 +41,14 @@ Login(BuildContext context) async {
 
  
      };
-
+      List<DepositAccounts> _getDepositeaccount = [];
+bool online =true;
     print("collectionsheetbodys:${body}");
 
     var value = await authServices.postMethod(ApiUrl.collectionsheet, jsonEncode(body));
     print("tssshi body${value}");
     loadingAuth = false;
+    online = false;
     notifyListeners();
     if (value == null) {
       loadingAuth = false;

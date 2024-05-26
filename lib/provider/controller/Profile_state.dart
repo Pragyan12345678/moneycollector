@@ -8,6 +8,11 @@ import 'package:moneycollection/provider/service/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileDataProvider with ChangeNotifier {
+
+  ProfileDataProvider(){
+   var _profile = Preference.getProfile();
+   _profiledata.add(ProfileData.fromJson(_profile!));
+  }
   List<ProfileData> _profiledata = [];
 
   List<ProfileData> get ProfileDatas => _profiledata;
@@ -24,7 +29,7 @@ Future<void> fetchProfiledata() async {
    ProfileData profile = ProfileData.fromJson(data);
    _profiledata.add(profile);
    
-    Preference.storeProfile(jsonEncode(data));
+    Preference.storeProfile(profile.toString());
    
   notifyListeners();
   print('Data received and added to the list');

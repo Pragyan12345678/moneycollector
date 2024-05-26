@@ -18,20 +18,20 @@ class MyInformation extends StatefulWidget {
 }
 
 class _MyInformationState extends State<MyInformation> {
-  Map<String, dynamic>? _profileData;
-  @override
-  void initState() {
-    super.initState();
-    _loadProfileData();
-  }
-   Future<void> _loadProfileData() async {
-    String? profileJson = await Preference.getProfile();
-    if (profileJson != null) {
-      setState(() {
-        _profileData = jsonDecode(profileJson);
-      });
-    }
-  }
+  // Map<String, dynamic>? _profileData;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _loadProfileData();
+  // }
+  //  Future<void> _loadProfileData() async {
+  //   String? profileJson = await Preference.getProfile();
+  //   if (profileJson != null) {
+  //     setState(() {
+  //       _profileData = jsonDecode(profileJson);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
