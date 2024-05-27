@@ -14,15 +14,19 @@ class ProfileDataProvider with ChangeNotifier {
 
 ProfileDataProvider()  {
   try {
-    var profile =  Preference.getProfile();
+    String? profile; 
+     Preference.getProfile().then((result){
+      profile = result;
+   
     if (profile != null && profile is String) {
-      print("printing the value${profile}");
-      Map<String, dynamic> profileData = json.decode(profile);
+      print("printing the valueddddd${profile}");
+      Map<String, dynamic> profileData = json.decode(profile!);
       _profiledata.add(ProfileData.fromJson(profileData));
     } else {
       // Handle null or invalid profile data
       print("Profile ${_profiledata}");
     }
+     });
   } catch (error) {
     // Handle error if any
     print("Error fetching profile data: $error");
@@ -38,7 +42,7 @@ ProfileDataProvider()  {
   List<ProfileData> get ProfileDatas => _profiledata;
 
 Future<void> fetchProfiledata() async {
-  print("printing the valuee: $_profiledata");// khali
+  print("printing the valueess: $_profiledata");// khali
   print(" lamo");
   var data = await ApiBaseHelper().getprofiledetails("72|npo2oZNrqxsUttSHDyAAUW0A3wISxoPtsCsMi8eXb111bb26");
   print("printing the $data") ;

@@ -4,8 +4,10 @@ import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
+
 import 'package:moneycollection/modules/Deposit/Deposite.dart';
 import 'package:moneycollection/modules/Loan/Loan.dart';
+import 'package:moneycollection/modules/Loan/loanForm.dart';
 import 'package:moneycollection/modules/Notification/Notification.dart';
 
 import 'package:moneycollection/modules/profile/profile.dart';
@@ -74,7 +76,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                           padding: EdgeInsets.only(
                               left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
                           child: Container(
-                            height: 220.h,
+                            height: 270.h,
                             width: double.infinity,
                             decoration: const BoxDecoration(
                               color: AppColors.greyColor,
@@ -86,7 +88,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 74.h,
+                                  height: 90.h,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -148,6 +150,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                                 Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Dashboardbalance(
                                         width: 90,
@@ -162,9 +165,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                                           );
                                         },
                                       ),
-                                      const SizedBox(
-                                        width: 56,
-                                      ),
+                                     
                                       Dashboardbalance(
                                         width: 90,
                                         imagePath: AppImages.deposit,
@@ -174,13 +175,11 @@ class _DashboardHomeState extends State<DashboardHome> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const DepositList()),
+                                                     DepositList()),
                                           );
                                         },
                                       ),
-                                      const SizedBox(
-                                        width: 56,
-                                      ),
+                                      
                                       Dashboardbalance(
                                         width: 90,
                                         imagePath: AppImages.loan,
@@ -190,7 +189,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const LoanList()),
+                                                    const LoanForm()),
                                           );
                                         },
                                       ),
@@ -297,7 +296,7 @@ class DashboardAppBAr extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.only(left: 5.0.w, right: 40.w),
           child: Container(
-            height: 60.h,
+            height: 80.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadiusDirectional.circular(5),
               color: Colors.transparent,
@@ -328,7 +327,7 @@ class DashboardAppBAr extends StatelessWidget {
                 Expanded(
                   flex: 8,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.only(top: 20.h, left: 8.w, ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

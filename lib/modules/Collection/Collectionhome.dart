@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/modules/Collection/CustomTable.dart';
+import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
 import 'package:moneycollection/modules/Collection/editcollection.dart';
 import 'package:moneycollection/modules/Collection/table.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
@@ -62,7 +63,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 70.0,
+                  top: 52.0,
                   left: 10,
                   right: 10,
                 ),
@@ -144,18 +145,19 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    IndexedStack(
-                      index: _currentIndex,
-                      children: const [
-                        Collection(),
-                        SavingAccount(),
-                         LoanCollection(),
+                    _buildPageBasedOnIndex(),
+                    // IndexedStack(
+                    //   index: _currentIndex,
+                    //   children: const [
+                    //     Collection(),
+                    //     SavingAccount(),
+                    //      LoanCollection(),
                          
-                        LoanAccount(),
+                    //     LoanAccount(),
                        
 
-                      ],
-                    ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -164,6 +166,22 @@ class _CollectionsheetsState extends State<Collectionsheets> {
         ),
       ),
     );
+  }
+
+
+   Widget _buildPageBasedOnIndex() {
+    switch (_currentIndex) {
+      case 0:
+        return Collection();
+      case 1:
+        return SavingAccount();
+      case 2:
+        return LoanCollection();
+      case 3:
+        return LoanAccount();
+      default:
+        return SizedBox.shrink(); // Return an empty SizedBox as default
+    }
   }
   
  
@@ -245,7 +263,7 @@ class Collection extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  " Saving Collection Sheet",
+                  "Saving Collection Sheet",
                   style: TextStyle(
                       fontSize: 16.sp,
                       color: Colors.grey,
@@ -253,81 +271,15 @@ class Collection extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              Table(
-                border: TableBorder.lerp(
-                  TableBorder.all(color: Colors.black, width: 3),
-                  TableBorder.all(color: Colors.grey, width: 0.1),
-                  1, // Interpolation value
-                ),
+              Column(
                 children: [
-                  _buildTableRow([
-                    _buildTableHeaderCell('Sn'),
-                    _buildTableHeaderCell('Customer'),
-                    _buildTableHeaderCell('Account'),
-                    _buildTableHeaderCell('Amount'),
-                    _buildTableHeaderCell('Action'),
-                  ]),
-                  for (int i = 0; i < loanacc.depositAccounts.length; i++)
-                    _buildTableRow([
-                      _buildTableCell(
-                          '${loanacc.depositAccounts.first.aCCOUNT}'),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts.first.dEPOSITTYPE}}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts.first.cUSTID}}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts.first.cUSTOMERNAME}}',
-                      ),
-                      TableCell(
-                        child: Container(
-                            // height: 30,
-                            // width: 30,
+                  TableHeaderRow(),
+                  Container(
+                    height: 300,
+                    child: SavingCollection()),
 
-                            child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => CollectionForm(),
-                                      ),
-                                    );
-                                  },
-                                  child: SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: Image.asset(
-                                        AppImages.edit,
-                                        color: Colors.green,
-                                      )),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: Image.asset(
-                                        AppImages.remove,
-                                        color: Colors.red,
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
-                      ),
-                    ]),
                 ],
-              ),
+              )
 
 
               
@@ -370,7 +322,7 @@ class LoanCollection extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              TableHeaderRow(),
+              // TableHeaderRow(),
               // Expanded(
               //   child: ListView.builder( 
               //     itemCount: loanacc.depositAccounts.length,

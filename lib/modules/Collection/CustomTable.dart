@@ -3,20 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/modules/Collection/editcollection.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
-
 class TableBodyRow extends StatefulWidget {
+  final int indexxx;
   final String sn;
-   final String customer;
-    final String account;
-      final String amount;
- final String action;
+  final String customer;
+  final String account;
+  final String amount;
+  final String action;
 
   const TableBodyRow({
     required this.sn,
     required this.account,
     required this.amount,
-    required this.action, required this.customer,
+    required this.action,
+    required this.customer, required this.indexxx,
   });
+
   @override
   State<TableBodyRow> createState() => _TableBodyRowState();
 }
@@ -24,109 +26,104 @@ class TableBodyRow extends StatefulWidget {
 class _TableBodyRowState extends State<TableBodyRow> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 50.h,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.white,
-                    alignment: Alignment.center,
-                    child:  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
+    return Column(
+      children: [
+        SizedBox(
+          // height: 50.h,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 0,
+                child: Container(
+                  color: Colors.white,
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
                           widget.sn,
                           style: const TextStyle(
-                fontSize: 12,
-                color: Colors.black,
-                decoration: TextDecoration.none,
-                fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: Colors.black,
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-                        ), 
+              const VerticalDivider(
+                thickness: 1,
+                color: AppColors.primaryBlue,
+              ),
+              Cell(
+                label: widget.customer,
+              ),
+              const Div(),
+              Cell(
+                label: widget.account,
+              ),
+              const Div(),
+              Cell(
+                label: widget.amount,
+              ),
+              const Div(),
+              Container(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CollectionForm(),
+                              ),
+                            );
+                          },
+                          child: SizedBox(
+                            height: 20.h,
+                            width: 20.w,
+                            child: Image.asset(
+                              AppImages.edit,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: SizedBox(
+                            height: 15,
+                            width: 20,
+                            child: Image.asset(
+                              AppImages.remove,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                 const VerticalDivider(
-                  thickness: 1,
-                  color: AppColors.greyColor,
-                ),
-                 Cell(
-                  label: widget.customer,
-                ),
-                const Div(),
-                 Cell(
-                  label: widget.account,
-                ),
-                const Div(),
-                 Cell(
-                  label: widget.amount,
-                ),
-                const Div(),
-                 Container(
-                            // height: 30,
-                            // width: 30,
-
-                            child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => CollectionForm(
-
-
-
-                                          
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: Image.asset(
-                                        AppImages.edit,
-                                        color: Colors.green,
-                                      )),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                      height: 15,
-                                      width: 20,
-                                      child: Image.asset(
-                                        AppImages.remove,
-                                        color: Colors.red,
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
-                
-               
-              ],
-            ),
+              ),
+            ],
           ),
-          Horizentaldiv()
-        ],
-      ),
+        ),
+        Horizentaldiv(),
+      ],
     );
   }
 }
+
 
 class Horizentaldiv extends StatelessWidget {
   const Horizentaldiv({
@@ -152,7 +149,7 @@ class Div extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const VerticalDivider(
-      thickness: 1,
+      thickness: 2,
       color: AppColors.greyColor,
     );
   }
@@ -173,14 +170,15 @@ class _CellState extends State<Cell> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 2,
+      flex: 4,
       child: Container(
         color: Colors.white,
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(
+            Padding(
+              padding: const EdgeInsets.only(right: 0.0),
               child: Text(
                 widget.label, // Access label through widget instance
                style: const TextStyle(
@@ -188,7 +186,7 @@ class _CellState extends State<Cell> {
               color: Colors.black,
               decoration: TextDecoration.none,
               fontWeight: FontWeight.w400,
-            ),
+                          ),
               ),
             ),
           ],

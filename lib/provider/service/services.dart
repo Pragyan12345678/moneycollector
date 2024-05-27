@@ -37,12 +37,13 @@ class ApiBaseHelper {
   //   // }
   // }
 
-  Future<dynamic> postMethod(String url, dynamic body) async {
+  Future<dynamic> postMethod(String url, dynamic body, String token) async {
     // try {
     debugPrint("this is body server $body");
     var header = {
       "Accept": "application/json",
       "Content-Type": "application/json",
+      'Authorization': 'Bearer $token',
     };
     final response =
         await http.post(Uri.parse(url), body: body, headers: header);

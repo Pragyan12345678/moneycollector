@@ -44,6 +44,7 @@ dependencies:
   html: ^0.15.4
   otp_text_field:
   nepali_date_picker: 
+  device_preview: 
   
 
 dev_dependencies:

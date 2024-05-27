@@ -10,6 +10,11 @@ class Preference {
   static const String _getDepositeaccount = 'deposit';
 
 
+
+  ///
+  static const _getPostloan = 'postloan';
+
+
   static Future<void> storeUser(String data) async {
     await saveData(_authData, data);
   }
@@ -48,6 +53,18 @@ class Preference {
     return getData(_getDepositeaccount);
   }
 
+
+
+////store data
+ static Future<void> storepostloan(String data) async {
+    await saveData(_getPostloan, data);
+    debugPrint("Stored Postdeposite lang data: $data");
+  
+  }
+
+  static  getPostloan() async {
+    return getData(_getPostloan);
+  }
 
 
 ////

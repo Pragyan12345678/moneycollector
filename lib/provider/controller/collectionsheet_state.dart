@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
-import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/provider/service/services.dart';
 
@@ -39,7 +38,10 @@ collectionsheet(BuildContext context) async {
 
  
     var body = {
-      "branch_code":profileDetails?.branchCode,
+      
+      "entries":[
+        {
+          "branch_code":profileDetails?.branchCode,
       "customer_account_uid":accountnumber.text,
       "customer_uid":profileDetails?.uid,
       "deposit_scheme_master_code":"1231",
@@ -48,12 +50,16 @@ collectionsheet(BuildContext context) async {
       "customer_name":profileDetails?.firstName,
       "deposit_amount":amount.text,
 
+
+        }
+      ]
+      
  
      };
 
     print("collectionsheetbodys:${body}");
 
-    var value = await authServices.postMethod(ApiUrl.collectionsheet, jsonEncode(body));
+    var value = await authServices.postMethod(ApiUrl.collectionsheet, jsonEncode(body),"73|16MKWGBV8Xctjzteu42C1f5vPn9Oyk35JzRm8q7Dd0d4fe39");
     print("tssshi body${value}");
     loadingAuth = false;
     notifyListeners();

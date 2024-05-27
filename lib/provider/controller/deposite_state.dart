@@ -11,19 +11,42 @@ class LoanStateProvider with ChangeNotifier {
   final TextEditingController trandatead = TextEditingController();
   final TextEditingController trandatebs = TextEditingController();
   final TextEditingController accountnumber = TextEditingController();
+  final TextEditingController clientid = TextEditingController();
   final TextEditingController amount = TextEditingController();
   final TextEditingController depositeby = TextEditingController();
   final TextEditingController sourceIncome = TextEditingController();
+  final TextEditingController depositecode = TextEditingController();
+
+  //loan
+  final TextEditingController loantrandatead = TextEditingController();
+  final TextEditingController loantrandatebs = TextEditingController();
+  final TextEditingController loanaccountnumber = TextEditingController();
+  final TextEditingController loanclientid = TextEditingController();
+  final TextEditingController loanamount = TextEditingController();
+  final TextEditingController loandepositecode = TextEditingController();
+  final TextEditingController loandepositeby = TextEditingController();
+  final TextEditingController loansourceIncome = TextEditingController();
 
   bool loadingAuth = false;
 
   bool? get isAuthenticated => _isLoggedIn;
   bool _isLoggedIn = false;
 
-  ProfileDataProvider() {
-    var profile = Preference.getProfile();
-    print("yoyo${profile}"); // Wait for the future to complete
-    _profiledata.add(ProfileData.fromJson(profile));
+  LoanStateProvider() {
+    // Call the method to load profile data when LoanStateProvider is initialized
+    loadProfileData();
+  }
+
+  String? profileData;
+  Future<void> loadProfileData() async {
+    String? data = await Preference.getProfile();
+    if (data != null) {
+      profileData = data;
+      print("thisssssssss is sprikle $profileData");
+      Map<String, dynamic> profileMap = json.decode(profileData!);
+      _profiledata.add(ProfileData.fromJson(profileMap));
+      notifyListeners(); // Notify listeners after updating the profile data
+    }
   }
 
   List<ProfileData> _profiledata = [];
@@ -39,29 +62,36 @@ class LoanStateProvider with ChangeNotifier {
     notifyListeners();
 
     var body = {
-      "branch_code": ProfileDatas?.isEmpty ?? true
-          ? ""
-          : "${ProfileDatas!.first.branchCode}-",
-      "customer_account_uid": accountnumber.text,
-      "customer_uid":
-          ProfileDatas?.isEmpty ?? true ? "" : "${ProfileDatas?.first.uid}",
-      // "deposit_scheme_master_code":,
-      "tran_date_ad": trandatead.text,
-      "tran_date_bs": trandatebs.text,
-      "customer_name": ProfileDatas?.isEmpty ?? true
-          ? ""
-          : "${ProfileDatas?.first.firstName}",
-      "deposit_amount": amount.text,
+      "entries": [
+        {
+          "BRANCHCODE": ProfileDatas?.isEmpty ?? true
+              ? ""
+              : "${ProfileDatas.first.branchCode}",
+          "ACCOUNT": "${ProfileDatas.first.branchCode}-${accountnumber.text}",
+          "CUSTID": "${ProfileDatas.first.branchCode}-${clientid.text}",
+          // "deposit_scheme_master_code":,
+          "DEPOSITCODE": depositecode.text,
+          "tran_date_ad": trandatead.text,
+          "tran_date_bs": trandatebs.text,
+          "CUSTOMERNAME": ProfileDatas?.isEmpty ?? true
+              ? ""
+              : "${ProfileDatas?.first.firstName}",
+          "DEPOSIT": amount.text,
+        }
+      ]
     };
-    List<Map<String, dynamic>> _getDepositeaccount = [body];
     bool online = true;
-    print("collectionsheetbodys:${body}");
+    List<Map<String, dynamic>> _getDepositeaccount = [body];
 
-    var value =
-        await authServices.postMethod(ApiUrl.collectionsheet, jsonEncode(body));
+    print("collectisssonsheetbodys:${_getDepositeaccount}");
+    online = false;
+    var value = await authServices.postMethod(
+        ApiUrl.collectionsheet,
+        jsonEncode(body),
+        "73|16MKWGBV8Xctjzteu42C1f5vPn9Oyk35JzRm8q7Dd0d4fe39");
     print("tssshi body${value}");
     loadingAuth = false;
-    online = false;
+
     notifyListeners();
     if (value == null) {
       loadingAuth = false;
@@ -92,6 +122,91 @@ class LoanStateProvider with ChangeNotifier {
       }
     }
     loadingAuth = false;
+    notifyListeners();
+  }
+
+  ///post loan collection
+  loanAccount(BuildContext context) async {
+    final authServices = ApiBaseHelper();
+
+    loadingAuth = true;
+    notifyListeners();
+
+    var body = {
+      "entries": [
+        {
+          "BRANCHCODE": ProfileDatas?.isEmpty ?? true
+              ? ""
+              : "${ProfileDatas.first.branchCode}",
+          "ACCOUNT":
+              "${ProfileDatas.first.branchCode}-${loanaccountnumber.text}",
+          "CUSTID": "${ProfileDatas.first.branchCode}-${loanclientid.text}",
+          "DEPOSITCODE": loandepositecode.text,
+          "tran_date_ad": loantrandatead.text,
+          "tran_date_bs": loantrandatebs.text,
+          "CUSTOMERNAME": ProfileDatas?.isEmpty ?? true
+              ? ""
+              : "${ProfileDatas?.first.firstName}",
+          "DEPOSIT": loanamount.text,
+        }
+      ]
+    };
+    String bodyJson = jsonEncode(body);
+
+    Preference.storepostloan(bodyJson);
+    print("printingstore postdata ${bodyJson}");
+
+    bool online = true;
+    List<Map<String, dynamic>> _getloanaccount = [body];
+
+    print("collectionsheetbodys:${_getloanaccount}");
+    online = false;
+    var value = await authServices.postMethod(
+        ApiUrl.loanEntry,
+        jsonEncode(body),
+        "73|16MKWGBV8Xctjzteu42C1f5vPn9Oyk35JzRm8q7Dd0d4fe39");
+    print("tssshi body${value}");
+    loadingAuth = false;
+
+    notifyListeners();
+    if (value == null) {
+      loadingAuth = false;
+      notifyListeners();
+      Utilities.showCustomSnackBar("Login Failed !");
+    } else {
+      if (value["status"] == 200) {
+        _isLoggedIn = false;
+        Preference.storeUser(value["data"]["access_token"].toString());
+
+        loadingAuth = false;
+
+        Utilities.showCustomSnackBar(value['message']);
+        loantrandatebs.text = "";
+        loantrandatebs.text == "";
+        loanaccountnumber.text == "";
+        loanamount.text == "";
+        loandepositeby.text == "";
+        loansourceIncome.text == "";
+        // if (context.mounted) {
+        //   Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => const MainPage(),
+        //     ),
+        //     (route) => false,
+        //   );
+        // }
+        // notifyListeners();
+      } else {
+        loadingAuth = false;
+        notifyListeners();
+        Utilities.showCustomSnackBar(value["message"]);
+      }
+    }
+    loadingAuth = false;
+//     --yaha clear garda hunxa huss sir aru kehi xa?esbata hamilai loan ko pani data aauxa? loan account ko pani? Ho hamila loan account add garnu paryo vane kata add gara ho
+// software ma
+
     notifyListeners();
   }
 }

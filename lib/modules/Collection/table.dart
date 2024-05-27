@@ -8,11 +8,11 @@ class TableHeaderRow extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 60.h,
+          // height: 60.h,
           child: Row(
             children: [
               Expanded(
-                flex: 1,
+                flex: 0,
                 child: Container(
                   color: Colors.white,
                   alignment: Alignment.center,
@@ -35,21 +35,25 @@ class TableHeaderRow extends StatelessWidget {
                 color: AppColors.greyColor,
               ),
               const Cell(
-                label: "Customer Name",
+                label: "Name",
               ),
               const Div(),
               const Cell(
-                label: "Account no",
+                label: "Account",
               ),
               const Div(),
               const Cell(
                 label: "Amount",
               ),
               const Div(),
-              const Cell(
-                label: "Action",
-              ),
-              
+              Container(
+                
+                width: 50,
+                child: const Text(" Action",
+                style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),),)
              
             ],
           ),
@@ -85,7 +89,7 @@ class Div extends StatelessWidget {
   Widget build(BuildContext context) {
     return const VerticalDivider(
       thickness: 1,
-      color: AppColors.greyColor,
+      color: AppColors.primaryBlue,
     );
   }
 }
@@ -105,7 +109,7 @@ class _CellState extends State<Cell> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 2,
+      flex: 3,
       child: Container(
         color: Colors.white,
         alignment: Alignment.center,

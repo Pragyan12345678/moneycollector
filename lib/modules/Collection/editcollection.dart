@@ -69,13 +69,18 @@ class _CollectionFormState extends State<CollectionForm> {
                               controller: collectionn.trandatebs,
 
                             ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             CalenderField(
                               label:" Tran Date(Ad)",
                               useNepaliCalendar: false,
                               controller: collectionn.trandatead,
 
                             ),
-                            
+                            SizedBox(
+                              height: 10,
+                            ),
                             Text(
                               "Account Number",
                               style: TextStyle(

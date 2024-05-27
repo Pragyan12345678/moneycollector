@@ -12,17 +12,19 @@ import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
 
-class DepositForm extends StatefulWidget {
-  final Map<String, String> datas;
+class LoanForm extends StatefulWidget {
+  // final Map<String, String> datas;
  
 
-  const DepositForm({Key? key, required this.datas}) : super(key: key);
+  const LoanForm({Key? key, 
+  // required this.datas
+  }) : super(key: key);
 
   @override
-  State<DepositForm> createState() => _DepositFormState();
+  State<LoanForm> createState() => _LoanFormState();
 }
 
-class _DepositFormState extends State<DepositForm> {
+class _LoanFormState extends State<LoanForm> {
 //   late SharedPreferences sp;
 //     late Future<void> _initSPFuture; // Future for initializing SharedPreferences
 //  // Define SharedPreferences instance here
@@ -83,7 +85,7 @@ class _DepositFormState extends State<DepositForm> {
                   ),
                 ),
                 const CustomAppBar(
-                  label: "Deposit Form",
+                  label: "Loan Collection Form",
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
@@ -109,7 +111,7 @@ class _DepositFormState extends State<DepositForm> {
                           CalenderField(
                             label: " Tran Date(Bs)",
                             useNepaliCalendar: true,
-                            controller: loan.trandatebs,
+                            controller: loan.loantrandatebs,
                           ),
                           const SizedBox(
                             height: 10,
@@ -117,7 +119,7 @@ class _DepositFormState extends State<DepositForm> {
                           CalenderField(
                             label: " Tran Date(Ad)",
                             useNepaliCalendar: false,
-                            controller: loan.trandatead,
+                            controller: loan.loantrandatead,
                           ),
                           const SizedBox(
                             height: 10,
@@ -132,13 +134,12 @@ class _DepositFormState extends State<DepositForm> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          
                           AccountTextField(
                               label:
                                   '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
-                              controller: loan.accountnumber),
+                              controller: loan.loanaccountnumber),
                           const SizedBox(height: 10),
-                            Text(
+                          Text(
                             "Client ID",
                             style: TextStyle(
                               fontSize: 14.sp,
@@ -147,29 +148,27 @@ class _DepositFormState extends State<DepositForm> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          const SizedBox(height:5),
+                          const SizedBox(height: 5),
                           AccountTextField(
                               label:
                                   '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
-                              controller: loan.clientid),
+                              controller: loan.loanclientid),
                           const SizedBox(height: 10),
                           FormCustomTextField(
                             "0.00",
                             label: "Amount",
-                            controller: loan.amount,
+                            controller: loan.loanamount,
                           ),
-                           const SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           FormCustomTextField(
                             "",
                             label: "Deposite Code",
-                            controller: loan.depositecode,
+                            controller: loan.loandepositecode,
                           ),
-                          const SizedBox(height: 20),
-
                           FormCustomTextField(
                             "",
                             label: "Deposite By",
-                            controller: loan.depositeby,
+                            controller: loan.loandepositeby,
                           ),
                           const SizedBox(
                             height: 10,
@@ -177,7 +176,7 @@ class _DepositFormState extends State<DepositForm> {
                           FormCustomTextField(
                             "",
                             label: "Source of Income",
-                            controller: loan.sourceIncome,
+                            controller: loan.loansourceIncome,
                           ),
                           const SizedBox(
                             height: 10,
@@ -187,39 +186,39 @@ class _DepositFormState extends State<DepositForm> {
                             padding: EdgeInsets.only(left: 100.w, right: 100.w),
                             child: GestureDetector(
                               onTap: () {
-                                String tranad = loan.trandatead.text;
-                                String tranbs = loan.trandatebs.text;
-                                String accountno = loan.accountnumber.text;
-                                String amount = loan.amount.text;
-                                String depositby = loan.depositeby.text;
-                                String sourceIncome = loan.sourceIncome.text;
-                                 String depositecode = loan.depositecode.text;
-                                String clientid = loan.clientid.text;
+                                String tranad = loan.loantrandatead.text;
+                                String tranbs = loan.loantrandatebs.text;
+                                String accountno = loan.loanaccountnumber.text;
+                                String clientid = loan.loanclientid.text;
+                                String amount = loan.loanamount.text;
+                                String depositcode = loan.loandepositecode.text;
+                                String depositby = loan.loandepositeby.text;
+                                String sourceIncome = loan.loansourceIncome.text;
 
                                 print('tranad: $tranad');
                                 print('tranbs: $tranbs');
-                                print('tranad: $accountno');
-                                print('tranbs: $amount');
-                                print('tranad: $depositby');
-                                 print('tranbs: $depositecode');
-                                print('tranad: $clientid');
-                                print('tranbs: $sourceIncome');
+                                print('account: $accountno');
+                                  print('account: $clientid');
+                                     print('account: $depositcode');
+                                print('amount: $amount');
+                                print('deposit: $depositby');
+                                print('sourceicome: $sourceIncome');
 
                                 if (tranad.isNotEmpty ||
-                                    clientid.isNotEmpty ||
-                                     tranbs.isNotEmpty ||
-                                      depositecode.isNotEmpty ||
+                                    tranbs.isNotEmpty ||
                                     accountno.isNotEmpty ||
+                                    clientid.isNotEmpty ||
                                     amount.isNotEmpty ||
+                                    depositcode.isNotEmpty ||
                                     depositby.isNotEmpty ||
                                     sourceIncome.isNotEmpty) {
-                                  // loan.trandatebs.text = "";
-                                  // loan.trandatebs.text == "";
-                                  // loan.accountnumber.text == "";
-                                  // loan.amount.text == "";
-                                  // loan.depositeby.text == "";
-                                  // loan.sourceIncome.text == "";
-                                  loan.depositAccount(context);
+                                  // loan.loantrandatebs.text = "";
+                                  // loan.loantrandatebs.text == ""; kina value clear? submit garya paxi clear garnu parna Add ma clear garnu parne ho?  add garya pxai 
+                                  // loan.loanaccountnumber.text == "";
+                                  // loan.loanamount.text == "";
+                                  // loan.loandepositeby.text == "";
+                                  // loan.loansourceIncome.text == "";
+                                  loan.loanAccount(context);
                                   // depositentries.add(DepositeEntries(tranad: tranad,tranbs: tranbs,accountno: accountno,amount: amount, depositby: depositby,sourceIncome: sourceIncome));
                                   // ReadFromspDeposite();
 
