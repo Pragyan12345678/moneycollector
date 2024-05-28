@@ -4,12 +4,12 @@ import 'package:moneycollection/modules/Deposit/DepositForm.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';
 
-class MyTable extends StatefulWidget {
+class LoanTable extends StatefulWidget {
   @override
-  _MyTableState createState() => _MyTableState();
+  _LoanTableState createState() => _LoanTableState();
 }
 
-class _MyTableState extends State<MyTable> {
+class _LoanTableState extends State<LoanTable> {
   String _searchQuery = '';
 
   @override
@@ -122,16 +122,18 @@ TableRow _buildDataRow(Map<String, String> row, DepositAccountsProvider provider
       TableCell(
         child: GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DepositForm(datas: row),
-              ),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => DepositForm(datas: row),
+            //   ),
+            // );
           },
           child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("${provider.depositAccounts.first.aCCOUNT?? ""}",style: TextStyle(
+            child: Text("${provider.depositAccountsFilteredByDeposit.isNotEmpty ? provider.depositAccounts.first.aCCOUNT ?? "" : ""}",
+
+            style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,
@@ -144,7 +146,9 @@ TableRow _buildDataRow(Map<String, String> row, DepositAccountsProvider provider
       TableCell(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text( " ${provider.depositAccounts.first.dEPOSITTYPE?? ""}",style: TextStyle(
+          child: Text("${provider.depositAccountsFilteredByDeposit.isNotEmpty ? provider.depositAccounts.first.dEPOSITTYPE ?? "" : ""}",
+        
+          style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,
@@ -156,7 +160,10 @@ TableRow _buildDataRow(Map<String, String> row, DepositAccountsProvider provider
       TableCell(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text("${provider.depositAccounts.first.cUSTID?? ""}",style: TextStyle(
+          child: 
+          Text("${provider.depositAccountsFilteredByDeposit.isNotEmpty ? provider.depositAccounts.first.cUSTID ?? "" : ""}",
+     
+          style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,
@@ -168,7 +175,11 @@ TableRow _buildDataRow(Map<String, String> row, DepositAccountsProvider provider
       TableCell(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text("${provider.depositAccounts.first.cUSTOMERNAME?? ""}",style: TextStyle(
+          child: 
+          
+          Text("${provider.depositAccountsFilteredByDeposit.isNotEmpty ? provider.depositAccounts.first.cUSTOMERNAME ?? "" : ""}",
+       
+          style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,
@@ -180,7 +191,10 @@ TableRow _buildDataRow(Map<String, String> row, DepositAccountsProvider provider
       TableCell(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text("${provider.depositAccounts.first.mOBILE?? ""}",style: TextStyle(
+          child: 
+          Text("${provider.depositAccountsFilteredByDeposit.isNotEmpty ? provider.depositAccounts.first.mOBILE ?? "" : ""}",
+          
+          style: TextStyle(
               fontSize: 12,
               color: Colors.black,
               decoration: TextDecoration.none,

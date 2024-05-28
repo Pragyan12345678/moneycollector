@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/Model/StoreDeposite.dart';
+import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
@@ -13,51 +13,20 @@ import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
 
 class DepositForm extends StatefulWidget {
-  final Map<String, String> datas;
+   final int index;
+     final String accountno;
+     final String clientid;
+      final String depositecode;
+      final String  name;
  
 
-  const DepositForm({Key? key, required this.datas}) : super(key: key);
+  const DepositForm({Key? key, required this.index, required this.accountno, required this.clientid, required this.depositecode, required this.name, }) : super(key: key);
 
   @override
   State<DepositForm> createState() => _DepositFormState();
 }
 
 class _DepositFormState extends State<DepositForm> {
-//   late SharedPreferences sp;
-//     late Future<void> _initSPFuture; // Future for initializing SharedPreferences
-//  // Define SharedPreferences instance here
-//   List<DepositeEntries> depositentries = [];
-  
-//   @override
-//   void initState() {
-//     super.initState();
-//     getSharedPrefernce();
-//     ReadFromspDeposite(); // Call function to initialize SharedPreferences
-//   }
-
-//    getSharedPrefernce()async {
-//       sp = await SharedPreferences.getInstance();
-//    }
-
-// saveIntoSpDeposit(){
-// List<String> depsitentriesListString= depositentries.map((depositentrie) => jsonEncode(depositentrie.toJson())).toList();
-//  sp.setStringList( 'mydata', depsitentriesListString);
-// }
-
-
-
-// ReadFromspDeposite(){
-//  List<String> ? depsitentriesListString = sp.getStringList("mydata");
-//  if (depsitentriesListString!= null){
-//   depositentries =depsitentriesListString.map((depositentrie) => DepositeEntries.fromJson(jsonDecode(depositentrie))).toList();
-//  }
-//  setState(() {
-   
-//  });
-
-// }
-
-
 
 
 
@@ -68,6 +37,12 @@ class _DepositFormState extends State<DepositForm> {
     return Consumer<LoanStateProvider>(builder: (context, loan, child) {
       return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
+     
+      loan.accountnumber.text = widget.accountno.substring(7); 
+      loan.clientid.text = widget.clientid.substring(7);
+      loan.depositecode.text = widget.depositecode;
+      loan.name.text = widget.name;
+      
         return SafeArea(
           child: Scaffold(
               body: SingleChildScrollView(
@@ -121,6 +96,12 @@ class _DepositFormState extends State<DepositForm> {
                           ),
                           const SizedBox(
                             height: 10,
+                          ),
+                          
+                          FormCustomTextField(
+                            widget.name,
+                            label: "Name",
+                            controller: loan.name,
                           ),
                           Text(
                             "Account Number",
@@ -190,6 +171,7 @@ class _DepositFormState extends State<DepositForm> {
                                 String tranad = loan.trandatead.text;
                                 String tranbs = loan.trandatebs.text;
                                 String accountno = loan.accountnumber.text;
+                                    String name = loan.name.text;
                                 String amount = loan.amount.text;
                                 String depositby = loan.depositeby.text;
                                 String sourceIncome = loan.sourceIncome.text;
@@ -203,10 +185,12 @@ class _DepositFormState extends State<DepositForm> {
                                 print('tranad: $depositby');
                                  print('tranbs: $depositecode');
                                 print('tranad: $clientid');
+                                      print('tranad: $name');
                                 print('tranbs: $sourceIncome');
 
                                 if (tranad.isNotEmpty ||
                                     clientid.isNotEmpty ||
+                                      name.isNotEmpty ||
                                      tranbs.isNotEmpty ||
                                       depositecode.isNotEmpty ||
                                     accountno.isNotEmpty ||

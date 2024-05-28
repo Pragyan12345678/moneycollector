@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
+import 'package:moneycollection/constant/Nodata.dart';
 import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/modules/Deposit/DepositTable.dart';
+import 'package:moneycollection/modules/Collection/AccountHeader.dart';
+import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
+import 'package:moneycollection/recycle/DepositTable.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';
 
@@ -49,6 +52,14 @@ class _DepositListState extends State<DepositList> {
                   const CustomAppBar(
                     label: "Deposit",
                   ),
+                  (provider.depositAccounts.isEmpty)
+                    ? Padding(
+                        padding: EdgeInsets.only(
+                          top: 250.h,
+                        ),
+                        child: Nodata(),
+                      )
+                    :
                   Padding(
                     padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
                     child: Container(
@@ -57,7 +68,13 @@ class _DepositListState extends State<DepositList> {
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      child: MyTable(),
+                      child:Column(
+                            children: [
+                              AccountTableHeader(),
+                              SizedBox(height: 500, child: DepositData()),
+                              // LoanTable()),
+                            ],
+                          ),
                       // child: Text(" length : ${provider.depositAccounts.first.aCCOUNT?? ""}"),
                     ),
                   )

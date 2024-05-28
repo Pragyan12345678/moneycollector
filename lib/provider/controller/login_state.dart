@@ -11,6 +11,7 @@ import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/modules/landingPage/bottomNav.dart';
 import 'package:moneycollection/modules/splashScreen/splashscreen.dart';
 import 'package:moneycollection/provider/utils/api_helper/api_base_helper.dart';
+import 'package:moneycollection/view/dashboard/dashboardmain.dart';
 
 class AuthState extends ChangeNotifier {
   final TextEditingController loginEmail = TextEditingController();

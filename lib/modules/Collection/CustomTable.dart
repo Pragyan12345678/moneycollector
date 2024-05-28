@@ -9,21 +9,21 @@ class TableBodyRow extends StatefulWidget {
   final String customer;
   final String account;
   final String amount;
-  final String action;
+  
 
   const TableBodyRow({
     required this.sn,
     required this.account,
     required this.amount,
-    required this.action,
+   
     required this.customer, required this.indexxx,
   });
 
   @override
-  State<TableBodyRow> createState() => _TableBodyRowState();
+  State<TableBodyRow> createState() => _AccountTableBodyRowState();
 }
 
-class _TableBodyRowState extends State<TableBodyRow> {
+class _AccountTableBodyRowState extends State<TableBodyRow> {
   @override
   Widget build(BuildContext context) {
     return Column(

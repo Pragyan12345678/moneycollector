@@ -3,6 +3,7 @@ import 'package:moneycollection/Model/PostLoan.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/modules/Collection/CustomTable.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
 
 class SavingCollection extends StatelessWidget {
@@ -32,20 +33,28 @@ class SavingCollection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DepositAccountsProvider>(
         builder: (context, loanacc, child) {
+          return Consumer<LoanStateProvider>(
+        builder: (context, postdeposite, child) {
     return Container(
       constraints: BoxConstraints.expand(), 
         child: ListView.builder(
           itemCount:
-           loanacc.depositAccounts.length,
+           postdeposite.postdepsit.length,
           itemBuilder: (context, index) {
+            print("print postcollection  ${postdeposite.postdepsit[index].entries!.first.cUSTOMERNAME}",);
             return TableBodyRow(
               indexxx:index,
          
               sn: "${index + 1}",
-              customer: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-              account: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-              amount: "${loanacc.depositAccounts[index].aCCOUNT}",
-              action: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
+               customer: "${postdeposite.postdepsit[index].entries!.first.cUSTOMERNAME}",
+               account: "${postdeposite.postdepsit[index].entries!.first.aCCOUNT}",
+               amount: "${postdeposite.postdepsit[index].entries!.first.dEPOSIT}",
+               
+              // customer: "${loanacc.depositAccounts.depos}",
+              // customer: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
+              // account: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
+              // amount: "${loanacc.depositAccounts[index].aCCOUNT}",
+              // action: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
             );
           },
         ),
@@ -53,5 +62,7 @@ class SavingCollection extends StatelessWidget {
     );
   }
    );
+  }
+  );
   }
 }

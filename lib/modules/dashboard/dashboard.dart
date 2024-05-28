@@ -38,6 +38,7 @@ class _DashboardHomeState extends State<DashboardHome> {
     super.initState();
     Provider.of<DepositAccountsProvider>(context, listen: false)
         .fetchDepositAccounts();
+          
           Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
   }
 
@@ -62,7 +63,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 30.h),
+                    padding: EdgeInsets.only(top: 20.h),
                     child: const DashboardAppBAr(),
                   ),
                   const SizedBox(
@@ -189,7 +190,7 @@ class _DashboardHomeState extends State<DashboardHome> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const LoanForm()),
+                                                    const LoanList()),
                                           );
                                         },
                                       ),
@@ -294,7 +295,7 @@ class DashboardAppBAr extends StatelessWidget {
           builder: (context, profiledata, child) {
         var profiledetails = profiledata.ProfileDatas;
         return Padding(
-          padding: EdgeInsets.only(left: 5.0.w, right: 40.w),
+          padding: EdgeInsets.only(left: 5.0.w, right: 20.w),
           child: Container(
             height: 80.h,
             decoration: BoxDecoration(

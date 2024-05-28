@@ -2,60 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/colors.dart';
 
-class TableHeaderRow extends StatelessWidget {
+class AccountTableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         SizedBox(
           // height: 60.h,
           child: Row(
             children: [
-              Expanded(
-                flex: 0,
-                child: Container(
-                  color: Colors.white,
-                  alignment: Alignment.center,
-                  child:  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "SN",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.sp
-                        ),
-                      ), 
-                    ],
-                  ),
-                ),
+             
+             
+              AccountCell(
+                label: "Acc",
               ),
-              const VerticalDivider(
-                thickness: 1,
-                color: AppColors.greyColor,
+              Div(),
+              AccountCell(
+                label: "Type",
               ),
-              const Cell(
+              Div(),
+              AccountCell(
+                label: "ID",
+              ),
+              Div(),
+              AccountCell(
                 label: "Name",
               ),
-              const Div(),
-              const Cell(
-                label: "Account",
+              Div(),
+              AccountCell(
+                label: "Phone",
               ),
-              const Div(),
-              const Cell(
-                label: "Amount",
+              Div(),
+              AccountCell(
+                label: "Code",
               ),
-              const Div(),
-              Container(
-                
-                width: 50,
-                child:  Text(" Action",
-                style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize :12.sp
-                        ),),)
+
+           
              
             ],
           ),
@@ -73,7 +55,7 @@ class Horizentaldiv extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(
+    return const Divider(
       
               thickness: 1,
              color: AppColors.greyColor,
@@ -96,23 +78,24 @@ class Div extends StatelessWidget {
   }
 }
 
-class Cell extends StatefulWidget {
+class AccountCell extends StatefulWidget {
   final String label;
-  const Cell({
+  const AccountCell({
     Key? key, // Add Key? key here
     required this.label,
   }) : super(key: key); // Call super constructor with the provided key
 
   @override
-  State<Cell> createState() => _CellState();
+  State<AccountCell> createState() => _AccountCellState();
 }
 
-class _CellState extends State<Cell> {
+class _AccountCellState extends State<AccountCell> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 3,
+      flex: 1,
       child: Container(
+        height: 40.h,
         color: Colors.white,
         alignment: Alignment.center,
         child: Column(
@@ -124,9 +107,12 @@ class _CellState extends State<Cell> {
                 style:  TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: 12.sp
+                  fontSize: 10.sp
                 ),
+  //                overflow: TextOverflow.clip, // Adjust overflow property
+  // maxLines: 1,
               ),
+              
             ),
           ],
         ),

@@ -23,7 +23,7 @@ static const more = 'assets/icons/more.png';
 static const moneycollection = 'assets/icons/collection.png'; 
 static const pull = 'assets/icons/pull.png';
 static const push = 'assets/icons/push.png'; 
-
+static const nodata = 'assets/icons/nodata.png'; 
 
 
 ///profile

@@ -68,10 +68,16 @@ class DepositAccountsProvider with ChangeNotifier {
 
 
   List<DepositAccounts> get depositAccounts => _depositAccounts;
+
+
+  List<DepositAccounts> get depositAccountsFilteredByDeposit =>
+    _depositAccounts.where((tYPE) => tYPE == 'Deposit').toList();
   
+
 
   Future<void> fetchDepositAccounts() async {
     print("printing the valuee: $depositAccounts");
+      print("printing the valuee: $depositAccountsFilteredByDeposit");
     print(" lamo");
     var data = await ApiBaseHelper().getdepositeaccount(
         "71|yyVsTgA3hxlYMhRzUi6vFSP9VZGhjIBlmPAF3uSDfb02bae9");

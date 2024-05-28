@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/constant/Nodata.dart';
+import 'package:moneycollection/modules/Collection/AccountHeader.dart';
 import 'package:moneycollection/modules/Collection/CustomTable.dart';
 import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
 import 'package:moneycollection/modules/Collection/editcollection.dart';
@@ -9,6 +11,8 @@ import 'package:moneycollection/modules/Collection/table.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
+import 'package:moneycollection/modules/Loan/LoanDataTable.dart';
 
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';
@@ -271,7 +275,9 @@ class Collection extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              Column(
+
+              loanacc.depositAccounts.isEmpty? Nodata()
+              :Column(
                 children: [
                   TableHeaderRow(),
                   Container(
@@ -322,102 +328,17 @@ class LoanCollection extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              // TableHeaderRow(),
-              // Expanded(
-              //   child: ListView.builder( 
-              //     itemCount: loanacc.depositAccounts.length,
-              //     itemBuilder: (context, index) {
-              //     return TableBodyRow(
-              //       sn: "1",
-              //       customer: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-              //       account: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-              //       amount: "${loanacc.depositAccounts[index].aCCOUNT}",
-              //       action: "${loanacc.depositAccounts[index].cUSTOMERNAME}"
-                  
-              //     );
-
-              //   }
-              //   ),
-              //   ),
-
-
-
-
-              Table(
-                border: TableBorder.lerp(
-                  TableBorder.all(color: Colors.black, width: 3),
-                  TableBorder.all(color: Colors.grey, width: 0.1),
-                  1, // Interpolation value
-                ),
+            loanacc.depositAccountsFilteredByDeposit.isEmpty? Nodata()
+              :Column(
                 children: [
-                  _buildTableRow([
-                    _buildTableHeaderCell('Sn'),
-                    _buildTableHeaderCell('Customer'),
-                    _buildTableHeaderCell('Account'),
-                    _buildTableHeaderCell('Amount'),
-                    _buildTableHeaderCell('Action'),
-                  ]),
-                  for (int i = 0; i < loanacc.depositAccounts.length; i++)
-                    _buildTableRow([
-                      _buildTableCell(
-                          '${loanacc.depositAccounts.first.aCCOUNT}'),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts.first.dEPOSITTYPE}}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts.first.cUSTID}}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts.first.cUSTOMERNAME}}',
-                      ),
-                      TableCell(
-                        child: Container(
-                            // height: 30,
-                            // width: 30,
+                  AccountTableHeader(),
+                 SizedBox(height: 800, child: LoanData()),
 
-                            child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => CollectionForm(),
-                                      ),
-                                    );
-                                  },
-                                  child: SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: Image.asset(
-                                        AppImages.edit,
-                                        color: Colors.green,
-                                      )),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: Image.asset(
-                                        AppImages.remove,
-                                        color: Colors.red,
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
-                      ),
-                    ]),
                 ],
-              ),
+              )
+
+
+              
             ],
           ),
         ),
@@ -457,38 +378,16 @@ class SavingAccount extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              Table(
-                border: TableBorder.lerp(
-                  TableBorder.all(color: Colors.black, width: 3),
-                  TableBorder.all(color: Colors.grey, width: 0.1),
-                  1, // Interpolation value
-                ),
+             loanacc.depositAccounts.isEmpty? Nodata()
+              :Column(
                 children: [
-                  _buildTableRow([
-                    _buildTableHeaderCell('Account n0.'),
-                    _buildTableHeaderCell('Account Type'),
-                    _buildTableHeaderCell('Cilent Id'),
-                    _buildTableHeaderCell('Full Name'),
-                    _buildTableHeaderCell('Mobile no.'),
-                  ]),
-                  for (int i = 0; i < loanacc.depositAccounts.length; i++)
-                    _buildTableRow([
-                      _buildTableCell('${loanacc.depositAccounts[i].aCCOUNT}'),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts[i].dEPOSITTYPE}}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts[i].cUSTID}}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts[i].cUSTOMERNAME}}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts[i].mOBILE}}',
-                      ),
-                    ]),
+                  AccountTableHeader(),
+                 SizedBox(height: 800, child: DepositData()),
+
                 ],
-              ),
+              )
+
+
             ],
           ),
         ),
@@ -527,38 +426,17 @@ class LoanAccount extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              Table(
-                border: TableBorder.lerp(
-                  TableBorder.all(color: Colors.black, width: 3),
-                  TableBorder.all(color: Colors.grey, width: 0.1),
-                  1, // Interpolation value
-                ),
+               loanacc.depositAccountsFilteredByDeposit.isEmpty? Nodata()
+              :Column(
                 children: [
-                  _buildTableRow([
-                    _buildTableHeaderCell('Account n0.'),
-                    _buildTableHeaderCell('Account Type'),
-                    _buildTableHeaderCell('Cilent Id'),
-                    _buildTableHeaderCell('Full Name'),
-                    _buildTableHeaderCell('Mobile no.'),
-                  ]),
-                  for (int i = 0; i < loanacc.depositAccounts.length; i++)
-                    _buildTableRow([
-                      _buildTableCell('${loanacc.depositAccounts[i].aCCOUNT}'),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts[i].dEPOSITTYPE}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts[i].cUSTID}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts[i].cUSTOMERNAME}',
-                      ),
-                      _buildTableCell(
-                        '${loanacc.depositAccounts[i].mOBILE}',
-                      ),
-                    ]),
+                  AccountTableHeader(),
+                 SizedBox(height: 800, child: LoanData()),
+
                 ],
-              ),
+              )
+
+
+           
             ],
           ),
         ),

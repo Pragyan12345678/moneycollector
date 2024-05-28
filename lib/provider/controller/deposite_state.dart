@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/constant/utils.dart';
+import 'package:moneycollection/modules/Deposit/Deposite.dart';
+import 'package:moneycollection/modules/Loan/Loan.dart';
 import 'package:moneycollection/provider/service/services.dart';
 
 class LoanStateProvider with ChangeNotifier {
@@ -16,6 +19,9 @@ class LoanStateProvider with ChangeNotifier {
   final TextEditingController depositeby = TextEditingController();
   final TextEditingController sourceIncome = TextEditingController();
   final TextEditingController depositecode = TextEditingController();
+  final TextEditingController name = TextEditingController();
+  final TextEditingController branch = TextEditingController();
+  final TextEditingController account = TextEditingController();
 
   //loan
   final TextEditingController loantrandatead = TextEditingController();
@@ -26,32 +32,98 @@ class LoanStateProvider with ChangeNotifier {
   final TextEditingController loandepositecode = TextEditingController();
   final TextEditingController loandepositeby = TextEditingController();
   final TextEditingController loansourceIncome = TextEditingController();
+  final TextEditingController loanname = TextEditingController();
 
   bool loadingAuth = false;
 
   bool? get isAuthenticated => _isLoggedIn;
   bool _isLoggedIn = false;
 
-  LoanStateProvider() {
+ 
+ LoanStateProvider() {
     // Call the method to load profile data when LoanStateProvider is initialized
-    loadProfileData();
+   try {
+    String? profile; 
+     Preference.getProfile().then((result){
+      profile = result;
+   
+    if (profile != null && profile is String) {
+      print("printing the yoyoovalueddddd${profile}");
+      Map<String, dynamic> profileData = json.decode(profile!);
+      _profiledata.add(ProfileData.fromJson(profileData));
+    } else {
+      // Handle null or invalid profile data
+      print("Profile ${_profiledata}");
+    }
+     });
+  } catch (error) {
+    // Handle error if any
+    print("Error fetching profile data: $error");
+  }
+     PostDeposit();
   }
 
-  String? profileData;
-  Future<void> loadProfileData() async {
-    String? data = await Preference.getProfile();
-    if (data != null) {
-      profileData = data;
-      print("thisssssssss is sprikle $profileData");
-      Map<String, dynamic> profileMap = json.decode(profileData!);
-      _profiledata.add(ProfileData.fromJson(profileMap));
-      notifyListeners(); // Notify listeners after updating the profile data
-    }
-  }
+
 
   List<ProfileData> _profiledata = [];
 
   List<ProfileData> get ProfileDatas => _profiledata;
+
+
+
+
+
+
+
+
+  PostDeposit() {
+    try {
+      String? postdepositData;
+      Preference.getDepositeaccount().then((result) {
+        postdepositData = result;
+
+        if (postdepositData != null && postdepositData is String) {
+          print("printing the poostdepositevalueddddd${postdepositData}");
+           List<dynamic> postdeposoitData = json.decode(postdepositData!);
+          // _PostDepositedata.add(PostDepsite.fromJson(postdeposoitData!));
+        } else {
+          // Handle null or invalid profile data
+          print("Profile ${_PostDepositedata}");
+        }
+      });
+    } catch (error) {
+      // Handle error if any
+      print("Error fetching profile data: $error");
+    }
+  }
+
+  List<PostDepsite> _PostDepositedata = [];
+
+  List<PostDepsite> get postdepsit => _PostDepositedata;
+
+
+  ProfileDataProvider()  {
+  try {
+    String? profile; 
+     Preference.getProfile().then((result){
+      profile = result;
+   
+    if (profile != null && profile is String) {
+      print("printing the valueddddd${profile}");
+      Map<String, dynamic> profileData = json.decode(profile!);
+      _profiledata.add(ProfileData.fromJson(profileData));
+    } else {
+      // Handle null or invalid profile data
+      print("Profile ${_profiledata}");
+    }
+     });
+  } catch (error) {
+    // Handle error if any
+    print("Error fetching profile data: $error");
+  }
+}
+
+ 
 
   depositAccount(BuildContext context) async {
     print("printing the valuee: $_profiledata");
@@ -64,27 +136,36 @@ class LoanStateProvider with ChangeNotifier {
     var body = {
       "entries": [
         {
-          "BRANCHCODE": ProfileDatas?.isEmpty ?? true
+          "BRANCHCODE":
+           ProfileDatas.isEmpty ?? true
               ? ""
               : "${ProfileDatas.first.branchCode}",
-          "ACCOUNT": "${ProfileDatas.first.branchCode}-${accountnumber.text}",
-          "CUSTID": "${ProfileDatas.first.branchCode}-${clientid.text}",
-          // "deposit_scheme_master_code":,
+          "ACCOUNT":
+         
+           ProfileDatas.isEmpty ?? true
+              ? ""
+              : "${ProfileDatas.first.branchCode}-${accountnumber.text}",
+          "CUSTID": ProfileDatas.isEmpty ?? true
+              ? ""
+              : "${ProfileDatas.first.branchCode}-${clientid.text}",
           "DEPOSITCODE": depositecode.text,
           "tran_date_ad": trandatead.text,
           "tran_date_bs": trandatebs.text,
-          "CUSTOMERNAME": ProfileDatas?.isEmpty ?? true
-              ? ""
-              : "${ProfileDatas?.first.firstName}",
+          "CUSTOMERNAME": name.text,
           "DEPOSIT": amount.text,
         }
       ]
     };
+
+
+    String bodyJson = jsonEncode(body);
+    Preference.storedepositaccount(bodyJson);
+    print("printingstore postdata ${bodyJson}");
     bool online = true;
     List<Map<String, dynamic>> _getDepositeaccount = [body];
 
-    print("collectisssonsheetbodys:${_getDepositeaccount}");
-    online = false;
+    print("collectisssonsheetbodys:${body}");
+    // online = false;
     var value = await authServices.postMethod(
         ApiUrl.collectionsheet,
         jsonEncode(body),
@@ -98,23 +179,32 @@ class LoanStateProvider with ChangeNotifier {
       notifyListeners();
       Utilities.showCustomSnackBar("Login Failed !");
     } else {
-      if (value["status"] == 200) {
+      if (value["status"] == 200 || value["error"] == false) {
         _isLoggedIn = false;
-        Preference.storeUser(value["data"]["access_token"].toString());
 
         loadingAuth = false;
 
         Utilities.showCustomSnackBar(value['message']);
-        // if (context.mounted) {
-        //   Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => const MainPage(),
-        //     ),
-        //     (route) => false,
-        //   );
-        // }
-        // notifyListeners();
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DepositList(),
+            ),
+            (route) => false,
+          );
+        }
+        accountnumber.clear();
+        clientid.clear();
+        depositecode.clear();
+        trandatead.clear();
+        trandatebs.clear();
+        amount.clear();
+        depositeby.clear();
+        sourceIncome.clear();
+        name.clear();
+
+        notifyListeners();
       } else {
         loadingAuth = false;
         notifyListeners();
@@ -135,7 +225,7 @@ class LoanStateProvider with ChangeNotifier {
     var body = {
       "entries": [
         {
-          "BRANCHCODE": ProfileDatas?.isEmpty ?? true
+          "BRANCHCODE": ProfileDatas.isEmpty ?? true
               ? ""
               : "${ProfileDatas.first.branchCode}",
           "ACCOUNT":
@@ -144,9 +234,7 @@ class LoanStateProvider with ChangeNotifier {
           "DEPOSITCODE": loandepositecode.text,
           "tran_date_ad": loantrandatead.text,
           "tran_date_bs": loantrandatebs.text,
-          "CUSTOMERNAME": ProfileDatas?.isEmpty ?? true
-              ? ""
-              : "${ProfileDatas?.first.firstName}",
+          "CUSTOMERNAME": loanname.text,
           "DEPOSIT": loanamount.text,
         }
       ]
@@ -176,27 +264,30 @@ class LoanStateProvider with ChangeNotifier {
     } else {
       if (value["status"] == 200) {
         _isLoggedIn = false;
-        Preference.storeUser(value["data"]["access_token"].toString());
 
         loadingAuth = false;
 
         Utilities.showCustomSnackBar(value['message']);
-        loantrandatebs.text = "";
-        loantrandatebs.text == "";
-        loanaccountnumber.text == "";
-        loanamount.text == "";
-        loandepositeby.text == "";
-        loansourceIncome.text == "";
-        // if (context.mounted) {
-        //   Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => const MainPage(),
-        //     ),
-        //     (route) => false,
-        //   );
-        // }
-        // notifyListeners();
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoanList(),
+            ),
+            (route) => false,
+          );
+        }
+        loanaccountnumber.clear();
+        loanclientid.clear();
+        loandepositecode.clear();
+        loantrandatead.clear();
+        loantrandatebs.clear();
+        loanamount.clear();
+        loandepositeby.clear();
+        loansourceIncome.clear();
+        loanname.clear();
+
+        notifyListeners();
       } else {
         loadingAuth = false;
         notifyListeners();
@@ -204,8 +295,6 @@ class LoanStateProvider with ChangeNotifier {
       }
     }
     loadingAuth = false;
-//     --yaha clear garda hunxa huss sir aru kehi xa?esbata hamilai loan ko pani data aauxa? loan account ko pani? Ho hamila loan account add garnu paryo vane kata add gara ho
-// software ma
 
     notifyListeners();
   }

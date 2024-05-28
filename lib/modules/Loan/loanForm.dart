@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/Model/StoreDeposite.dart';
+import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
@@ -13,11 +13,17 @@ import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
 
 class LoanForm extends StatefulWidget {
-  // final Map<String, String> datas;
+  final int index;
+     final String accountno;
+     final String clientid;
+      final String depositecode;
+      final String name;
+   LoanForm({
  
+    
 
-  const LoanForm({Key? key, 
-  // required this.datas
+    Key? key, required this.accountno, required this.clientid, required this.depositecode, required this.index, required this.name,
+    // required this.datas
   }) : super(key: key);
 
   @override
@@ -25,51 +31,16 @@ class LoanForm extends StatefulWidget {
 }
 
 class _LoanFormState extends State<LoanForm> {
-//   late SharedPreferences sp;
-//     late Future<void> _initSPFuture; // Future for initializing SharedPreferences
-//  // Define SharedPreferences instance here
-//   List<DepositeEntries> depositentries = [];
-  
-//   @override
-//   void initState() {
-//     super.initState();
-//     getSharedPrefernce();
-//     ReadFromspDeposite(); // Call function to initialize SharedPreferences
-//   }
-
-//    getSharedPrefernce()async {
-//       sp = await SharedPreferences.getInstance();
-//    }
-
-// saveIntoSpDeposit(){
-// List<String> depsitentriesListString= depositentries.map((depositentrie) => jsonEncode(depositentrie.toJson())).toList();
-//  sp.setStringList( 'mydata', depsitentriesListString);
-// }
-
-
-
-// ReadFromspDeposite(){
-//  List<String> ? depsitentriesListString = sp.getStringList("mydata");
-//  if (depsitentriesListString!= null){
-//   depositentries =depsitentriesListString.map((depositentrie) => DepositeEntries.fromJson(jsonDecode(depositentrie))).toList();
-//  }
-//  setState(() {
-   
-//  });
-
-// }
-
-
-
-
-
-   
   @override
   Widget build(BuildContext context) {
     int selectedIndex = -1;
     return Consumer<LoanStateProvider>(builder: (context, loan, child) {
       return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
+              loan.accountnumber.text = widget.accountno.substring(7); 
+      loan.clientid.text = widget.clientid.substring(7);
+      loan.depositecode.text = widget.depositecode;
+      loan.name.text = widget.name;
         return SafeArea(
           child: Scaffold(
               body: SingleChildScrollView(
@@ -124,6 +95,14 @@ class _LoanFormState extends State<LoanForm> {
                           const SizedBox(
                             height: 10,
                           ),
+                          FormCustomTextField(
+                            widget.name,
+                            label: "Nmae",
+                            controller: loan.loanname,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Text(
                             "Account Number",
                             style: TextStyle(
@@ -136,7 +115,7 @@ class _LoanFormState extends State<LoanForm> {
                           const SizedBox(height: 5),
                           AccountTextField(
                               label:
-                                  '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
+                                  widget.accountno,
                               controller: loan.loanaccountnumber),
                           const SizedBox(height: 10),
                           Text(
@@ -151,7 +130,7 @@ class _LoanFormState extends State<LoanForm> {
                           const SizedBox(height: 5),
                           AccountTextField(
                               label:
-                                  '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
+                                  widget.clientid,
                               controller: loan.loanclientid),
                           const SizedBox(height: 10),
                           FormCustomTextField(
@@ -161,7 +140,7 @@ class _LoanFormState extends State<LoanForm> {
                           ),
                           const SizedBox(height: 20),
                           FormCustomTextField(
-                            "",
+                            widget.depositecode,
                             label: "Deposite Code",
                             controller: loan.loandepositecode,
                           ),
@@ -193,13 +172,14 @@ class _LoanFormState extends State<LoanForm> {
                                 String amount = loan.loanamount.text;
                                 String depositcode = loan.loandepositecode.text;
                                 String depositby = loan.loandepositeby.text;
-                                String sourceIncome = loan.loansourceIncome.text;
+                                String sourceIncome =
+                                    loan.loansourceIncome.text;
 
                                 print('tranad: $tranad');
                                 print('tranbs: $tranbs');
                                 print('account: $accountno');
-                                  print('account: $clientid');
-                                     print('account: $depositcode');
+                                print('account: $clientid');
+                                print('account: $depositcode');
                                 print('amount: $amount');
                                 print('deposit: $depositby');
                                 print('sourceicome: $sourceIncome');
@@ -213,7 +193,7 @@ class _LoanFormState extends State<LoanForm> {
                                     depositby.isNotEmpty ||
                                     sourceIncome.isNotEmpty) {
                                   // loan.loantrandatebs.text = "";
-                                  // loan.loantrandatebs.text == ""; kina value clear? submit garya paxi clear garnu parna Add ma clear garnu parne ho?  add garya pxai 
+                                  // loan.loantrandatebs.text == ""; kina value clear? submit garya paxi clear garnu parna Add ma clear garnu parne ho?  add garya pxai
                                   // loan.loanaccountnumber.text == "";
                                   // loan.loanamount.text == "";
                                   // loan.loandepositeby.text == "";
@@ -221,11 +201,6 @@ class _LoanFormState extends State<LoanForm> {
                                   loan.loanAccount(context);
                                   // depositentries.add(DepositeEntries(tranad: tranad,tranbs: tranbs,accountno: accountno,amount: amount, depositby: depositby,sourceIncome: sourceIncome));
                                   // ReadFromspDeposite();
-
-
-
-
-
                                 }
                               },
                               child: Container(
@@ -257,6 +232,5 @@ class _LoanFormState extends State<LoanForm> {
         );
       });
     });
-   
   }
 }
