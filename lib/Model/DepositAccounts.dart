@@ -1,3 +1,4 @@
+
 class DepositAccounts {
   String? cUSTID;
   String? cUSTOMERNAME;

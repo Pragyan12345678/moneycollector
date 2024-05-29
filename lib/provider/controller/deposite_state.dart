@@ -8,6 +8,7 @@ import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/modules/Deposit/Deposite.dart';
 import 'package:moneycollection/modules/Loan/Loan.dart';
+import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/service/services.dart';
 
 class LoanStateProvider with ChangeNotifier {
@@ -60,7 +61,7 @@ class LoanStateProvider with ChangeNotifier {
     // Handle error if any
     print("Error fetching profile data: $error");
   }
-     PostDeposit();
+    //  PostDeposit();
   }
 
 
@@ -76,26 +77,26 @@ class LoanStateProvider with ChangeNotifier {
 
 
 
-  PostDeposit() {
-    try {
-      String? postdepositData;
-      Preference.getDepositeaccount().then((result) {
-        postdepositData = result;
+  // PostDeposit() {
+  //   try {
+  //     String? postdepositData;
+  //     Preference.getDepositeaccount().then((result) {
+  //       postdepositData = result;
 
-        if (postdepositData != null && postdepositData is String) {
-          print("printing the poostdepositevalueddddd${postdepositData}");
-           List<dynamic> postdeposoitData = json.decode(postdepositData!);
-          // _PostDepositedata.add(PostDepsite.fromJson(postdeposoitData!));
-        } else {
-          // Handle null or invalid profile data
-          print("Profile ${_PostDepositedata}");
-        }
-      });
-    } catch (error) {
-      // Handle error if any
-      print("Error fetching profile data: $error");
-    }
-  }
+  //       if (postdepositData != null && postdepositData is String) {
+  //         print("printing the poostdepositevalueddddd${postdepositData}");
+  //          List<dynamic> postdeposoitData = json.decode(postdepositData!);
+  //         // _PostDepositedata.add(PostDepsite.fromJson(postdeposoitData!));
+  //       } else {
+  //         // Handle null or invalid profile data
+  //         print("Profile ${_PostDepositedata}");
+  //       }
+  //     });
+  //   } catch (error) {
+  //     // Handle error if any
+  //     print("Error fetching profile data: $error");
+  //   }
+  // }
 
   List<PostDepsite> _PostDepositedata = [];
 
@@ -126,16 +127,18 @@ class LoanStateProvider with ChangeNotifier {
  
 
   depositAccount(BuildContext context) async {
-    print("printing the valuee: $_profiledata");
-    print("k xaxadost${ProfileDatas}");
+    
+    
     final authServices = ApiBaseHelper();
+     DatabaseHelper dbHelper = DatabaseHelper.instance;
 
     loadingAuth = true;
     notifyListeners();
+    
 
     var body = {
-      "entries": [
-        {
+     
+        
           "BRANCHCODE":
            ProfileDatas.isEmpty ?? true
               ? ""
@@ -153,10 +156,11 @@ class LoanStateProvider with ChangeNotifier {
           "tran_date_bs": trandatebs.text,
           "CUSTOMERNAME": name.text,
           "DEPOSIT": amount.text,
-        }
-      ]
+        
+      
     };
-
+  var entry = Entries.fromJson(body);
+ await DatabaseHelper.instance.newsavingcollection(entry);
 
     String bodyJson = jsonEncode(body);
     Preference.storedepositaccount(bodyJson);

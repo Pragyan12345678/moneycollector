@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+
 import 'package:moneycollection/modules/splashScreen/splashscreen.dart';
 import 'package:moneycollection/provider/app_provider.dart';
+import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:device_preview/device_preview.dart';
 
 void main()async {
-   WidgetsFlutterBinding.ensureInitialized();
-  var directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
-// Hive. registerAdapter(PostLoan());
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await requestStoragePermission();
+    await DatabaseHelper.instance.initDatabase();
   runApp(
-    
      DevicePreview(
-      enabled: true, // This will enable device preview mode
+      enabled: true, 
       builder: (context) => const MyApp(),));
 }
-
+Future<void> requestStoragePermission() async {
+  PermissionStatus status = await Permission.storage.status;
+  if (!status.isGranted) {
+    status = await Permission.storage.request();
+  }
+  if (!status.isGranted) {
+    // Handle permission denial
+    // You can show a dialog or disable functionality that requires storage access
+  }
+}
 class MyApp extends StatelessWidget {
   const MyApp({Key? key});
 
