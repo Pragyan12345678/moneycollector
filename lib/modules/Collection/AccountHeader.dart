@@ -96,7 +96,13 @@ class _AccountCellState extends State<AccountCell> {
       flex: 1,
       child: Container(
         height: 40.h,
-        color: Colors.white,
+        decoration: BoxDecoration(
+
+
+color: Colors.white,
+borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+        ),
+        
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

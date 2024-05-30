@@ -10,6 +10,7 @@ class AppImages {
   static const man = 'assets/icons/man.png';
   static const send = 'assets/icons/send.png';
   static const request = 'assets/icons/request.png';
+  static const sync = 'assets/icons/sync.png';
 
   
 

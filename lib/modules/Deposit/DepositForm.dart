@@ -171,7 +171,7 @@ class _DepositFormState extends State<DepositForm> {
                                 String tranad = loan.trandatead.text;
                                 String tranbs = loan.trandatebs.text;
                                 String accountno = loan.accountnumber.text;
-                                    String name = loan.name.text;
+                                String name = loan.name.text;
                                 String amount = loan.amount.text;
                                 String depositby = loan.depositeby.text;
                                 String sourceIncome = loan.sourceIncome.text;

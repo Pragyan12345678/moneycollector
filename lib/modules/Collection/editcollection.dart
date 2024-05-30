@@ -69,7 +69,7 @@ class _CollectionFormState extends State<CollectionForm> {
                               controller: collectionn.trandatebs,
 
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             CalenderField(
@@ -78,7 +78,7 @@ class _CollectionFormState extends State<CollectionForm> {
                               controller: collectionn.trandatead,
 
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(

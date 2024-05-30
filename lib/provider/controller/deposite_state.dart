@@ -40,42 +40,32 @@ class LoanStateProvider with ChangeNotifier {
   bool? get isAuthenticated => _isLoggedIn;
   bool _isLoggedIn = false;
 
- 
- LoanStateProvider() {
+  LoanStateProvider() {
     // Call the method to load profile data when LoanStateProvider is initialized
-   try {
-    String? profile; 
-     Preference.getProfile().then((result){
-      profile = result;
-   
-    if (profile != null && profile is String) {
-      print("printing the yoyoovalueddddd${profile}");
-      Map<String, dynamic> profileData = json.decode(profile!);
-      _profiledata.add(ProfileData.fromJson(profileData));
-    } else {
-      // Handle null or invalid profile data
-      print("Profile ${_profiledata}");
+    try {
+      String? profile;
+      Preference.getProfile().then((result) {
+        profile = result;
+
+        if (profile != null && profile is String) {
+          print("printing the yoyoovalueddddd${profile}");
+          Map<String, dynamic> profileData = json.decode(profile!);
+          _profiledata.add(ProfileData.fromJson(profileData));
+        } else {
+          // Handle null or invalid profile data
+          print("Profile ${_profiledata}");
+        }
+      });
+    } catch (error) {
+      // Handle error if any
+      print("Error fetching profile data: $error");
     }
-     });
-  } catch (error) {
-    // Handle error if any
-    print("Error fetching profile data: $error");
-  }
     //  PostDeposit();
   }
-
-
 
   List<ProfileData> _profiledata = [];
 
   List<ProfileData> get ProfileDatas => _profiledata;
-
-
-
-
-
-
-
 
   // PostDeposit() {
   //   try {
@@ -102,69 +92,56 @@ class LoanStateProvider with ChangeNotifier {
 
   List<PostDepsite> get postdepsit => _PostDepositedata;
 
+  ProfileDataProvider() {
+    try {
+      String? profile;
+      Preference.getProfile().then((result) {
+        profile = result;
 
-  ProfileDataProvider()  {
-  try {
-    String? profile; 
-     Preference.getProfile().then((result){
-      profile = result;
-   
-    if (profile != null && profile is String) {
-      print("printing the valueddddd${profile}");
-      Map<String, dynamic> profileData = json.decode(profile!);
-      _profiledata.add(ProfileData.fromJson(profileData));
-    } else {
-      // Handle null or invalid profile data
-      print("Profile ${_profiledata}");
+        if (profile != null && profile is String) {
+          print("printing the valueddddd${profile}");
+          Map<String, dynamic> profileData = json.decode(profile!);
+          _profiledata.add(ProfileData.fromJson(profileData));
+        } else {
+          // Handle null or invalid profile data
+          print("Profile ${_profiledata}");
+        }
+      });
+    } catch (error) {
+      // Handle error if any
+      print("Error fetching profile data: $error");
     }
-     });
-  } catch (error) {
-    // Handle error if any
-    print("Error fetching profile data: $error");
   }
-}
-
- 
 
   depositAccount(BuildContext context) async {
-    
-    
     final authServices = ApiBaseHelper();
-     DatabaseHelper dbHelper = DatabaseHelper.instance;
+    DatabaseHelper dbHelper = DatabaseHelper.instance;
 
     loadingAuth = true;
     notifyListeners();
-    
 
     var body = {
-     
-        
-          "BRANCHCODE":
-           ProfileDatas.isEmpty ?? true
-              ? ""
-              : "${ProfileDatas.first.branchCode}",
-          "ACCOUNT":
-         
-           ProfileDatas.isEmpty ?? true
-              ? ""
-              : "${ProfileDatas.first.branchCode}-${accountnumber.text}",
-          "CUSTID": ProfileDatas.isEmpty ?? true
-              ? ""
-              : "${ProfileDatas.first.branchCode}-${clientid.text}",
-          "DEPOSITCODE": depositecode.text,
-          "tran_date_ad": trandatead.text,
-          "tran_date_bs": trandatebs.text,
-          "CUSTOMERNAME": name.text,
-          "DEPOSIT": amount.text,
-        
-      
+      "BRANCHCODE": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}",
+      "ACCOUNT": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}-${accountnumber.text}",
+      "CUSTID": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}-${clientid.text}",
+      "DEPOSITCODE": depositecode.text,
+      "tran_date_ad": trandatead.text,
+      "tran_date_bs": trandatebs.text,
+      "CUSTOMERNAME": name.text,
+      "DEPOSIT": amount.text,
     };
-  var entry = Entries.fromJson(body);
- await DatabaseHelper.instance.newsavingcollection(entry);
+    var entry = Entries.fromJson(body);
+    await DatabaseHelper.instance.newsavingcollection(entry);
 
-    String bodyJson = jsonEncode(body);
-    Preference.storedepositaccount(bodyJson);
-    print("printingstore postdata ${bodyJson}");
+    // String bodyJson = jsonEncode(body);
+    // Preference.storedepositaccount(bodyJson);
+    // print("printingstore postdata ${bodyJson}");
     bool online = true;
     List<Map<String, dynamic>> _getDepositeaccount = [body];
 
@@ -226,27 +203,46 @@ class LoanStateProvider with ChangeNotifier {
     loadingAuth = true;
     notifyListeners();
 
-    var body = {
-      "entries": [
-        {
-          "BRANCHCODE": ProfileDatas.isEmpty ?? true
-              ? ""
-              : "${ProfileDatas.first.branchCode}",
-          "ACCOUNT":
-              "${ProfileDatas.first.branchCode}-${loanaccountnumber.text}",
-          "CUSTID": "${ProfileDatas.first.branchCode}-${loanclientid.text}",
-          "DEPOSITCODE": loandepositecode.text,
-          "tran_date_ad": loantrandatead.text,
-          "tran_date_bs": loantrandatebs.text,
-          "CUSTOMERNAME": loanname.text,
-          "DEPOSIT": loanamount.text,
-        }
-      ]
-    };
-    String bodyJson = jsonEncode(body);
 
-    Preference.storepostloan(bodyJson);
-    print("printingstore postdata ${bodyJson}");
+     var body = {
+      "BRANCHCODE": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}",
+      "ACCOUNT": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}-${loanaccountnumber.text}",
+      "CUSTID": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}-${loanclientid.text}",
+      "DEPOSITCODE": loandepositecode.text,
+      "tran_date_ad": loantrandatead.text,
+      "tran_date_bs": loantrandatebs.text,
+      "CUSTOMERNAME": loanname.text,
+      "DEPOSIT": loanamount.text,
+    };
+   var entry = Entries.fromJson(body);
+    await DatabaseHelper.instance.newloancollection(entry);
+    // var body = {
+    //   "entries": [
+    //     {
+    //       "BRANCHCODE": ProfileDatas.isEmpty ?? true
+    //           ? ""
+    //           : "${ProfileDatas.first.branchCode}",
+    //       "ACCOUNT":
+    //           "${ProfileDatas.first.branchCode}-${loanaccountnumber.text}",
+    //       "CUSTID": "${ProfileDatas.first.branchCode}-${loanclientid.text}",
+    //       "DEPOSITCODE": loandepositecode.text,
+    //       "tran_date_ad": loantrandatead.text,
+    //       "tran_date_bs": loantrandatebs.text,
+    //       "CUSTOMERNAME": loanname.text,
+    //       "DEPOSIT": loanamount.text,
+    //     }
+    //   ]
+    // };
+    // String bodyJson = jsonEncode(body);
+
+    // Preference.storepostloan(bodyJson);
+    // print("printingstore postdata ${bodyJson}");
 
     bool online = true;
     List<Map<String, dynamic>> _getloanaccount = [body];

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/Nodata.dart';
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/modules/Collection/AccountHeader.dart';
 import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
 import 'package:moneycollection/recycle/DepositTable.dart';
@@ -43,7 +44,7 @@ class _DepositListState extends State<DepositList> {
               child: Stack(
                 children: [
                   Container(
-                    height: 120.h,
+                    height: 170.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5.r), bottomRight: Radius.circular(5.r)),
                       color: AppColors.primaryBlue,
@@ -60,16 +61,44 @@ class _DepositListState extends State<DepositList> {
                         child: Nodata(),
                       )
                     :
+                     Padding(
+                       padding: const EdgeInsets.only(top:50.0, left: 270.0,right: 8),
+                       child: Container(
+                                  height: 45,
+                                   width: 100,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(255, 129, 163, 130),
+                                    borderRadius: BorderRadius.circular(
+                                      5),
+                                     
+                                   
+                                  ),
+                                   child : Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Container(
+                                        height :20,
+                                        width: 20,
+                                        child: Image.asset(AppImages.sync)),
+                                        Text("Sync", style: TextStyle(
+                                          fontSize: 18, fontWeight:FontWeight.w500,
+                                        ),)
+                                        
+                                    ],
+                                   )
+                                ),
+                     ),
                   Padding(
-                    padding: EdgeInsets.only(top: 70.h, right: 10, left: 10),
+                    padding: EdgeInsets.only(top: 90.h, right: 10, left: 10),
                     child: Container(
                       height: 650,
                       decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       child:Column(
                             children: [
+                             
                               AccountTableHeader(),
                               SizedBox(height: 500, child: DepositData()),
                               // LoanTable()),

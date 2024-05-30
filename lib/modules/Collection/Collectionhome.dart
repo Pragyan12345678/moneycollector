@@ -1,12 +1,11 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/Model/DepositAccounts.dart';
+import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/Nodata.dart';
 import 'package:moneycollection/modules/Collection/AccountHeader.dart';
-import 'package:moneycollection/modules/Collection/CustomTable.dart';
 import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
-import 'package:moneycollection/modules/Collection/editcollection.dart';
 import 'package:moneycollection/modules/Collection/table.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
@@ -15,6 +14,7 @@ import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
 import 'package:moneycollection/modules/Loan/LoanDataTable.dart';
 
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
 class Collectionsheets extends StatefulWidget {
@@ -26,14 +26,23 @@ class Collectionsheets extends StatefulWidget {
 }
 
 class _CollectionsheetsState extends State<Collectionsheets> {
-   // Track the selected index
+  List<Entries> savingCollections = [];
+    List<Entries> loanCollections = [];
+  List<DepositAccounts> accountDepositCollections = [];
+  List<DepositAccounts> accountLoanCollections = [];
+  // Track the selected index
 
   @override
   void initState() {
     super.initState();
-    // Fetch deposit accounts data during initialization
-    Provider.of<DepositAccountsProvider>(context, listen: false)
-        .fetchDepositAccounts();
+
+    Provider.of<DepositAccountsProvider>(context, listen: false);
+
+    _loadSavingCollections();
+    _loadDepositAccountCollections();
+    _loadLoanAccountCollections();
+    _loadLoanCollections();
+    
   }
 
   int _currentIndex = 0;
@@ -41,6 +50,37 @@ class _CollectionsheetsState extends State<Collectionsheets> {
   void _changePage(int index) {
     setState(() {
       _currentIndex = index;
+    });
+  }
+
+  Future<void> _loadSavingCollections() async {
+    List<Entries> collections =
+        await DatabaseHelper.instance.getAllgetsavingcollection();
+    setState(() {
+      savingCollections = collections;
+    });
+  }
+  Future<void> _loadLoanCollections() async {
+    List<Entries> loancollections =
+        await DatabaseHelper.instance.getAllgetloancollection();
+    setState(() {
+      loanCollections = loancollections;
+    });
+  }
+
+  Future<void> _loadDepositAccountCollections() async {
+    List<DepositAccounts> depositaccountcollections =
+        await DatabaseHelper.instance.getAlldepositeaccount("DEPOSIT");
+    setState(() {
+      accountDepositCollections = depositaccountcollections;
+    });
+  }
+
+  Future<void> _loadLoanAccountCollections() async {
+    List<DepositAccounts> loanaccountcollections =
+        await DatabaseHelper.instance.getAlldepositeaccount("LOAN");
+    setState(() {
+      accountLoanCollections = loanaccountcollections;
     });
   }
 
@@ -81,36 +121,35 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 5.0, left: 10, right: 10, bottom: 5),
+                          padding: const EdgeInsets.only(
+                              top: 5.0, left: 10, right: 10, bottom: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               GestureDetector(
                                 onTap: () {
                                   _changePage(0);
+                                  _loadSavingCollections();
                                 },
-                                child: 
-                                 CustomCollectionsheet(
+                                child: CustomCollectionsheet(
                                   imagePath: AppImages.saving,
                                   text: "Saving sheet",
-                                                    isSelected: _currentIndex == 0, // Pass selection state
-
-                                  
+                                  isSelected: _currentIndex ==
+                                      0, // Pass selection state
                                 ),
                               ),
-                               const SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
-                              
                               GestureDetector(
                                 onTap: () {
                                   _changePage(1);
                                 },
-                                child:  CustomCollectionsheet(
+                                child: CustomCollectionsheet(
                                   imagePath: AppImages.moneycollection,
                                   text: "Saving Accounts",
-                                                    isSelected: _currentIndex == 1, // Pass selection state
-
+                                  isSelected: _currentIndex ==
+                                      1, // Pass selection state
                                 ),
                               ),
                               const SizedBox(
@@ -119,29 +158,28 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                               GestureDetector(
                                 onTap: () {
                                   _changePage(2);
+                                   _loadLoanCollections();
                                 },
                                 child: CustomCollectionsheet(
                                   imagePath: AppImages.loan,
                                   text: "Loan sheet",
-                                                    isSelected: _currentIndex == 2, // Pass selection state
-
+                                  isSelected: _currentIndex ==
+                                      2, // Pass selection state
                                 ),
-                               
                               ),
-                               const SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               GestureDetector(
                                 onTap: () {
                                   _changePage(3);
                                 },
-                                child:  CustomCollectionsheet(
+                                child: CustomCollectionsheet(
                                   imagePath: AppImages.deposit,
                                   text: "Loan Account",
-                                                    isSelected: _currentIndex == 3, // Pass selection state
-
+                                  isSelected: _currentIndex ==
+                                      3, // Pass selection state
                                 ),
-                              
                               ),
                             ],
                           ),
@@ -150,18 +188,6 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                     ),
                     SizedBox(height: 20.h),
                     _buildPageBasedOnIndex(),
-                    // IndexedStack(
-                    //   index: _currentIndex,
-                    //   children: const [
-                    //     Collection(),
-                    //     SavingAccount(),
-                    //      LoanCollection(),
-                         
-                    //     LoanAccount(),
-                       
-
-                    //   ],
-                    // ),
                   ],
                 ),
               ),
@@ -172,31 +198,34 @@ class _CollectionsheetsState extends State<Collectionsheets> {
     );
   }
 
-
-   Widget _buildPageBasedOnIndex() {
+  Widget _buildPageBasedOnIndex() {
     switch (_currentIndex) {
       case 0:
-        return Collection();
+        return Collection(
+          savingCollections: savingCollections,
+        );
       case 1:
-        return SavingAccount();
+        return SavingAccount(
+          depositaccountcollections: accountDepositCollections,
+        );
       case 2:
         return LoanCollection();
       case 3:
-        return LoanAccount();
+        return LoanAccount(
+          loanaccountcollections: accountLoanCollections,
+        );
       default:
-        return SizedBox.shrink(); // Return an empty SizedBox as default
+        return SizedBox.shrink();
     }
   }
-  
- 
 }
 
 class CustomCollectionsheet extends StatelessWidget {
   final String imagePath;
   final String text;
-  final Color selectedColor; // New property to manage selected color
+  final Color selectedColor;
   final bool isSelected;
-  
+
   const CustomCollectionsheet({
     super.key,
     required this.imagePath,
@@ -210,8 +239,7 @@ class CustomCollectionsheet extends StatelessWidget {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-       color: Colors.white,
-          borderRadius: BorderRadius.circular(5)),
+          color: Colors.white, borderRadius: BorderRadius.circular(5)),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Row(
@@ -220,7 +248,10 @@ class CustomCollectionsheet extends StatelessWidget {
               imagePath,
               width: 20,
               height: 20,
-                      color: isSelected ? AppColors.primaryBlue : Colors.black, // Use isSelected to determine the background color
+              color: isSelected
+                  ? AppColors.primaryBlue
+                  : Colors
+                      .black, // Use isSelected to determine the background color
 
               fit: BoxFit.fill,
             ),
@@ -231,23 +262,22 @@ class CustomCollectionsheet extends StatelessWidget {
               text,
               style: TextStyle(
                   fontSize: 12.sp,
-                  color: isSelected ? AppColors.primaryBlue : Colors.black, 
+                  color: isSelected ? AppColors.primaryBlue : Colors.black,
                   decoration: TextDecoration.none,
                   fontWeight: FontWeight.w500),
             )
           ],
         ),
       ),
-
-  
     );
   }
 }
 
-
 class Collection extends StatelessWidget {
+  final List<Entries> savingCollections;
   const Collection({
     super.key,
+    required this.savingCollections,
   });
 
   @override
@@ -275,20 +305,14 @@ class Collection extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-
-              loanacc.depositAccounts.isEmpty? Nodata()
-              :Column(
-                children: [
-                  TableHeaderRow(),
-                  Container(
-                    height: 300,
-                    child: SavingCollection()),
-
-                ],
-              )
-
-
-              
+              savingCollections.isEmpty
+                  ? const Nodata()
+                  : Column(
+                      children: [
+                        TableHeaderRow(),
+                        SizedBox(height: 900, child: SavingCollection()),
+                      ],
+                    )
             ],
           ),
         ),
@@ -296,7 +320,6 @@ class Collection extends StatelessWidget {
     });
   }
 }
-
 
 class LoanCollection extends StatelessWidget {
   const LoanCollection({
@@ -328,17 +351,14 @@ class LoanCollection extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-            loanacc.depositAccountsFilteredByDeposit.isEmpty? Nodata()
-              :Column(
-                children: [
-                  AccountTableHeader(),
-                 SizedBox(height: 800, child: LoanData()),
-
-                ],
-              )
-
-
-              
+              loanacc.depositAccountsFilteredByDeposit.isEmpty
+                  ? Nodata()
+                  : Column(
+                      children: [
+                        AccountTableHeader(),
+                        SizedBox(height: 800, child: LoanData()),
+                      ],
+                    )
             ],
           ),
         ),
@@ -346,9 +366,12 @@ class LoanCollection extends StatelessWidget {
     });
   }
 }
+
 class SavingAccount extends StatelessWidget {
+  final List<DepositAccounts> depositaccountcollections;
   const SavingAccount({
     super.key,
+    required this.depositaccountcollections,
   });
 
   @override
@@ -378,16 +401,14 @@ class SavingAccount extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-             loanacc.depositAccounts.isEmpty? Nodata()
-              :Column(
-                children: [
-                  AccountTableHeader(),
-                 SizedBox(height: 800, child: DepositData()),
-
-                ],
-              )
-
-
+              depositaccountcollections.isEmpty
+                  ? Nodata()
+                  : Column(
+                      children: [
+                        AccountTableHeader(),
+                        SizedBox(height: 800, child: DepositData()),
+                      ],
+                    )
             ],
           ),
         ),
@@ -397,8 +418,10 @@ class SavingAccount extends StatelessWidget {
 }
 
 class LoanAccount extends StatelessWidget {
+  final List<DepositAccounts> loanaccountcollections;
   const LoanAccount({
     super.key,
+    required this.loanaccountcollections,
   });
 
   @override
@@ -426,105 +449,18 @@ class LoanAccount extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-               loanacc.depositAccountsFilteredByDeposit.isEmpty? Nodata()
-              :Column(
-                children: [
-                  AccountTableHeader(),
-                 SizedBox(height: 800, child: LoanData()),
-
-                ],
-              )
-
-
-           
+              loanaccountcollections.isEmpty
+                  ? const Nodata()
+                  : Column(
+                      children: [
+                        AccountTableHeader(),
+                        SizedBox(height: 800, child: LoanData()),
+                      ],
+                    )
             ],
           ),
         ),
       );
     });
   }
-}
-
-Widget _buildTableHeaderCell(String text) {
-  return TableCell(
-    child: Container(
-      padding: EdgeInsets.all(12.0),
-      // color: Colors.blueAccent,
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            // color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-// Helper function to create a styled TableCell
-Widget _buildTableCell(String text) {
-  return TableCell(
-    child: Container(
-      padding: EdgeInsets.all(8.0),
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-              color: Colors.black87,
-              fontSize: 10.sp,
-              fontWeight: FontWeight.w400),
-        ),
-      ),
-    ),
-  );
-}
-
-// Widget _buildTableCellAction() {
-//   return TableCell(
-//     child: Container(
-//         // height: 30,
-//         // width: 30,
-
-//         child: Center(
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Column(
-//           children: [
-//             GestureDetector(
-//               onTap: () {},
-//               child: SizedBox(
-//                   height: 20,
-//                   width: 20,
-//                   child: Image.asset(
-//                     AppImages.edit,
-//                     color: Colors.green,
-//                   )),
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             GestureDetector(
-//               onTap: () {},
-//               child: SizedBox(
-//                   height: 20,
-//                   width: 20,
-//                   child: Image.asset(
-//                     AppImages.remove,
-//                     color: Colors.red,
-//                   )),
-//             ),
-//           ],
-//         ),
-//       ),
-//     )),
-//   );
-// }
-
-// Helper function to create a TableRow with given cells
-TableRow _buildTableRow(List<Widget> cells) {
-  return TableRow(
-    children: cells,
-  );
 }

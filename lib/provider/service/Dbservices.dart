@@ -33,52 +33,60 @@ static Database? _database;
       onCreate: ( Database db, int version)async{
        await db.execute("CREATE TABLE POSTSAVINGCOLLECTION("
        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-       "BRANCHCODE TEXT,"
-       "ACCOUNT TEXT,"
-       "CUSTID TEXT,"
-       "DEPOSITCODE TEXT,"
-       "tran_date_ad TEXT,"
-       "tran_date_bs TEXT,"
-       "CUSTOMERNAME TEXT,"
-       "DEPOSIT TEXT"
+       "BRANCHCODE TEXT NOT NULL,"
+       "ACCOUNT TEXT NOT NULL,"
+       "CUSTID TEXT NOT NULL,"
+       "DEPOSITCODE TEXT NOT NULL,"
+       "tran_date_ad TEXT NOT NULL,"
+       "tran_date_bs TEXT NOT NULL,"
+       "CUSTOMERNAME TEXT NOT NULL,"
+       "DEPOSIT TEXT NOT NULL"
        ")");
          await db.execute("CREATE TABLE POSTLOANCOLLECTION("
        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-       "BRANCHCODE TEXT,"
-       "ACCOUNT TEXT,"
-       "CUSTID TEXT,"
-       "DEPOSITCODE TEXT,"
-       "tran_date_ad TEXT,"
-       "tran_date_bs TEXT,"
-       "CUSTOMERNAME TEXT,"
-       "DEPOSIT TEXT"
+       "BRANCHCODE TEXT NOT NULL,"
+       "ACCOUNT TEXT NOT NULL,"
+       "CUSTID TEXT NOT NULL,"
+       "DEPOSITCODE TEXT NOT NULL,"
+       "tran_date_ad TEXT NOT NULL,"
+       "tran_date_bs TEXT NOT NULL,"
+       "CUSTOMERNAME TEXT NOT NULL,"
+       "DEPOSIT TEXT NOT NULL"
        ")");
       await db.execute("CREATE TABLE ACCOUNTS("
        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-       "cUSTID TEXT,"
-       "cUSTOMERNAME TEXT,"
-       "DEPOSITCODE TEXT,"
-       "mOBILE TEXT,"
-       "aCCOUNT TEXT,"
-       "bAL TEXT,"
-       "dEPOSITTYPE TEXT"
-       "dEPOSITCODE TEXT"
-       "tYPE TEXT"
+       "CUSTID TEXT NOT NULL,"
+       "CUSTOMERNAME TEXT NOT NULL,"
+       "MOBILE TEXT NOT NULL,"
+       "ACCOUNT TEXT NOT NULL,"
+       "BAL INTEGER NOT NULL,"
+       "DEPOSITTYPE TEXT NOT NULL,"
+       "DEPOSITCODE TEXT NOT NULL,"
+       "TYPE TEXT NOT NULL"
        ")");
       },
     );
   }
 ///POST SAVING COLLECTION
-   newsavingcollection(Entries newEntries) async {
-    final db = await database;
-    var res = await db.insert("POSTSAVINGCOLLECTION", newEntries.toJson());
-    print("Inserted data: $newEntries");
-    var insertedId = res as int; // Assuming the insert operation returns the ID of the inserted row
-  var insertedData = await getsavingcollection(insertedId);
-  print("Retrieved data: $insertedData");
-    return res;
-  }
+newsavingcollection(Entries newEntries) async {
+  final db = await database;
+  var res = await db.insert("POSTSAVINGCOLLECTION", newEntries.toJson());
 
+  if (res != -1) {
+    print("Data inserted successfully with ID: $res");
+     var insertedData = await db.query("POSTSAVINGCOLLECTION", where: "id = ?", whereArgs: [res]);
+    if (insertedData.isNotEmpty) {
+      print("Inserted Data: ${insertedData.first}");
+    
+    } else {
+      print("Failed to fetch inserted data");
+    }
+  } else {
+    print("Failed to insert data");
+  }
+  
+  return res;
+}
   getsavingcollection(int id) async {
     final db = await database;
     var res =await  db.query("POSTSAVINGCOLLECTION", where: "id = ?", whereArgs: [id]);
@@ -136,26 +144,46 @@ deleteloancollection(int id) async {
     db.delete("POSTLOANCOLLECTION", where: "id = ?", whereArgs: [id]);
   }
 
-    newaccount(DepositAccounts newAccount) async {
-    final db = await database;
-    var res = await db.insert("ACCOUNTS", newAccount.toJson());
-    return res;
+//account
+newaccount(DepositAccounts newAccount) async {
+  final db = await database;
+  var res = await db.insert("ACCOUNTS", newAccount.toJson());
+  if (res != -1) {
+    print("Data inserted successfully with ID: $res");
+    // Fetch the inserted data
+    var insertedData = await db.query("ACCOUNTS", where: "id = ?", whereArgs: [res]);
+    if (insertedData.isNotEmpty) {
+      print("Inserted Data: ${insertedData.first}");
+    
+    } else {
+      print("Failed to fetch inserted data");
+    }
+  } else {
+    print("Failed to insert data");
   }
-
+  return res;
+}
   getaccount(int id) async {
     final db = await database;
     var res =await  db.query("ACCOUNTS", where: "id = ?", whereArgs: [id]);
     return res.isNotEmpty ? DepositAccounts.fromJson(res.first) : Null ;
   }
 
-  getAllgetaccount() async {
-    final db = await database;
-    var res = await db.query("ACCOUNTS");
-    List<DepositAccounts> list =
-        res.isNotEmpty ? res.map((c) => DepositAccounts.fromJson(c)).toList() : [];
-    return list;
-  }
-
+ Future<List<DepositAccounts>> getAllgetaccount() async { 
+  final db = await database;
+  var res = await db.query("ACCOUNTS");
+  print(res);
+  List<DepositAccounts> list = 
+  res.isNotEmpty ? res.map((c) => DepositAccounts.fromJson(c)).toList() : [];
+  return list;
+}
+  Future<List<DepositAccounts>>getAlldepositeaccount(String type) async {
+  final db = await database;
+  var res = await db.query("ACCOUNTS", where: "TYPE = ?", whereArgs: [type]);
+  List<DepositAccounts> list = 
+  res.isNotEmpty ? res.map((c) => DepositAccounts.fromJson(c)).toList() : [];
+  return list;
+}
   updateaccount(DepositAccounts newAcccount) async {
     final db = await database;
     var res = await db.update("ACCOUNTS", newAcccount.toJson(),

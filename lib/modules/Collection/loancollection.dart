@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moneycollection/Model/DepositAccounts.dart';
 import 'package:moneycollection/Model/Postdeposite.dart';
 
 import 'package:moneycollection/constant/user_sharepreference.dart';
@@ -8,28 +9,33 @@ import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
-class SavingCollection extends StatefulWidget {
+class LoanCollection extends StatefulWidget {
   @override
-  State<SavingCollection> createState() => _SavingCollectionState();
+  State<LoanCollection> createState() => _LoanCollectionState();
 }
 
-class _SavingCollectionState extends State<SavingCollection> {
-    List<Entries> savingCollections = [];
+class _LoanCollectionState extends State<LoanCollection> {
+    
    String? postLoanData;
 
-  @override
+     List<Entries> loancollectionsheet = [];
+
+
+    @override
   void initState() {
     super.initState();
 
-    _loadSavingCollections();
+    _loadLoanCollections();
   }
-    Future<void> _loadSavingCollections() async {
+    Future<void> _loadLoanCollections() async {
       
-    List<Entries> collections = await DatabaseHelper.instance.getAllgetsavingcollection();
+    List<Entries> loancollections = await DatabaseHelper.instance.getAllgetloancollection();
+    
     setState(() {
-      savingCollections = collections;
+      loancollectionsheet = loancollections;
     });
   }
+
 
 // LoanStateProvider() {
   @override
@@ -42,18 +48,17 @@ class _SavingCollectionState extends State<SavingCollection> {
       constraints: BoxConstraints.expand(), 
         child: ListView.builder(
           itemCount:
-           savingCollections.length ,
+           loancollectionsheet.length ,
           itemBuilder: (context, index) {
             // print("print postcollection  ${postdeposite.postdepsit[index].entries!.first.cUSTOMERNAME}",);
             return TableBodyRow(
-              
               indexxx:index,
          
               sn: "${index + 1}",
-               customer: "${savingCollections[index].cUSTOMERNAME}",
-               account: "${savingCollections[index].aCCOUNT}",
-               amount: "${savingCollections[index].dEPOSIT}",
-               isSaving: true,
+               customer: "${loancollectionsheet[index].cUSTOMERNAME}",
+               account: "${loancollectionsheet[index].aCCOUNT}",
+               amount: "${loancollectionsheet[index].dEPOSIT}",
+               isSaving: false,
                
               // customer: "${loanacc.depositAccounts.depos}",
               // customer: "${loanacc.depositAccounts[index].cUSTOMERNAME}",

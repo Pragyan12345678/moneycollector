@@ -1,18 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:moneycollection/Model/DepositAccounts.dart';
 import 'package:moneycollection/Model/PostLoan.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/modules/Collection/AccountBody.dart';
 import 'package:moneycollection/modules/Collection/CustomTable.dart';
 import 'package:moneycollection/modules/Loan/loanForm.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
-class LoanData extends StatelessWidget {
+class LoanData extends StatefulWidget {
+  @override
+  State<LoanData> createState() => _LoanDataState();
+}
+
+class _LoanDataState extends State<LoanData> {
    String? postLoanData;
 
 
+    List<DepositAccounts> loanAccountsheet = [];
 
-  
+
+    @override
+  void initState() {
+    super.initState();
+
+    _loadLoanAccountCollections();
+  }
+    Future<void> _loadLoanAccountCollections() async {
+      
+    List<DepositAccounts> loancollections = await DatabaseHelper.instance.getAlldepositeaccount(
+      "LOAN"
+    );
+    
+    setState(() {
+      loanAccountsheet = loancollections;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +46,7 @@ class LoanData extends StatelessWidget {
       constraints: BoxConstraints.expand(), 
         child: ListView.builder(
           itemCount:
-           loanacc.depositAccountsFilteredByDeposit.length,
+           loanAccountsheet.length,
           itemBuilder: (context, index) {
             return AccountTableBodyRow(
               ontap: (){
@@ -30,10 +54,10 @@ class LoanData extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => LoanForm(
         index: index,
-      accountno: "${loanacc.depositAccountsFilteredByDeposit[index].aCCOUNT}",
-      clientid: "${loanacc.depositAccountsFilteredByDeposit[index].cUSTID}",
-      depositecode: "${loanacc.depositAccountsFilteredByDeposit[index].dEPOSITCODE}",
-      name: "${loanacc.depositAccountsFilteredByDeposit[index].cUSTOMERNAME}",
+      accountno: "${loanAccountsheet[index].aCCOUNT}",
+      clientid: "${loanAccountsheet[index].cUSTID}",
+      depositecode: "${loanAccountsheet[index].dEPOSITCODE}",
+      name: "${loanAccountsheet[index].cUSTOMERNAME}",
      
 
 
@@ -44,12 +68,12 @@ class LoanData extends StatelessWidget {
               },
 
               indexxx:index,
-              accountno: "${loanacc.depositAccountsFilteredByDeposit[index].aCCOUNT}",
-              type: "${loanacc.depositAccountsFilteredByDeposit[index].dEPOSITTYPE}",
-              id: "${loanacc.depositAccountsFilteredByDeposit[index].cUSTID}",
-              name: "${loanacc.depositAccountsFilteredByDeposit[index].cUSTOMERNAME}",
-              mobile: "${loanacc.depositAccountsFilteredByDeposit[index].mOBILE}",
-              depositcode: "${loanacc.depositAccountsFilteredByDeposit[index].dEPOSITCODE}",
+              accountno: "${loanAccountsheet[index].aCCOUNT}",
+              type: "${loanAccountsheet[index].dEPOSITTYPE}",
+              id: "${loanAccountsheet[index].cUSTID}",
+              name: "${loanAccountsheet[index].cUSTOMERNAME}",
+              mobile: "${loanAccountsheet[index].mOBILE}",
+              depositcode: "${loanAccountsheet[index].dEPOSITCODE}",
 
 
             );
