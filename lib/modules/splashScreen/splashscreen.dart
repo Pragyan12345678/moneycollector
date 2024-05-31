@@ -27,7 +27,7 @@ class _ViewSplashScreenState extends State<ViewSplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) =>  MainPage())
+              MaterialPageRoute(builder: (context) =>  const MainPage())
           
             );
     });

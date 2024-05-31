@@ -6,6 +6,7 @@ import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/constant/utils.dart';
+import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 import 'package:moneycollection/modules/Deposit/Deposite.dart';
 import 'package:moneycollection/modules/Loan/Loan.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
@@ -40,6 +41,8 @@ class LoanStateProvider with ChangeNotifier {
   bool? get isAuthenticated => _isLoggedIn;
   bool _isLoggedIn = false;
 
+
+
   LoanStateProvider() {
     // Call the method to load profile data when LoanStateProvider is initialized
     try {
@@ -48,7 +51,7 @@ class LoanStateProvider with ChangeNotifier {
         profile = result;
 
         if (profile != null && profile is String) {
-          print("printing the yoyoovalueddddd${profile}");
+          print("Deposit state: Profile get data from preference ${profile}");
           Map<String, dynamic> profileData = json.decode(profile!);
           _profiledata.add(ProfileData.fromJson(profileData));
         } else {
@@ -67,58 +70,17 @@ class LoanStateProvider with ChangeNotifier {
 
   List<ProfileData> get ProfileDatas => _profiledata;
 
-  // PostDeposit() {
-  //   try {
-  //     String? postdepositData;
-  //     Preference.getDepositeaccount().then((result) {
-  //       postdepositData = result;
+ 
 
-  //       if (postdepositData != null && postdepositData is String) {
-  //         print("printing the poostdepositevalueddddd${postdepositData}");
-  //          List<dynamic> postdeposoitData = json.decode(postdepositData!);
-  //         // _PostDepositedata.add(PostDepsite.fromJson(postdeposoitData!));
-  //       } else {
-  //         // Handle null or invalid profile data
-  //         print("Profile ${_PostDepositedata}");
-  //       }
-  //     });
-  //   } catch (error) {
-  //     // Handle error if any
-  //     print("Error fetching profile data: $error");
-  //   }
-  // }
 
-  List<PostDepsite> _PostDepositedata = [];
-
-  List<PostDepsite> get postdepsit => _PostDepositedata;
-
-  ProfileDataProvider() {
-    try {
-      String? profile;
-      Preference.getProfile().then((result) {
-        profile = result;
-
-        if (profile != null && profile is String) {
-          print("printing the valueddddd${profile}");
-          Map<String, dynamic> profileData = json.decode(profile!);
-          _profiledata.add(ProfileData.fromJson(profileData));
-        } else {
-          // Handle null or invalid profile data
-          print("Profile ${_profiledata}");
-        }
-      });
-    } catch (error) {
-      // Handle error if any
-      print("Error fetching profile data: $error");
-    }
-  }
-
-  depositAccount(BuildContext context) async {
+  Future<void>depositAccount(BuildContext context) async {
     final authServices = ApiBaseHelper();
+
     DatabaseHelper dbHelper = DatabaseHelper.instance;
 
     loadingAuth = true;
     notifyListeners();
+     List<Map<String, dynamic>> entriesList = [];
 
     var body = {
       "BRANCHCODE": ProfileDatas.isEmpty ?? true
@@ -139,17 +101,23 @@ class LoanStateProvider with ChangeNotifier {
     var entry = Entries.fromJson(body);
     await DatabaseHelper.instance.newsavingcollection(entry);
 
+
+
+
+    entriesList.add(body);
+    var data = {"entries":entriesList};
+
     // String bodyJson = jsonEncode(body);
     // Preference.storedepositaccount(bodyJson);
-    // print("printingstore postdata ${bodyJson}");
+    print("printingstore postdata ${data}");
     bool online = true;
-    List<Map<String, dynamic>> _getDepositeaccount = [body];
+    List<Map<String, dynamic>> _getDepositeaccount = [data];
 
-    print("collectisssonsheetbodys:${body}");
+    print("collectisssonsheetbodys:${data}");
     // online = false;
     var value = await authServices.postMethod(
         ApiUrl.collectionsheet,
-        jsonEncode(body),
+        jsonEncode(data),
         "73|16MKWGBV8Xctjzteu42C1f5vPn9Oyk35JzRm8q7Dd0d4fe39");
     print("tssshi body${value}");
     loadingAuth = false;
@@ -170,7 +138,7 @@ class LoanStateProvider with ChangeNotifier {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => DepositList(),
+              builder: (context) => const Collectionsheets(),
             ),
             (route) => false,
           );
@@ -197,7 +165,7 @@ class LoanStateProvider with ChangeNotifier {
   }
 
   ///post loan collection
-  loanAccount(BuildContext context) async {
+  Future<void>loanAccount(BuildContext context) async {
     final authServices = ApiBaseHelper();
 
     loadingAuth = true;

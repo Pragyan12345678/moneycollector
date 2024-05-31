@@ -14,15 +14,17 @@ import 'package:provider/provider.dart';
 
 class LoanForm extends StatefulWidget {
   final int index;
-     final String accountno;
-     final String clientid;
-      final String depositecode;
-      final String name;
-   LoanForm({
- 
-    
-
-    Key? key, required this.accountno, required this.clientid, required this.depositecode, required this.index, required this.name,
+  final String accountno;
+  final String clientid;
+  final String depositecode;
+  final String name;
+  LoanForm({
+    Key? key,
+    required this.accountno,
+    required this.clientid,
+    required this.depositecode,
+    required this.index,
+    required this.name,
     // required this.datas
   }) : super(key: key);
 
@@ -37,10 +39,10 @@ class _LoanFormState extends State<LoanForm> {
     return Consumer<LoanStateProvider>(builder: (context, loan, child) {
       return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
-              loan.accountnumber.text = widget.accountno.substring(7); 
-      loan.clientid.text = widget.clientid.substring(7);
-      loan.depositecode.text = widget.depositecode;
-      loan.name.text = widget.name;
+        loan.accountnumber.text = widget.accountno.substring(7);
+        loan.clientid.text = widget.clientid.substring(7);
+        loan.depositecode.text = widget.depositecode;
+        loan.name.text = widget.name;
         return SafeArea(
           child: Scaffold(
               body: SingleChildScrollView(
@@ -70,7 +72,8 @@ class _LoanFormState extends State<LoanForm> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: Offset(0, 2), // changes position of shadow
+                          offset:
+                              const Offset(0, 2), // changes position of shadow
                         ),
                       ],
                     ),
@@ -100,7 +103,7 @@ class _LoanFormState extends State<LoanForm> {
                             label: "Nmae",
                             controller: loan.loanname,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
@@ -114,8 +117,7 @@ class _LoanFormState extends State<LoanForm> {
                           ),
                           const SizedBox(height: 5),
                           AccountTextField(
-                              label:
-                                  widget.accountno,
+                              label: widget.accountno,
                               controller: loan.loanaccountnumber),
                           const SizedBox(height: 10),
                           Text(
@@ -129,8 +131,7 @@ class _LoanFormState extends State<LoanForm> {
                           ),
                           const SizedBox(height: 5),
                           AccountTextField(
-                              label:
-                                  widget.clientid,
+                              label: widget.clientid,
                               controller: loan.loanclientid),
                           const SizedBox(height: 10),
                           FormCustomTextField(
@@ -192,15 +193,7 @@ class _LoanFormState extends State<LoanForm> {
                                     depositcode.isNotEmpty ||
                                     depositby.isNotEmpty ||
                                     sourceIncome.isNotEmpty) {
-                                  // loan.loantrandatebs.text = "";
-                                  // loan.loantrandatebs.text == ""; kina value clear? submit garya paxi clear garnu parna Add ma clear garnu parne ho?  add garya pxai
-                                  // loan.loanaccountnumber.text == "";
-                                  // loan.loanamount.text == "";
-                                  // loan.loandepositeby.text == "";
-                                  // loan.loansourceIncome.text == "";
                                   loan.loanAccount(context);
-                                  // depositentries.add(DepositeEntries(tranad: tranad,tranbs: tranbs,accountno: accountno,amount: amount, depositby: depositby,sourceIncome: sourceIncome));
-                                  // ReadFromspDeposite();
                                 }
                               },
                               child: Container(

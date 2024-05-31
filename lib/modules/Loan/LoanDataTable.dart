@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneycollection/Model/DepositAccounts.dart';
-import 'package:moneycollection/Model/PostLoan.dart';
-import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/modules/Collection/AccountBody.dart';
-import 'package:moneycollection/modules/Collection/CustomTable.dart';
 import 'package:moneycollection/modules/Loan/loanForm.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
@@ -15,24 +12,21 @@ class LoanData extends StatefulWidget {
 }
 
 class _LoanDataState extends State<LoanData> {
-   String? postLoanData;
+  String? postLoanData;
 
+  List<DepositAccounts> loanAccountsheet = [];
 
-    List<DepositAccounts> loanAccountsheet = [];
-
-
-    @override
+  @override
   void initState() {
     super.initState();
 
     _loadLoanAccountCollections();
   }
-    Future<void> _loadLoanAccountCollections() async {
-      
-    List<DepositAccounts> loancollections = await DatabaseHelper.instance.getAlldepositeaccount(
-      "LOAN"
-    );
-    
+
+  Future<void> _loadLoanAccountCollections() async {
+    List<DepositAccounts> loancollections =
+        await DatabaseHelper.instance.getAlldepositeaccount("LOAN");
+
     setState(() {
       loanAccountsheet = loancollections;
     });
@@ -42,46 +36,37 @@ class _LoanDataState extends State<LoanData> {
   Widget build(BuildContext context) {
     return Consumer<DepositAccountsProvider>(
         builder: (context, loanacc, child) {
-    return Container(
-      constraints: BoxConstraints.expand(), 
+      return Container(
+        constraints: const BoxConstraints.expand(),
         child: ListView.builder(
-          itemCount:
-           loanAccountsheet.length,
+          itemCount: loanAccountsheet.length,
           itemBuilder: (context, index) {
             return AccountTableBodyRow(
-              ontap: (){
+              ontap: () {
                 Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoanForm(
-        index: index,
-      accountno: "${loanAccountsheet[index].aCCOUNT}",
-      clientid: "${loanAccountsheet[index].cUSTID}",
-      depositecode: "${loanAccountsheet[index].dEPOSITCODE}",
-      name: "${loanAccountsheet[index].cUSTOMERNAME}",
-     
-
-
-
-      )), // Replace EditCollection with the destination page
-    );
-
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoanForm(
+                            index: index,
+                            accountno: "${loanAccountsheet[index].aCCOUNT}",
+                            clientid: "${loanAccountsheet[index].cUSTID}",
+                            depositecode:
+                                "${loanAccountsheet[index].dEPOSITCODE}",
+                            name: "${loanAccountsheet[index].cUSTOMERNAME}",
+                          )),
+                );
               },
-
-              indexxx:index,
+              indexxx: index+1,
               accountno: "${loanAccountsheet[index].aCCOUNT}",
               type: "${loanAccountsheet[index].dEPOSITTYPE}",
               id: "${loanAccountsheet[index].cUSTID}",
               name: "${loanAccountsheet[index].cUSTOMERNAME}",
               mobile: "${loanAccountsheet[index].mOBILE}",
               depositcode: "${loanAccountsheet[index].dEPOSITCODE}",
-
-
             );
           },
         ),
-      
-    );
-  }
-   );
+      );
+    });
   }
 }

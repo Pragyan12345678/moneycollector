@@ -1,12 +1,8 @@
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:provider/provider.dart';
 
@@ -35,121 +31,112 @@ class _MyInformationState extends State<MyInformation> {
 
   @override
   Widget build(BuildContext context) {
-     return Consumer<ProfileDataProvider>(
-      builder: (context, profiledata, child) {
-
-         List<ProfileData> profileDatas = profiledata.ProfileDatas;
-         print("printing ttttis $profileDatas");
+    return Consumer<ProfileDataProvider>(
+        builder: (context, profiledata, child) {
+      List<ProfileData> profileDatas = profiledata.ProfileDatas;
+      print("printing ttttis $profileDatas");
 
       return SafeArea(
         child: Scaffold(
           backgroundColor: AppColors.greyColor,
-          body: Stack(children: [
-           
-             Container(
-                    height: 120.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(5.r),
-                          bottomRight: Radius.circular(5.r)),
-                      color: AppColors.primaryBlue,
-                    ),
-                  ),
-      Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
+          body: Stack(
             children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  size: 20,
-                  color: Colors.white,
+              Container(
+                height: 120.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(5.r),
+                      bottomRight: Radius.circular(5.r)),
+                  color: AppColors.primaryBlue,
                 ),
               ),
-             
-              Text(
-                "My Information", // Correcting string interpolation
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  color: Colors.white,
-                  decoration: TextDecoration.none,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          ),
-        ),
-                  //  const CustomAppBar(label: "My Information"),
-                  
-                  Padding(
-                    padding: const EdgeInsets.only(top:70.0,left: 10, right: 10),
-                    child: Container(
-                      height: 150.h,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5)),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        size: 20,
                         color: Colors.white,
-                         boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: Offset(0, 2), // changes position of shadow
-              ),
-            ],
-                      ),
-                      child:  Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InformationContent(
-                            name: "Name",
-                            label:  profileDatas.isEmpty
-                        ?""
-                        : "${profileDatas.first.firstName}"
-                            
-                            // profileDataaaaa
-                            
-                        
-                          ),
-          
-                           InformationContent(
-                            name: "Email",
-                              label:  profileDatas.isEmpty
-                        ?""
-                        : "${profileDatas.first.email}"
-                          ),
-                           InformationContent(
-                            name: "Joined At",
-                               label:  profileDatas.isEmpty
-                        ?""
-                        : "${profileDatas.first.joinedAt}"
-                          ),
-                           InformationContent(
-                            name: "Branch Code",
-                               label:  profileDatas.isEmpty
-                        ?""
-                        : "${profileDatas.first.branchCode}"
-                          )
-                        ],
                       ),
                     ),
-                  
+                    Text(
+                      "My Information", // Correcting string interpolation
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              //  const CustomAppBar(label: "My Information"),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 80.0, left: 10, right: 10),
+                child: Container(
+                  height: 150.h,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
                   ),
-          ],
-            
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InformationContent(
+                          name: "Name",
+                          label: profileDatas.isEmpty
+                              ? ""
+                              : "${profileDatas.first.firstName}"
+
+                          // profileDataaaaa
+
+                          ),
+                      InformationContent(
+                          name: "Email",
+                          label: profileDatas.isEmpty
+                              ? ""
+                              : "${profileDatas.first.email}"),
+                      InformationContent(
+                          name: "Joined At",
+                          label: profileDatas.isEmpty
+                              ? ""
+                              : "${profileDatas.first.joinedAt}"),
+                      InformationContent(
+                          name: "Branch Code",
+                          label: profileDatas.isEmpty
+                              ? ""
+                              : "${profileDatas.first.branchCode}")
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      
-    );
-      });
+      );
+    });
   }
 }
 
 class InformationContent extends StatelessWidget {
   final String name;
-   final String label;
+  final String label;
 
   const InformationContent({
     required this.label,
@@ -160,36 +147,39 @@ class InformationContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(top: 10.0, left: 20,),
+            padding: const EdgeInsets.only(
+              top: 10.0,
+              left: 20,
+            ),
             child: Text(
-                            name,
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.grey,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w400),
-                          ),
+              name,
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  color: Colors.grey,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.w400),
+            ),
           ),
         ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10.0, left: 20),
-                          child: Text(
-                            label,
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: AppColors.primaryColor,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-    
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0, left: 20),
+            child: Text(
+              label,
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  color: AppColors.primaryColor,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+        ),
       ],
     );
   }

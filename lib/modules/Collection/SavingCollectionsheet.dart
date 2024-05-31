@@ -44,15 +44,18 @@ class _SavingCollectionState extends State<SavingCollection> {
           itemCount:
            savingCollections.length ,
           itemBuilder: (context, index) {
-            // print("print postcollection  ${postdeposite.postdepsit[index].entries!.first.cUSTOMERNAME}",);
+         
             return TableBodyRow(
               
-              indexxx:index,
+              indexxx:index+1,
          
               sn: "${index + 1}",
                customer: "${savingCollections[index].cUSTOMERNAME}",
                account: "${savingCollections[index].aCCOUNT}",
                amount: "${savingCollections[index].dEPOSIT}",
+                datead: "${savingCollections[index].tranDateAd}",
+                 datebs: "${savingCollections[index].tranDateBs}",
+
                isSaving: true,
                
               // customer: "${loanacc.depositAccounts.depos}",

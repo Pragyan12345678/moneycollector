@@ -35,7 +35,7 @@ class _DepositDataState extends State<DepositData> {
     return Consumer<DepositAccountsProvider>(
         builder: (context, loanacc, child) {
       return Container(
-        constraints: BoxConstraints.expand(),
+        constraints: const BoxConstraints.expand(),
         child: ListView.builder(
           itemCount: savingAccountsheet.length,
           itemBuilder: (context, index) {
@@ -51,7 +51,7 @@ class _DepositDataState extends State<DepositData> {
                             depositecode:
                                 "${savingAccountsheet[index].dEPOSITCODE}",
                             name: "${savingAccountsheet[index].cUSTOMERNAME}",
-                          )), // Replace EditCollection with the destination page
+                          )),
                 );
               },
               indexxx: index,

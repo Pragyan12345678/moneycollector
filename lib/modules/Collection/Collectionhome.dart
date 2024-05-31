@@ -310,7 +310,7 @@ class Collection extends StatelessWidget {
                   : Column(
                       children: [
                         TableHeaderRow(),
-                        SizedBox(height: 900, child: SavingCollection()),
+                        SizedBox(height: 560, child: SavingCollection()),
                       ],
                     )
             ],
@@ -371,7 +371,7 @@ class SavingAccount extends StatelessWidget {
   final List<DepositAccounts> depositaccountcollections;
   const SavingAccount({
     super.key,
-    required this.depositaccountcollections,
+    this.depositaccountcollections = const [],
   });
 
   @override

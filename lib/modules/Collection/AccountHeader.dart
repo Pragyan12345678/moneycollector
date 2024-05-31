@@ -8,11 +8,9 @@ class AccountTableHeader extends StatelessWidget {
     return const Column(
       children: [
         SizedBox(
-          // height: 60.h,
+
           child: Row(
             children: [
-             
-             
               AccountCell(
                 label: "Acc",
               ),
@@ -36,9 +34,6 @@ class AccountTableHeader extends StatelessWidget {
               AccountCell(
                 label: "Code",
               ),
-
-           
-             
             ],
           ),
         ),
@@ -56,10 +51,8 @@ class Horizentaldiv extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Divider(
-      
-              thickness: 1,
-             color: AppColors.greyColor,
-           
+      thickness: 1,
+      color: AppColors.greyColor,
     );
   }
 }
@@ -81,9 +74,9 @@ class Div extends StatelessWidget {
 class AccountCell extends StatefulWidget {
   final String label;
   const AccountCell({
-    Key? key, // Add Key? key here
+    Key? key, 
     required this.label,
-  }) : super(key: key); // Call super constructor with the provided key
+  }) : super(key: key); 
 
   @override
   State<AccountCell> createState() => _AccountCellState();
@@ -96,29 +89,22 @@ class _AccountCellState extends State<AccountCell> {
       flex: 1,
       child: Container(
         height: 40.h,
-        decoration: BoxDecoration(
-
-
-color: Colors.white,
-borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
-        ),
-        
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Text(
-                widget.label, // Access label through widget instance
-                style:  TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.sp
-                ),
-  //                overflow: TextOverflow.clip, // Adjust overflow property
-  // maxLines: 1,
-              ),
-              
+                widget.label, 
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.sp),
+                             ),
             ),
           ],
         ),

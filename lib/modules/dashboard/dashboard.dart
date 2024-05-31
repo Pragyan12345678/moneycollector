@@ -13,6 +13,7 @@ import 'package:moneycollection/modules/Notification/Notification.dart';
 import 'package:moneycollection/modules/profile/profile.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -36,10 +37,12 @@ class _DashboardHomeState extends State<DashboardHome> {
   @override
   void initState() {
     super.initState();
+    LoanStateProvider();
     Provider.of<DepositAccountsProvider>(context, listen: false)
         .fetchDepositAccounts();
           
-          Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
+          
+          LoanStateProvider();
   }
 
   @override

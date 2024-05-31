@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Profile.dart';
@@ -21,240 +19,219 @@ class Profileview extends StatefulWidget {
 }
 
 class _ProfileviewState extends State<Profileview> {
-   String? profileData;
+  String? profileData;
   @override
   void initState() {
     super.initState();
     loadProfileData();
     loadDepositeData();
-     Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
+    Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
   }
-  
 
-  
-   Future<void> loadProfileData() async {
+  Future<void> loadProfileData() async {
     String? data = await Preference.getProfile();
     setState(() {
       profileData = data;
-      print("thisssss is sprikle${profileData}");
-      
+      print(" Profile page :Profile data load from preference: ${profileData}");
     });
   }
-     Future<void> loadDepositeData() async {
+
+  Future<void> loadDepositeData() async {
     String? data = await Preference.getDepositeaccount();
     setState(() {
       profileData = data;
-      print("thisssss is sprikle${profileData}");
-      
+      print("Profile page: Deposit account load from preference:${profileData}");
     });
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    return  Consumer<AuthState>(
-      builder: (context, auuth, child) {
-    return  Consumer<ProfileDataProvider>(
-      builder: (context, profiledata, child) {
-          List<ProfileData> profileDatas = profiledata.ProfileDatas;
-      return SafeArea(
+    return Consumer<AuthState>(builder: (context, auuth, child) {
+      return Consumer<ProfileDataProvider>(
+          builder: (context, profiledata, child) {
+        List<ProfileData> profileDatas = profiledata.ProfileDatas;
+        return SafeArea(
           child: Scaffold(
-        backgroundColor: AppColors.greyColor,
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Container(
-                height: 160.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(5.r),
-                      bottomRight: Radius.circular(5.r)),
-                  color: AppColors.primaryBlue,
-                ),
-              ),
-              const CustomAppBar(
-                label: ""
-                // "My Profile",
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: .0, left: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 70.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 40.r,
-                            backgroundColor: Colors.grey,
-                            backgroundImage: NetworkImage(
-  profileDatas.isEmpty || profileDatas.first.profilePhotoUrl == null
-    ? "" // Return an empty string or a placeholder image URL
-    : "${profileDatas.first.profilePhotoUrl}"
-),
-                          
-                          ),
-                        ],
+            backgroundColor: AppColors.greyColor,
+            body: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Container(
+                    height: 160.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(5.r),
+                          bottomRight: Radius.circular(5.r)),
+                      color: AppColors.primaryBlue,
+                    ),
+                  ),
+                  const CustomAppBar(label: 
+                      "My Profile",
                       ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 60.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
+                  Padding(
+                    padding: const EdgeInsets.only(top: .0, left: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 70.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              CircleAvatar(
+                                radius: 40.r,
+                                backgroundColor: Colors.grey,
+                                backgroundImage: NetworkImage(profileDatas
+                                            .isEmpty ||
+                                        profileDatas.first.profilePhotoUrl ==
+                                            null
+                                    ? "" // Return an empty string or a placeholder image URL
+                                    : "${profileDatas.first.profilePhotoUrl}"),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 70.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    profileDatas.isEmpty
+                                        ? ""
+                                        : profileDatas.first.firstName ?? "",
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        color: Colors.white,
+                                        decoration: TextDecoration.none,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    width: 7,
+                                  ),
+                                  Text(
+                                    profileDatas.isEmpty
+                                        ? ""
+                                        : profileDatas.first.lastName ?? "",
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        color: Colors.white,
+                                        decoration: TextDecoration.none,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
                               Text(
                                 profileDatas.isEmpty
-                              ? ""
-                              : profileDatas.first.firstName ?? "",
-                                
+                                    ? ""
+                                    : profileDatas.first.email ?? "",
                                 style: TextStyle(
-                                    fontSize: 18.sp,
+                                    fontSize: 14.sp,
                                     color: Colors.white,
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w600),
                               ),
-                              SizedBox(width: 7,),
-                              Text(
-                               profileDatas.isEmpty
-                              ? ""
-                              : profileDatas.first.lastName ?? "",
-                                
-                            style: TextStyle(
-                                fontSize: 18.sp,
-                                color: Colors.white,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w600),
-                          ),
                             ],
                           ),
-                           
-                          Text(
-                               profileDatas.isEmpty
-                              ? ""
-                              : profileDatas.first.email ?? "",
-                                
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.white,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 180.0, left: 20),
-                child: Profiletitle(),
-              ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 210.0, left: 20, right: 20),
-                  child: Container(
-                  
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.r),
-                        color: Colors.white,
-                        boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 2,
-                offset: const Offset(0, 2), // changes position of shadow
-              ),
-            ],
-                    ),
-      
-      
-      
-                    child: Column(
-                      children: [
-                        ProfileItems(
-                          label: "My Information",
-                          sublabel: "View your basic information",
-                          imagePath:  AppImages.information,
-                          onTap: (){
-                            Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyInformation()),
-                  );
-      
-                          },
-                        ),
-                        const Divider(
-                          thickness: 1,
-                          color: Colors.grey,
-                        ),
-                        ProfileItems(
-                          label: "Logout",
-                          sublabel: "Logout of this app",
-                           imagePath:  AppImages.logout,
-                          onTap: (){
-                            
-                          },
                         ),
                       ],
                     ),
-                  )),
-            ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 210.0, left: 20),
+                    child: Profiletitle(),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          top: 250.0, left: 20, right: 20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: const Offset(
+                                  0, 2), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            ProfileItems(
+                              label: "My Information",
+                              sublabel: "View your basic information",
+                              imagePath: AppImages.information,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MyInformation()),
+                                );
+                              },
+                            ),
+                            const Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
+                            ProfileItems(
+                              label: "Logout",
+                              sublabel: "Logout of this app",
+                              imagePath: AppImages.logout,
+                              onTap: () {},
+                            ),
+                          ],
+                        ),
+                      )),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),);
-  });
-  });
-    
-}
+        );
+      });
+    });
   }
-  
-
-
+}
 
 class ProfileItems extends StatelessWidget {
   final String label;
   final String sublabel;
-    final VoidCallback onTap; 
-      final String imagePath;
-
+  final VoidCallback onTap;
+  final String imagePath;
 
   const ProfileItems({
     super.key,
     required this.label,
     required this.sublabel,
     required this.onTap,
-     required this.imagePath,
+    required this.imagePath,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-
-
       child: Container(
         height: 55.h,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.white),
+            borderRadius: BorderRadius.circular(5), color: Colors.white),
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 15.0,top: 8, bottom: 8),
+              padding: const EdgeInsets.only(left: 15.0, top: 8, bottom: 8),
               child: Container(
                 height: 25.h,
                 width: 25.w,
                 color: Colors.white,
-                child:Image.asset(imagePath),
-                
+                child: Image.asset(imagePath),
               ),
             ),
             Padding(
@@ -273,12 +250,6 @@ class ProfileItems extends StatelessWidget {
                             decoration: TextDecoration.none,
                             fontWeight: FontWeight.w600),
                       ),
-                      // SizedBox(width: 120.w,),
-                      // const Icon(
-                      //   Icons.arrow_forward_ios_rounded,
-                      //   size: 15,
-                      //   color: Colors.grey,
-                      // )
                     ],
                   ),
                   Text(
@@ -293,9 +264,7 @@ class ProfileItems extends StatelessWidget {
               ),
             )
           ],
-          
         ),
-        
       ),
     );
   }

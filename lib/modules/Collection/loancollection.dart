@@ -59,6 +59,8 @@ class _LoanCollectionState extends State<LoanCollection> {
                account: "${loancollectionsheet[index].aCCOUNT}",
                amount: "${loancollectionsheet[index].dEPOSIT}",
                isSaving: false,
+               datead: "${loancollectionsheet[index].tranDateAd}",
+               datebs: "${loancollectionsheet[index].tranDateBs}",
                
               // customer: "${loanacc.depositAccounts.depos}",
               // customer: "${loanacc.depositAccounts[index].cUSTOMERNAME}",

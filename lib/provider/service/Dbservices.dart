@@ -32,9 +32,8 @@ static Database? _database;
       },
       onCreate: ( Database db, int version)async{
        await db.execute("CREATE TABLE POSTSAVINGCOLLECTION("
-       "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+       "ACCOUNT PRIMARY KEY ,"
        "BRANCHCODE TEXT NOT NULL,"
-       "ACCOUNT TEXT NOT NULL,"
        "CUSTID TEXT NOT NULL,"
        "DEPOSITCODE TEXT NOT NULL,"
        "tran_date_ad TEXT NOT NULL,"
@@ -43,10 +42,9 @@ static Database? _database;
        "DEPOSIT TEXT NOT NULL"
        ")");
          await db.execute("CREATE TABLE POSTLOANCOLLECTION("
-       "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+       "ACCOUNT PRIMARY KEY,"
        "BRANCHCODE TEXT NOT NULL,"
-       "ACCOUNT TEXT NOT NULL,"
-       "CUSTID TEXT NOT NULL,"
+        "CUSTID TEXT NOT NULL,"
        "DEPOSITCODE TEXT NOT NULL,"
        "tran_date_ad TEXT NOT NULL,"
        "tran_date_bs TEXT NOT NULL,"
@@ -54,11 +52,10 @@ static Database? _database;
        "DEPOSIT TEXT NOT NULL"
        ")");
       await db.execute("CREATE TABLE ACCOUNTS("
-       "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+       "ACCOUNT TEXT NOT NULL PRIMARY KEY,"
        "CUSTID TEXT NOT NULL,"
        "CUSTOMERNAME TEXT NOT NULL,"
        "MOBILE TEXT NOT NULL,"
-       "ACCOUNT TEXT NOT NULL,"
        "BAL INTEGER NOT NULL,"
        "DEPOSITTYPE TEXT NOT NULL,"
        "DEPOSITCODE TEXT NOT NULL,"
@@ -70,11 +67,19 @@ static Database? _database;
 ///POST SAVING COLLECTION
 newsavingcollection(Entries newEntries) async {
   final db = await database;
-  var res = await db.insert("POSTSAVINGCOLLECTION", newEntries.toJson());
+
+var existingAccounts = await db.query("POSTSAVINGCOLLECTION", where: "ACCOUNT = ?", whereArgs: [newEntries.aCCOUNT]);
+  if (existingAccounts.isNotEmpty) {
+    // Account already exists, handle the situation accordingly
+    print("Only one  Savinng collection can insert on time: ${existingAccounts.first}");
+    return -1; // Return a negative value to indicate failure
+  }
+
+    var res = await db.insert("POSTSAVINGCOLLECTION", newEntries.toJson());
 
   if (res != -1) {
     print("Data inserted successfully with ID: $res");
-     var insertedData = await db.query("POSTSAVINGCOLLECTION", where: "id = ?", whereArgs: [res]);
+     var insertedData = await db.query("POSTSAVINGCOLLECTION", where: "ACCOUNT = ?", whereArgs: [res]);
     if (insertedData.isNotEmpty) {
       print("Inserted Data: ${insertedData.first}");
     
@@ -87,41 +92,52 @@ newsavingcollection(Entries newEntries) async {
   
   return res;
 }
-  getsavingcollection(int id) async {
+  getsavingcollection(String  account) async {
     final db = await database;
-    var res =await  db.query("POSTSAVINGCOLLECTION", where: "id = ?", whereArgs: [id]);
+    var res =await  db.query("POSTSAVINGCOLLECTION", where: "ACCOUNT = ?", whereArgs: [account]);
     return res.isNotEmpty ? Entries.fromJson(res.first) : Null ;
   }
 
   getAllgetsavingcollection() async {
-    final db = await database;
-    var res = await db.query("POSTSAVINGCOLLECTION");
-    List<Entries> list =
-        res.isNotEmpty ? res.map((c) => Entries.fromJson(c)).toList() : [];
-    return list;
-  }
+  final db = await database;
+  var res = await db.query("POSTSAVINGCOLLECTION");
+  print("All Saving Collection Data: $res"); // Print the data
+  List<Entries> list =
+      res.isNotEmpty ? res.map((c) => Entries.fromJson(c)).toList() : [];
+  return list;
+}
 
-  updatesavingcollection(Entries newEntries) async {
+
+Future<int> updateAmount(String account, String newAmount) async {
+  final db = await database;
+  return await db.update(
+    "POSTSAVINGCOLLECTION",
+    {"DEPOSIT": newAmount},
+    where: "account = ?",
+    whereArgs: [account],
+  );
+}
+   deletesavingcollection(String account) async {
     final db = await database;
-    var res = await db.update("POSTSAVINGCOLLECTION", newEntries.toJson(),
-        where: "id = ?", whereArgs: [newEntries]);
-    return res;
-  }
-   deletesavingcollection(int id) async {
-    final db = await database;
-    db.delete("POSTSAVINGCOLLECTION", where: "id = ?", whereArgs: [id]);
+    db.delete("POSTSAVINGCOLLECTION", where: "account = ?", whereArgs: [account]);
   }
 
   ///LOAN COLLECTION
    newloancollection(Entries newEntries) async {
     final db = await database;
+    var existingAccounts = await db.query("POSTLOANCOLLECTION", where: "ACCOUNT = ?", whereArgs: [newEntries.aCCOUNT]);
+  if (existingAccounts.isNotEmpty) {
+    // Account already exists, handle the situation accordingly
+    print("Only Savinng collection can insert on time: ${existingAccounts.first}");
+    return -1; // Return a negative value to indicate failure
+  }
     var res = await db.insert("POSTLOANCOLLECTION", newEntries.toJson());
     return res;
   }
 
-  getloancollection(int id) async {
+  getloancollection(String account) async {
     final db = await database;
-    var res =await  db.query("POSTLOANCOLLECTION", where: "id = ?", whereArgs: [id]);
+    var res =await  db.query("POSTLOANCOLLECTION", where: "account = ?", whereArgs: [account]);
     return res.isNotEmpty ? Entries.fromJson(res.first) : Null ;
   }
 
@@ -136,22 +152,35 @@ newsavingcollection(Entries newEntries) async {
   updateloancollection(Entries newEntries) async {
     final db = await database;
     var res = await db.update("POSTLOANCOLLECTION", newEntries.toJson(),
-        where: "id = ?", whereArgs: [newEntries]);
+        where: "account = ?", whereArgs: [newEntries]);
     return res;
   }
-deleteloancollection(int id) async {
+deleteloancollection(String account) async {
     final db = await database;
-    db.delete("POSTLOANCOLLECTION", where: "id = ?", whereArgs: [id]);
+    db.delete("POSTLOANCOLLECTION", where: "account = ?", whereArgs: [account]);
   }
+
+
+
 
 //account
 newaccount(DepositAccounts newAccount) async {
   final db = await database;
+//dublicate data
+var existingAccounts = await db.query("ACCOUNTS", where: "ACCOUNT = ?", whereArgs: [newAccount.aCCOUNT]);
+  if (existingAccounts.isNotEmpty) {
+    // Account already exists, handle the situation accordingly
+    print("Account already exists: ${existingAccounts.first}");
+    return -1; // Return a negative value to indicate failure
+  }
+  
+
+
   var res = await db.insert("ACCOUNTS", newAccount.toJson());
   if (res != -1) {
     print("Data inserted successfully with ID: $res");
     // Fetch the inserted data
-    var insertedData = await db.query("ACCOUNTS", where: "id = ?", whereArgs: [res]);
+    var insertedData = await db.query("ACCOUNTS", where: "ACCOUNT = ?", whereArgs: [res]);
     if (insertedData.isNotEmpty) {
       print("Inserted Data: ${insertedData.first}");
     
@@ -163,9 +192,9 @@ newaccount(DepositAccounts newAccount) async {
   }
   return res;
 }
-  getaccount(int id) async {
+  getaccount(String ACCOUNT) async {
     final db = await database;
-    var res =await  db.query("ACCOUNTS", where: "id = ?", whereArgs: [id]);
+    var res =await  db.query("ACCOUNTS", where: "ACCOUNT = ?", whereArgs: [ACCOUNT]);
     return res.isNotEmpty ? DepositAccounts.fromJson(res.first) : Null ;
   }
 
@@ -184,16 +213,16 @@ newaccount(DepositAccounts newAccount) async {
   res.isNotEmpty ? res.map((c) => DepositAccounts.fromJson(c)).toList() : [];
   return list;
 }
-  updateaccount(DepositAccounts newAcccount) async {
-    final db = await database;
-    var res = await db.update("ACCOUNTS", newAcccount.toJson(),
-        where: "id = ?", whereArgs: [newAcccount]);
-    return res;
-  }
-deleteaccount(int id) async {
-    final db = await database;
-    db.delete("ACCOUNTS", where: "id = ?", whereArgs: [id]);
-  }
+//   updateaccount(DepositAccounts newAcccount) async {
+//     final db = await database;
+//     var res = await db.update("ACCOUNTS", newAcccount.toJson(),
+//         where: "id = ?", whereArgs: [newAcccount]);
+//     return res;
+//   }
+// deleteaccount(int id) async {
+//     final db = await database;
+//     db.delete("ACCOUNTS", where: "id = ?", whereArgs: [id]);
+//   }
 
   
 

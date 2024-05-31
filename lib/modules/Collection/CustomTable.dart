@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/modules/Collection/editcollection.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
@@ -10,6 +11,8 @@ class TableBodyRow extends StatefulWidget {
   final String customer;
   final String account;
   final String amount;
+   final String datead;
+  final String datebs;
   final bool isSaving;
 
   
@@ -19,7 +22,7 @@ class TableBodyRow extends StatefulWidget {
     required this.account,
     required this.amount,
    
-    required this.customer, required this.indexxx, required this.isSaving,
+    required this.customer, required this.indexxx, required this.isSaving, required this.datead, required this.datebs,
   });
 
   @override
@@ -27,6 +30,31 @@ class TableBodyRow extends StatefulWidget {
 }
 
 class _AccountTableBodyRowState extends State<TableBodyRow> {
+
+List<Entries> savingCollections = [];
+List<Entries> loanCollections = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavingCollections();
+    _loadLoanCollections();
+  }
+    Future<void> _loadSavingCollections() async {
+      
+    List<Entries> collections = await DatabaseHelper.instance.getAllgetsavingcollection();
+    setState(() {
+      savingCollections = collections;
+    });
+  }
+ Future<void> _loadLoanCollections() async {
+    List<Entries> loancollections =
+        await DatabaseHelper.instance.getAllgetloancollection();
+
+     setState(() {
+      loanCollections = loancollections;
+    });
+  }
 
   
   @override
@@ -90,7 +118,15 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => CollectionForm(),
+                                builder: (context) => EditCollectionForm(
+                                  inde: widget.indexxx,
+                                  datead: widget.datead,
+                                  datebs: widget.datebs,
+                                  account: widget.account,
+                                  amount: widget.amount,
+
+
+                                ),
                               ),
                             );
                           },
@@ -112,13 +148,14 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
 showDialog(
       context: context,
       builder: (BuildContext context) {
+                 print("this is delete${widget.indexxx}");
         return AlertDialog(
           title: Text("Confirm Deletion"),
           content: Text("Are you sure you want to delete this entry?"),
           actions: [
             TextButton(
               onPressed: () {
-                
+       
                 Navigator.pop(context);
               },
               child: Text("Cancel"),
@@ -132,11 +169,13 @@ showDialog(
                   
                   if (widget.isSaving == true) {
                     print("${widget.indexxx}");
+                    print("deleteyoyoy");
+                    databaseHelper.deletesavingcollection(widget.account);
                     print("delete");
-                    databaseHelper.deletesavingcollection(widget.indexxx);
-                    print("delete");
+                    _loadSavingCollections();
                   } else {
-                     databaseHelper.deleteloancollection(widget.indexxx);
+                     databaseHelper.deleteloancollection(widget.account);
+                     _loadLoanCollections();
                   }
               
                 } catch (error) {
