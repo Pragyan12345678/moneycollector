@@ -13,21 +13,24 @@ class TableHeaderRow extends StatelessWidget {
             children: [
               Expanded(
                 flex: 0,
-                child: Container(
-                  color: Colors.white,
-                  alignment: Alignment.center,
-                  child:  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "SN",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.sp
-                        ),
-                      ), 
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Container(
+                    color: Colors.white,
+                    alignment: Alignment.center,
+                    child:  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "SN",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.sp
+                          ),
+                        ), 
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -60,7 +63,7 @@ class TableHeaderRow extends StatelessWidget {
             ],
           ),
         ),
-        Horizentaldiv()
+        const Horizentaldiv()
       ],
     );
   }
@@ -73,7 +76,7 @@ class Horizentaldiv extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(
+    return const Divider(
       
               thickness: 1,
              color: AppColors.greyColor,

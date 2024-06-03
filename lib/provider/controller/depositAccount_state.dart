@@ -1,8 +1,6 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:moneycollection/Model/DepositAccounts.dart';
-import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/service/services.dart';
 
@@ -10,8 +8,6 @@ class DepositAccountsProvider with ChangeNotifier {
   List<DepositAccounts> _depositAccounts = [];
   List<DepositAccounts> get depositAccounts => _depositAccounts;
 
-  List<DepositAccounts> get depositAccountsFilteredByDeposit =>
-      _depositAccounts.where((tYPE) => tYPE == 'Deposit').toList();
 
   Future<void> fetchDepositAccounts() async {
     var data = await ApiBaseHelper().getdepositeaccount(
@@ -26,16 +22,6 @@ class DepositAccountsProvider with ChangeNotifier {
         _depositAccounts.add(depositAccount);
         await dbHelper.newaccount(depositAccount);
       }
-
-      // String jsonData = json.encode(data);
-      // Preference.storedepositaccount(jsonData);
-
-      //  DatabaseHelper dbHelper = DatabaseHelper.instance;
-      //  await dbHelper.newaccount(DepositAccounts.fromJson(data));
-
-      // String jsonData = json.encode(data);
-      // Preference.storedepositaccount(jsonData);
-
       notifyListeners();
       print('Data received and added to the list');
     } else {

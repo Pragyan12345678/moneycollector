@@ -5,7 +5,7 @@ import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/constant/textfield.dart';
 import 'package:moneycollection/constant/validation.dart';
-import 'package:moneycollection/modules/auth/changePassword.dart';
+import 'package:moneycollection/remove/changePassword.dart';
 
 
 class ForgotPasswordView extends StatelessWidget {

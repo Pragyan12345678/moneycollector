@@ -8,7 +8,7 @@ import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/constant/textfield.dart';
 import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/constant/validation.dart';
-import 'package:moneycollection/modules/auth/forgetPassword.dart';
+import 'package:moneycollection/remove/forgetPassword.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:provider/provider.dart';
 

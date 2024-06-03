@@ -108,7 +108,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
     return Consumer<ProfileDataProvider>(
       builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
-        DatabaseHelper _databaseHelper = DatabaseHelper.instance;
+        DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
         return Scaffold(
           body: SafeArea(
@@ -214,7 +214,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                       String newAmountString =
                                           newAmount.toString();
 
-                                      _databaseHelper.updateAmount(
+                                      databaseHelper.updateAmount(
                                         widget.account,
                                         newAmountString,
                                       );
@@ -229,7 +229,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              Collectionsheets(),
+                                              const Collectionsheets(),
                                         ),
                                       );
                                     },

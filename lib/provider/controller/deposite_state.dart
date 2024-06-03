@@ -99,8 +99,32 @@ class LoanStateProvider with ChangeNotifier {
       "DEPOSIT": amount.text,
     };
     var entry = Entries.fromJson(body);
-    await DatabaseHelper.instance.newsavingcollection(entry);
+    var result = await DatabaseHelper.instance.newsavingcollection(entry);
 
+if (result == -1) {
+    // Duplicate entry
+    Utilities.showCustomSnackBar("Duplicate entry");
+    loadingAuth = false;
+    notifyListeners();
+      if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Collectionsheets(),
+            ),
+            (route) => false,
+          );
+        }
+     clientid.clear();
+        depositecode.clear();
+        trandatead.clear();
+        trandatebs.clear();
+        amount.clear();
+        depositeby.clear();
+        sourceIncome.clear();
+        name.clear();
+     notifyListeners();
+  }
 
 
 
@@ -170,8 +194,7 @@ class LoanStateProvider with ChangeNotifier {
 
     loadingAuth = true;
     notifyListeners();
-
-
+    List<Map<String, dynamic>> entriesList = [];
      var body = {
       "BRANCHCODE": ProfileDatas.isEmpty ?? true
           ? ""
@@ -189,37 +212,45 @@ class LoanStateProvider with ChangeNotifier {
       "DEPOSIT": loanamount.text,
     };
    var entry = Entries.fromJson(body);
-    await DatabaseHelper.instance.newloancollection(entry);
-    // var body = {
-    //   "entries": [
-    //     {
-    //       "BRANCHCODE": ProfileDatas.isEmpty ?? true
-    //           ? ""
-    //           : "${ProfileDatas.first.branchCode}",
-    //       "ACCOUNT":
-    //           "${ProfileDatas.first.branchCode}-${loanaccountnumber.text}",
-    //       "CUSTID": "${ProfileDatas.first.branchCode}-${loanclientid.text}",
-    //       "DEPOSITCODE": loandepositecode.text,
-    //       "tran_date_ad": loantrandatead.text,
-    //       "tran_date_bs": loantrandatebs.text,
-    //       "CUSTOMERNAME": loanname.text,
-    //       "DEPOSIT": loanamount.text,
-    //     }
-    //   ]
-    // };
-    // String bodyJson = jsonEncode(body);
+    var result = await DatabaseHelper.instance.newloancollection(entry);
+  if (result == -1) {
+    // Duplicate entry
+    Utilities.showCustomSnackBar("Duplicate entry");
+    loadingAuth = false;
+    notifyListeners();
+ if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Collectionsheets(),
+            ),
+            (route) => false,
+          );
+        }
+        accountnumber.clear();
+        clientid.clear();
+        depositecode.clear();
+        trandatead.clear();
+        trandatebs.clear();
+        amount.clear();
+        depositeby.clear();
+        sourceIncome.clear();
+        name.clear();
 
-    // Preference.storepostloan(bodyJson);
-    // print("printingstore postdata ${bodyJson}");
+        notifyListeners();
+  }
+ entriesList.add(body);
+    var data = {"entries":entriesList};
+
 
     bool online = true;
-    List<Map<String, dynamic>> _getloanaccount = [body];
+    List<Map<String, dynamic>> _getloanaccount = [data];
 
     print("collectionsheetbodys:${_getloanaccount}");
     online = false;
     var value = await authServices.postMethod(
         ApiUrl.loanEntry,
-        jsonEncode(body),
+        jsonEncode(data),
         "73|16MKWGBV8Xctjzteu42C1f5vPn9Oyk35JzRm8q7Dd0d4fe39");
     print("tssshi body${value}");
     loadingAuth = false;
@@ -230,7 +261,7 @@ class LoanStateProvider with ChangeNotifier {
       notifyListeners();
       Utilities.showCustomSnackBar("Login Failed !");
     } else {
-      if (value["status"] == 200) {
+      if (value["status"] == 200 || value["error"] == false ) {
         _isLoggedIn = false;
 
         loadingAuth = false;
@@ -240,7 +271,7 @@ class LoanStateProvider with ChangeNotifier {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoanList(),
+              builder: (context) => const Collectionsheets(),
             ),
             (route) => false,
           );

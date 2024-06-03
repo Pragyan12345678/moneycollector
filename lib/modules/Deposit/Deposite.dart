@@ -52,121 +52,62 @@ class _DepositListState extends State<DepositList> {
                     label: "Deposit",
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 70.0),
-                    child: Container(
-                      height: 50,
-                      color: Colors.red,
-                      child: Row(
-                        children: [
-                          Text("Branch Code: "),
-                          DropdownButton<String>(
-      value: selectedLocation,
-      onChanged: (String? newValue) {
-        setState(() {
-          selectedLocation = newValue;
-          
-        });
-      },
-      items: <String>['Head Office', 'New Road']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      
-      
-      style: const TextStyle(
-        color: Colors.black, 
-        fontSize: 16, 
-      ),
-      
-      underline: Container(
-        height: 2,
-        color: Colors.blue, 
-      ),
-    
-      icon: const Icon(
-        Icons.arrow_drop_down,
-        color: Colors.blue, // Adjust icon color as needed
-      ),
-    ),
-      //                      DropdownButtonFormField<String>(
-      //               value: authController.selectedLocation,
-      //               onChanged: (String? newValue) {
-      //                 setState(() {
-      //                  selectedLocation = newValue;
-      // authController.selectedLocation = newValue; 
-      //                 });
-      //               },
-      //               items: <String>['Head Office', 'New Road']
-      //                   .map<DropdownMenuItem<String>>((String value) {
-      //                 return DropdownMenuItem<String>(
-      //                   value: value,
-      //                   child: Text(value),
-      //                 );
-      //               }).toList(),
-      //               decoration: InputDecoration(
-      //                 labelText: 'Location',
-      //                 border: OutlineInputBorder(),
-      //                 contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
-      //               ),
-      //               validator: (value) {
-      //                 if (value == null || value.isEmpty) {
-      //                   return 'Please select a location';
-      //                 }
-      //                 return null;
-      //               },
-      //             ),
-                          GestureDetector(
-                        onTap: () {
-                         provider.fetchDepositAccounts();
-                          _refresh();
-
-                         
-                        },
-                         child: Container(
-                                    height: 45,
-                                     width: 90,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(255, 129, 163, 130),
-                                      borderRadius: BorderRadius.circular(
-                                        5),
-                                       
-                                     
-                                    ),
-                                     child : Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        SizedBox(
-                                          height :20,
-                                          width: 20,
-                                          child: Image.asset(AppImages.sync)),
-                                          const Text("Sync", style: TextStyle(
-                                            fontSize: 14, fontWeight:FontWeight.w500,
-                                          ),)
-                                          
-                                      ],
-                                     )
+                    padding: const EdgeInsets.only(top: 50.0, left: 260, right: 10),
+                    child: GestureDetector(
+                                        onTap: () {
+                                         provider.fetchDepositAccounts();
+                    _refresh();
+                                  
+                                         
+                                        },
+                                         child: Container(
+                              height: 40.h,
+                              //  width: 130.w,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 154, 204, 157),
+                                borderRadius: BorderRadius.circular(
+                                  10.r),
+                                 
+                               
+                              ),
+                               child : Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: SizedBox(
+                                      height :20.h,
+                                      width: 20.w,
+                                      child: Image.asset(AppImages.sync)),
                                   ),
-                       ),
-                        ],
-                      ),
-                    ),
+                                     SizedBox(
+                                      width: 1.w,
+                                    ),
+                                     Padding(
+                                       padding: const EdgeInsets.only(right: 8.0),
+                                       child: Text("Sync", style: TextStyle(
+                                        fontSize: 14.sp, fontWeight:FontWeight.w500,
+                                                                           ),),
+                                     )
+                                    
+                                ],
+                               )
+                            ),
+                                       ),
                   ),
                   (provider.depositAccounts.isEmpty)
                     ? Padding(
                         padding: EdgeInsets.only(
-                          top: 250.h,
+                          top: 252.h,
                         ),
                         child: const Nodata(),
                       )
                     :
                    
                   Padding(
-                    padding: EdgeInsets.only(top: 90.h, right: 10, left: 10),
+                    padding: EdgeInsets.only(top: 90.h, right: 10.w, left: 10.w),
                     child: Container(
-                      height: 650,
+                      height: 650.h,
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -175,7 +116,7 @@ class _DepositListState extends State<DepositList> {
                             children: [
                              
                               AccountTableHeader(),
-                              SizedBox(height: 500, child: DepositData()),
+                              SizedBox(height: 580.h, child: DepositData()),
                               // LoanTable()),
                             ],
                           ),

@@ -9,12 +9,12 @@ import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
-class LoanCollection extends StatefulWidget {
+class Loancoll extends StatefulWidget {
   @override
-  State<LoanCollection> createState() => _LoanCollectionState();
+  State<Loancoll> createState() => _LoancollState();
 }
 
-class _LoanCollectionState extends State<LoanCollection> {
+class _LoancollState extends State<Loancoll> {
     
    String? postLoanData;
 

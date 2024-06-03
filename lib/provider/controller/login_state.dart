@@ -132,7 +132,7 @@ class AuthState extends ChangeNotifier {
       Utilities.showCustomSnackBar("Login Failed !");
     } else {
       if (value["status"] == 200 || value["message"] == "Logged in.") {
-        print("printting thgeksdjldsvalue ${value["user"]["TOKEN"]}");
+        print("printting Token: ${value["user"]["TOKEN"]}");
 
         _isLoggedIn = false;
         Constant.loginToken = value["user"]["TOKEN"].toString();
@@ -144,6 +144,7 @@ class AuthState extends ChangeNotifier {
         print("object");
 
         Navigator.pushAndRemoveUntil(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
             builder: (context) => const MainPage(),

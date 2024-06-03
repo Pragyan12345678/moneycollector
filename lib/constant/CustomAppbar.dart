@@ -6,9 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomAppBar extends StatelessWidget {
   final String label;
   const CustomAppBar({
-    Key? key, // Correcting the constructor syntax
+    super.key, // Correcting the constructor syntax
     required this.label,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +33,13 @@ class CustomAppBar extends StatelessWidget {
            
             Expanded(
               flex: 6,
-              child: Container(
-                child: Text(
-                  label, // Correcting string interpolation
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                    fontWeight: FontWeight.w400,
-                  ),
+              child: Text(
+                label, // Correcting string interpolation
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ),

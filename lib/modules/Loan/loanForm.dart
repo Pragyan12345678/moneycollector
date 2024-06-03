@@ -39,10 +39,10 @@ class _LoanFormState extends State<LoanForm> {
     return Consumer<LoanStateProvider>(builder: (context, loan, child) {
       return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
-        loan.accountnumber.text = widget.accountno.substring(7);
-        loan.clientid.text = widget.clientid.substring(7);
-        loan.depositecode.text = widget.depositecode;
-        loan.name.text = widget.name;
+        loan.loanaccountnumber.text = widget.accountno.substring(7);
+        loan.loanclientid.text = widget.clientid.substring(7);
+        loan.loandepositecode.text = widget.depositecode;
+        loan.loanname.text = widget.name;
         return SafeArea(
           child: Scaffold(
               body: SingleChildScrollView(
@@ -100,7 +100,7 @@ class _LoanFormState extends State<LoanForm> {
                           ),
                           FormCustomTextField(
                             widget.name,
-                            label: "Nmae",
+                            label: "Name",
                             controller: loan.loanname,
                           ),
                           const SizedBox(
@@ -116,8 +116,9 @@ class _LoanFormState extends State<LoanForm> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          AccountTextField(
-                              label: widget.accountno,
+                           AccountTextField(
+                              label:
+                                  '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
                               controller: loan.loanaccountnumber),
                           const SizedBox(height: 10),
                           Text(
@@ -130,8 +131,9 @@ class _LoanFormState extends State<LoanForm> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          AccountTextField(
-                              label: widget.clientid,
+                                AccountTextField(
+                              label:
+                                  '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
                               controller: loan.loanclientid),
                           const SizedBox(height: 10),
                           FormCustomTextField(
@@ -168,6 +170,7 @@ class _LoanFormState extends State<LoanForm> {
                               onTap: () {
                                 String tranad = loan.loantrandatead.text;
                                 String tranbs = loan.loantrandatebs.text;
+                                String name = loan.loanname.text;
                                 String accountno = loan.loanaccountnumber.text;
                                 String clientid = loan.loanclientid.text;
                                 String amount = loan.loanamount.text;
@@ -180,6 +183,7 @@ class _LoanFormState extends State<LoanForm> {
                                 print('tranbs: $tranbs');
                                 print('account: $accountno');
                                 print('account: $clientid');
+                                 print('account: $name');
                                 print('account: $depositcode');
                                 print('amount: $amount');
                                 print('deposit: $depositby');
@@ -188,6 +192,7 @@ class _LoanFormState extends State<LoanForm> {
                                 if (tranad.isNotEmpty ||
                                     tranbs.isNotEmpty ||
                                     accountno.isNotEmpty ||
+                                    name.isNotEmpty ||
                                     clientid.isNotEmpty ||
                                     amount.isNotEmpty ||
                                     depositcode.isNotEmpty ||

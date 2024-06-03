@@ -6,12 +6,14 @@ import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/Nodata.dart';
 import 'package:moneycollection/modules/Collection/AccountHeader.dart';
 import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
+import 'package:moneycollection/modules/Collection/loancollection.dart';
 import 'package:moneycollection/modules/Collection/table.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
 import 'package:moneycollection/modules/Loan/LoanDataTable.dart';
+import 'package:moneycollection/modules/landingPage/bottomNav.dart';
 
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
@@ -27,7 +29,7 @@ class Collectionsheets extends StatefulWidget {
 
 class _CollectionsheetsState extends State<Collectionsheets> {
   List<Entries> savingCollections = [];
-    List<Entries> loanCollections = [];
+  List<Entries> loanCollections = [];
   List<DepositAccounts> accountDepositCollections = [];
   List<DepositAccounts> accountLoanCollections = [];
   // Track the selected index
@@ -42,7 +44,6 @@ class _CollectionsheetsState extends State<Collectionsheets> {
     _loadDepositAccountCollections();
     _loadLoanAccountCollections();
     _loadLoanCollections();
-    
   }
 
   int _currentIndex = 0;
@@ -60,6 +61,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
       savingCollections = collections;
     });
   }
+
   Future<void> _loadLoanCollections() async {
     List<Entries> loancollections =
         await DatabaseHelper.instance.getAllgetloancollection();
@@ -102,8 +104,43 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                   color: AppColors.primaryBlue,
                 ),
               ),
-              const CustomAppBar(
-                label: "Collection Sheet",
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MainPage()),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 6,
+                        child: Text(
+                          "Collection sheet", // Correcting string interpolation
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -158,7 +195,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                               GestureDetector(
                                 onTap: () {
                                   _changePage(2);
-                                   _loadLoanCollections();
+                                  _loadLoanCollections();
                                 },
                                 child: CustomCollectionsheet(
                                   imagePath: AppImages.loan,
@@ -209,13 +246,13 @@ class _CollectionsheetsState extends State<Collectionsheets> {
           depositaccountcollections: accountDepositCollections,
         );
       case 2:
-        return LoanCollection();
+        return LoanCollection(loanCollects: loanCollections);
       case 3:
         return LoanAccount(
           loanaccountcollections: accountLoanCollections,
         );
       default:
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
     }
   }
 }
@@ -274,6 +311,7 @@ class CustomCollectionsheet extends StatelessWidget {
 }
 
 class Collection extends StatelessWidget {
+  
   final List<Entries> savingCollections;
   const Collection({
     super.key,
@@ -309,8 +347,11 @@ class Collection extends StatelessWidget {
                   ? const Nodata()
                   : Column(
                       children: [
+                        
+                  
                         TableHeaderRow(),
-                        SizedBox(height: 560, child: SavingCollection()),
+                        SizedBox(height: 600.h, child: SavingCollection()),
+                        
                       ],
                     )
             ],
@@ -322,8 +363,10 @@ class Collection extends StatelessWidget {
 }
 
 class LoanCollection extends StatelessWidget {
+  final List<Entries> loanCollects;
   const LoanCollection({
     super.key,
+    required this.loanCollects,
   });
 
   @override
@@ -351,12 +394,12 @@ class LoanCollection extends StatelessWidget {
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              loanacc.depositAccountsFilteredByDeposit.isEmpty
-                  ? Nodata()
+              loanCollects.isEmpty
+                  ? const Nodata()
                   : Column(
                       children: [
-                        AccountTableHeader(),
-                        SizedBox(height: 800, child: LoanData()),
+                        TableHeaderRow(),
+                        SizedBox(height: 800, child: Loancoll()),
                       ],
                     )
             ],
@@ -378,8 +421,6 @@ class SavingAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DepositAccountsProvider>(
         builder: (context, loanacc, child) {
-      print('Length of depositAccounts: ${loanacc.depositAccounts.length}');
-
       return Container(
         alignment: Alignment.center,
         child: Container(
@@ -402,7 +443,7 @@ class SavingAccount extends StatelessWidget {
                 ),
               ),
               depositaccountcollections.isEmpty
-                  ? Nodata()
+                  ? const Nodata()
                   : Column(
                       children: [
                         AccountTableHeader(),

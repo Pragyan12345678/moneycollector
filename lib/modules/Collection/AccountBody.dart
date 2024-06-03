@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/modules/Collection/editcollection.dart';
 import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/image.dart';
 class AccountTableBodyRow extends StatefulWidget {
   final int indexxx;
     final VoidCallback ontap; 
@@ -15,7 +13,7 @@ class AccountTableBodyRow extends StatefulWidget {
     final String mobile;
     final String depositcode;
 
-  const AccountTableBodyRow({
+  const AccountTableBodyRow({super.key, 
  required this.indexxx, required this.accountno, required this.type, required this.id, required this.name, required this.mobile, required this.ontap, required this.depositcode,
   });
 
@@ -32,41 +30,44 @@ class _AccountTableBodyRowState extends State<AccountTableBodyRow> {
         children: [
           SizedBox(
             // height: 50.h,
-            child: Row(
-              children: [
-               
-                Cell(
-                  label: widget.accountno,
-                ),
-                const Div(),
-                Cell(
-                  label: widget.type,
-                ),
-                const Div(),
-                Cell(
-                  label: widget.id,
-                ),
-                const Div(),
-                 Cell(
-                  label: widget.name,
-                ),
-
-                const Div(),
-                 Cell(
-                  label: widget.mobile,
-                ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                 
+                  Cell(
+                    label: widget.accountno,
+                  ),
                   const Div(),
-                 Cell(
-                  label: widget.depositcode,
-                ),
-                
-
-               
-           
-              ],
+                  Cell(
+                    label: widget.type,
+                  ),
+                  const Div(),
+                  Cell(
+                    label: widget.id,
+                  ),
+                  const Div(),
+                   Cell(
+                    label: widget.name,
+                  ),
+              
+                  const Div(),
+                   Cell(
+                    label: widget.mobile,
+                  ),
+                    const Div(),
+                   Cell(
+                    label: widget.depositcode,
+                  ),
+                  
+              
+                 
+                         
+                ],
+              ),
             ),
           ),
-          Horizentaldiv(),
+          const Horizentaldiv(),
         ],
       ),
     );
@@ -81,7 +82,7 @@ class Horizentaldiv extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(
+    return const Divider(
       
               thickness: 1,
              color: AppColors.greyColor,
@@ -127,7 +128,7 @@ class _CellState extends State<Cell> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding:  EdgeInsets.only(right: 0.0),
+              padding:  const EdgeInsets.only(right: 0.0),
               child: Text(
                 widget.label, // Access label through widget instance
                style:  TextStyle(

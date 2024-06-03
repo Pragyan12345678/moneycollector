@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/modules/Collection/Collectionhome.dart';
-import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
-
 import 'package:moneycollection/modules/Deposit/Deposite.dart';
 import 'package:moneycollection/modules/Loan/Loan.dart';
-import 'package:moneycollection/modules/Loan/loanForm.dart';
 import 'package:moneycollection/modules/Notification/Notification.dart';
-
 import 'package:moneycollection/modules/profile/profile.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
@@ -37,12 +33,12 @@ class _DashboardHomeState extends State<DashboardHome> {
   @override
   void initState() {
     super.initState();
-    LoanStateProvider();
+
     Provider.of<DepositAccountsProvider>(context, listen: false)
         .fetchDepositAccounts();
-          
-          
-          LoanStateProvider();
+
+    Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
+    LoanStateProvider();
   }
 
   @override
@@ -154,7 +150,8 @@ class _DashboardHomeState extends State<DashboardHome> {
                                 Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Dashboardbalance(
                                         width: 90,
@@ -169,7 +166,6 @@ class _DashboardHomeState extends State<DashboardHome> {
                                           );
                                         },
                                       ),
-                                     
                                       Dashboardbalance(
                                         width: 90,
                                         imagePath: AppImages.deposit,
@@ -179,11 +175,10 @@ class _DashboardHomeState extends State<DashboardHome> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                     DepositList()),
+                                                    const DepositList()),
                                           );
                                         },
                                       ),
-                                      
                                       Dashboardbalance(
                                         width: 90,
                                         imagePath: AppImages.loan,
@@ -331,7 +326,10 @@ class DashboardAppBAr extends StatelessWidget {
                 Expanded(
                   flex: 8,
                   child: Padding(
-                    padding:  EdgeInsets.only(top: 20.h, left: 8.w, ),
+                    padding: EdgeInsets.only(
+                      top: 20.h,
+                      left: 8.w,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -368,7 +366,7 @@ class DashboardAppBAr extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NotificationPage()),
+                            builder: (context) => const NotificationPage()),
                       );
                     },
                     child: Padding(

@@ -24,7 +24,13 @@ class DepositAccounts {
     cUSTOMERNAME = json['CUSTOMERNAME'];
     mOBILE = json['MOBILE'];
     aCCOUNT = json['ACCOUNT'];
-    bAL = json['BAL'];
+     var balValue = json['BAL'];
+  if (balValue is String) {
+    // Convert string value to integer
+    bAL = int.tryParse(balValue);
+  } else if (balValue is int) {
+    bAL = balValue;
+  }
     dEPOSITTYPE = json['DEPOSITTYPE'];
     dEPOSITCODE = json['DEPOSITCODE'];
     tYPE = json['TYPE'];

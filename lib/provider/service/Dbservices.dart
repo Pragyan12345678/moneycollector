@@ -56,7 +56,7 @@ static Database? _database;
        "CUSTID TEXT NOT NULL,"
        "CUSTOMERNAME TEXT NOT NULL,"
        "MOBILE TEXT NOT NULL,"
-       "BAL INTEGER NOT NULL,"
+       "BAL REAL ,"
        "DEPOSITTYPE TEXT NOT NULL,"
        "DEPOSITCODE TEXT NOT NULL,"
        "TYPE TEXT NOT NULL"
@@ -68,29 +68,28 @@ static Database? _database;
 newsavingcollection(Entries newEntries) async {
   final db = await database;
 
-var existingAccounts = await db.query("POSTSAVINGCOLLECTION", where: "ACCOUNT = ?", whereArgs: [newEntries.aCCOUNT]);
+  var existingAccounts = await db.query("POSTSAVINGCOLLECTION", where: "ACCOUNT = ?", whereArgs: [newEntries.aCCOUNT]);
   if (existingAccounts.isNotEmpty) {
-    // Account already exists, handle the situation accordingly
-    print("Only one  Savinng collection can insert on time: ${existingAccounts.first}");
-    return -1; // Return a negative value to indicate failure
+  
+    print("Duplicate entry: ${existingAccounts.first}");
+    return "Duplicate entry"; 
   }
 
-    var res = await db.insert("POSTSAVINGCOLLECTION", newEntries.toJson());
+  var res = await db.insert("POSTSAVINGCOLLECTION", newEntries.toJson());
 
   if (res != -1) {
     print("Data inserted successfully with ID: $res");
-     var insertedData = await db.query("POSTSAVINGCOLLECTION", where: "ACCOUNT = ?", whereArgs: [res]);
+    var insertedData = await db.query("POSTSAVINGCOLLECTION", where: "ACCOUNT = ?", whereArgs: [res]);
     if (insertedData.isNotEmpty) {
       print("Inserted Data: ${insertedData.first}");
-    
     } else {
       print("Failed to fetch inserted data");
     }
+    return "Data inserted successfully"; 
   } else {
     print("Failed to insert data");
+    return "Failed to insert data"; 
   }
-  
-  return res;
 }
   getsavingcollection(String  account) async {
     final db = await database;

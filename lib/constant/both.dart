@@ -46,6 +46,7 @@ class _CalenderFieldState extends State<CalenderField> {
               nepali.NepaliDateTime(picked.year, picked.month, picked.day);
           widget.controller.text =
               _selectedNepaliDate.toString().split(' ')[0];// Format this as needed
+              
         });
       }
     } else {
@@ -60,6 +61,8 @@ class _CalenderFieldState extends State<CalenderField> {
           _selectedDate = DateTime(picked.year, picked.month, picked.day);
           widget.controller.text =
               _selectedDate.toString().split(' ')[0]; // Format this as needed
+
+              
         });
       }
     }
