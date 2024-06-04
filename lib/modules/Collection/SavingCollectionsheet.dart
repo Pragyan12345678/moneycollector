@@ -14,8 +14,8 @@ class SavingCollection extends StatefulWidget {
 }
 
 class _SavingCollectionState extends State<SavingCollection> {
-    List<Entries> savingCollections = [];
-   String? postLoanData;
+  List<Entries> savingCollections = [];
+  String? postLoanData;
 
   @override
   void initState() {
@@ -23,9 +23,10 @@ class _SavingCollectionState extends State<SavingCollection> {
 
     _loadSavingCollections();
   }
-    Future<void> _loadSavingCollections() async {
-      
-    List<Entries> collections = await DatabaseHelper.instance.getAllgetsavingcollection();
+
+  Future<void> _loadSavingCollections() async {
+    List<Entries> collections =
+        await DatabaseHelper.instance.getAllgetsavingcollection();
     setState(() {
       savingCollections = collections;
     });
@@ -36,41 +37,27 @@ class _SavingCollectionState extends State<SavingCollection> {
   Widget build(BuildContext context) {
     return Consumer<DepositAccountsProvider>(
         builder: (context, loanacc, child) {
-          return Consumer<LoanStateProvider>(
-        builder: (context, postdeposite, child) {
-    return Container(
-      constraints: BoxConstraints.expand(), 
-        child: ListView.builder(
-          itemCount:
-           savingCollections.length ,
-          itemBuilder: (context, index) {
-         
-            return TableBodyRow(
-              
-              indexxx:index+1,
-         
-              sn: "${index + 1}",
-               customer: "${savingCollections[index].cUSTOMERNAME}",
-               account: "${savingCollections[index].aCCOUNT}",
-               amount: "${savingCollections[index].dEPOSIT}",
+      return Consumer<LoanStateProvider>(
+          builder: (context, postdeposite, child) {
+        return Container(
+          constraints: BoxConstraints.expand(),
+          child: ListView.builder(
+            itemCount: savingCollections.length,
+            itemBuilder: (context, index) {
+              return TableBodyRow(
+                indexxx: index + 1,
+                sn: "${index + 1}",
+                customer: "${savingCollections[index].cUSTOMERNAME}",
+                account: "${savingCollections[index].aCCOUNT}",
+                amount: "${savingCollections[index].dEPOSIT}",
                 datead: "${savingCollections[index].tranDateAd}",
-                 datebs: "${savingCollections[index].tranDateBs}",
-
-               isSaving: true,
-               
-              // customer: "${loanacc.depositAccounts.depos}",
-              // customer: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-              // account: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-              // amount: "${loanacc.depositAccounts[index].aCCOUNT}",
-              // action: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-            );
-          },
-        ),
-      
-    );
-  }
-   );
-  }
-  );
+                datebs: "${savingCollections[index].tranDateBs}",
+                isSaving: true,
+              );
+            },
+          ),
+        );
+      });
+    });
   }
 }

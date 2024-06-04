@@ -50,10 +50,8 @@ class _LoancollState extends State<Loancoll> {
           itemCount:
            loancollectionsheet.length ,
           itemBuilder: (context, index) {
-            // print("print postcollection  ${postdeposite.postdepsit[index].entries!.first.cUSTOMERNAME}",);
-            return TableBodyRow(
+          return TableBodyRow(
               indexxx:index,
-         
               sn: "${index + 1}",
                customer: "${loancollectionsheet[index].cUSTOMERNAME}",
                account: "${loancollectionsheet[index].aCCOUNT}",
@@ -62,11 +60,7 @@ class _LoancollState extends State<Loancoll> {
                datead: "${loancollectionsheet[index].tranDateAd}",
                datebs: "${loancollectionsheet[index].tranDateBs}",
                
-              // customer: "${loanacc.depositAccounts.depos}",
-              // customer: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-              // account: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
-              // amount: "${loanacc.depositAccounts[index].aCCOUNT}",
-              // action: "${loanacc.depositAccounts[index].cUSTOMERNAME}",
+              
             );
           },
         ),

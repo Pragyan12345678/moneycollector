@@ -15,7 +15,7 @@ class CalenderField extends StatefulWidget {
     required this.controller,
     required this.label,
     required this.useNepaliCalendar,
-  }) : super(key: key);
+  });
 
   @override
   _CalenderFieldState createState() => _CalenderFieldState();

@@ -21,6 +21,7 @@ class EditCollectionForm extends StatefulWidget {
   final String datebs;
   final String account;
   final String amount;
+    final bool isSaving;
 
   const EditCollectionForm({
     Key? key,
@@ -28,7 +29,7 @@ class EditCollectionForm extends StatefulWidget {
     required this.datead,
     required this.datebs,
     required this.account,
-    required this.amount,
+    required this.amount, required this.isSaving,
   }) : super(key: key);
 
   @override
@@ -68,7 +69,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
     trandateadController = TextEditingController(text: datead);
     trandatebsController = TextEditingController(text: datebs);
     accountnumberController = TextEditingController(
-        text: account.length >= 7 ? account.substring(7) : "Invalid Account");
+    text: account.length >= 7 ? account.substring(7) : "Invalid Account");
     amountController = TextEditingController(text: amount);
   }
 
@@ -150,13 +151,26 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                       child: Consumer<LoanStateProvider>(
                         builder: (context, collectionn, child) {
                           // Initialize text fields with widget's data
-                          collectionn.trandatead.text =
+
+
+                          if(widget.isSaving == true){
+                            collectionn.trandatead.text =
                               trandateadController.text;
                           collectionn.trandatebs.text =
                               trandatebsController.text;
                           collectionn.accountnumber.text =
                               accountnumberController.text;
                           collectionn.amount.text = amountController.text;
+                          }else{
+                            collectionn.loantrandatead.text =
+                              trandateadController.text;
+                          collectionn.loantrandatebs.text =
+                              trandatebsController.text;
+                          collectionn.loanaccountnumber.text =
+                              accountnumberController.text;
+                          collectionn.loanamount.text = amountController.text;
+                          }
+                    
 
                           return Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -166,7 +180,10 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                 CalenderField(
                                   label: " Tran Date(Bs)",
                                   useNepaliCalendar: true,
-                                  controller: collectionn.trandatebs,
+                                  controller: 
+                                  (widget.isSaving == true)?
+                                  collectionn.trandatebs
+                                  :  collectionn.loantrandatebs
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -174,7 +191,10 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                 CalenderField(
                                   label: " Tran Date(Ad)",
                                   useNepaliCalendar: false,
-                                  controller: collectionn.trandatead,
+
+                                  controller:  (widget.isSaving == true)?
+                                  collectionn.trandatead
+                                  :collectionn.loantrandatead
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -192,13 +212,18 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                 AccountTextField(
                                   label:
                                       '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
-                                  controller: collectionn.accountnumber,
+                                  controller:  (widget.isSaving == true)?
+                                  collectionn.accountnumber
+                                  :collectionn.loanaccountnumber
                                 ),
                                 const SizedBox(height: 10),
                                 FormCustomTextField(
                                   "0.00",
                                   label: "Amount",
-                                  controller: collectionn.amount,
+                                  controller: 
+                                    (widget.isSaving == true)?
+                                  collectionn.amount
+                                  :collectionn.loanamount
                                 ),
                                 const SizedBox(height: 20),
                                 Padding(
@@ -208,7 +233,9 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                   ),
                                   child: GestureDetector(
                                     onTap: () {
-                                      double newAmount = double.parse(
+
+if   (widget.isSaving == true){
+   double newAmount = double.parse(
                                         collectionn.amount.text,
                                       );
                                       String newAmountString =
@@ -222,6 +249,25 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                        collectionn.trandatead.clear();
                                         collectionn.accountnumber.clear();
                                          collectionn.amount.clear();
+}
+else{
+   double newAmount = double.parse(
+                                        collectionn.amount.text,
+                                      );
+                                      String newAmountString =
+                                          newAmount.toString();
+
+                                      databaseHelper.updateloancollection(
+                                        widget.account,
+                                        newAmountString,
+                                      );
+                                      collectionn.loantrandatebs.clear();
+                                       collectionn.loantrandatead.clear();
+                                        collectionn.loanaccountnumber.clear();
+                                         collectionn.loanamount.clear();
+}
+                                      
+                                     
 
                                         
 

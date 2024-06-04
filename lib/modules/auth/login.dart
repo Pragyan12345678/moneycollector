@@ -116,9 +116,10 @@ class _LoginPageState extends State<LoginPage> {
                         authController.showPassword();
                       },
                       icon: authController.hidePassword
-                          ? const Icon(Icons.visibility)
-                          : const Icon(Icons.visibility_off),
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility),
                     ),
+                    obstruct :authController.hidePassword
                   ),
                   const SizedBox(
                     height: 20,

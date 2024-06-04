@@ -5,6 +5,7 @@ import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/main.dart';
 import 'package:moneycollection/modules/auth/login.dart';
+import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/modules/landingPage/bottomNav.dart';
 import 'package:moneycollection/modules/landingPage/landingPage.dart';
 
@@ -27,7 +28,7 @@ class _ViewSplashScreenState extends State<ViewSplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) =>  const MainPage())
+              MaterialPageRoute(builder: (context) =>  const LoginPage())
           
             );
     });

@@ -44,7 +44,9 @@ ProfileDataProvider()  {
 Future<void> fetchProfiledata() async {
   print("printing the valueess: $_profiledata");// khali
   print(" lamo");
-  var data = await ApiBaseHelper().getprofiledetails("72|npo2oZNrqxsUttSHDyAAUW0A3wISxoPtsCsMi8eXb111bb26");
+   var token = await Preference.getUser();
+    print("thisois token${token}");
+  var data = await ApiBaseHelper().getprofiledetails("${token}");
   print("printing the $data") ;
   if (data != null) {
   _profiledata.clear(); // Clear the existing list//paile ko dataharu

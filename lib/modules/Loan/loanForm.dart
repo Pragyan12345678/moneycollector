@@ -8,6 +8,7 @@ import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/both.dart';
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
@@ -189,17 +190,19 @@ class _LoanFormState extends State<LoanForm> {
                                 print('deposit: $depositby');
                                 print('sourceicome: $sourceIncome');
 
-                                if (tranad.isNotEmpty ||
-                                    tranbs.isNotEmpty ||
-                                    accountno.isNotEmpty ||
-                                    name.isNotEmpty ||
-                                    clientid.isNotEmpty ||
-                                    amount.isNotEmpty ||
-                                    depositcode.isNotEmpty ||
-                                    depositby.isNotEmpty ||
-                                    sourceIncome.isNotEmpty) {
-                                  loan.loanAccount(context);
+                                if (tranad.isEmpty ||
+                                    tranbs.isEmpty ||
+                                    accountno.isEmpty ||
+                                    name.isEmpty ||
+                                    clientid.isEmpty ||
+                                    amount.isEmpty ||
+                                    depositcode.isEmpty ||
+                                    depositby.isEmpty ||
+                                    sourceIncome.isEmpty) {
+                                Utilities.showCustomSnackBar("Fields are empty");
                                 }
+                                else {
+                                  loan.databaseloan(context);                                }
                               },
                               child: Container(
                                 decoration: BoxDecoration(

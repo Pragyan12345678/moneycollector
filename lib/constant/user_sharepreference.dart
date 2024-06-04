@@ -16,6 +16,7 @@ class Preference {
 
 
   static Future<void> storeUser(String data) async {
+    debugPrint("this is store usertoken $data");
     await saveData(_authData, data);
   }
 

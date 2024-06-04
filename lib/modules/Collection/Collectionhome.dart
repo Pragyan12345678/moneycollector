@@ -1,5 +1,7 @@
 // ignore: file_names
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/DepositAccounts.dart';
 import 'package:moneycollection/Model/Postdeposite.dart';
@@ -16,6 +18,7 @@ import 'package:moneycollection/modules/Loan/LoanDataTable.dart';
 import 'package:moneycollection/modules/landingPage/bottomNav.dart';
 
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
@@ -332,17 +335,82 @@ class Collection extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Saving Collection Sheet",
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      color: Colors.grey,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.w400),
-                ),
+              Row(
+                children: [
+                  
+                  Expanded(
+                    flex: 7,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15.0, bottom: 15, left: 20),
+                      child: Center(
+                        child: Text(
+                          " Saving Collection Sheet",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Colors.grey,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ),
+                   Expanded(
+                    flex: 1,
+                     child: GestureDetector(
+                               onTap: () {
+                                   showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Consumer<LoanStateProvider>(builder: (context, loan, child) {
+                              return AlertDialog(
+                                title: const Text("Confirm Deletion"),
+                                content: const Text(
+                                    "Are you sure you want to Sync the  Saving Collection?"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("Cancel"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                       loan.depositAccount(context);  
+                                      
+                                    },
+                                    child: const Text("Sync"),
+                                  ),
+                                ],
+                              );
+                              });
+                            },
+                          ); 
+                               },
+                               child: Padding(
+                                 padding: const EdgeInsets.all(8.0),
+                                 child: Container(
+                                   height: 20.h,
+                                                      
+                                   width: 20.h,
+                                   color: Colors.white,
+                                   child:Image.asset(AppImages.sync,color: Colors.grey,)
+                                 ),
+                               ),
+                             ),
+                   ),
+                ],
               ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Text(
+              //     "Saving Collection Sheet",
+              //     style: TextStyle(
+              //         fontSize: 16.sp,
+              //         color: Colors.grey,
+              //         decoration: TextDecoration.none,
+              //         fontWeight: FontWeight.w400),
+              //   ),
+              // ),
               savingCollections.isEmpty
                   ? const Nodata()
                   : Column(
@@ -350,7 +418,7 @@ class Collection extends StatelessWidget {
                         
                   
                         TableHeaderRow(),
-                        SizedBox(height: 600.h, child: SavingCollection()),
+                        SizedBox(height: 425.h, child: SavingCollection()),
                         
                       ],
                     )
@@ -373,6 +441,8 @@ class LoanCollection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DepositAccountsProvider>(
         builder: (context, loanacc, child) {
+          return Consumer<LoanStateProvider>(
+        builder: (context, acc, child) {
       return Container(
         alignment: Alignment.center,
         child: Container(
@@ -383,29 +453,84 @@ class LoanCollection extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  " Loan Collection Sheet",
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      color: Colors.grey,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.w400),
-                ),
+              Row(
+                children: [
+                  
+                  Expanded(
+                    flex: 7,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15.0, bottom: 15, left: 20),
+                      child: Center(
+                        child: Text(
+                          " Loan Collection Sheet",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Colors.grey,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ),
+                   Expanded(
+                    flex: 1,
+                     child: GestureDetector(
+                               onTap: () {
+                                   showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Consumer<LoanStateProvider>(builder: (context, loan, child) {
+                              return AlertDialog(
+                                title: const Text("Confirm Deletion"),
+                                content: const Text(
+                                    "Are you sure you want to Sync the Collection?"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("Cancel"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                       loan.loanAccount(context);  
+                                      
+                                    },
+                                    child: const Text("Sync"),
+                                  ),
+                                ],
+                              );
+                              });
+                            },
+                          ); 
+                               },
+                               child: Padding(
+                                 padding: const EdgeInsets.all(8.0),
+                                 child: Container(
+                                   height: 20.h,
+                                                      
+                                   width: 20.h,
+                                   color: Colors.white,
+                                   child:Image.asset(AppImages.sync,color: Colors.grey,)
+                                 ),
+                               ),
+                             ),
+                   ),
+                ],
               ),
               loanCollects.isEmpty
                   ? const Nodata()
                   : Column(
                       children: [
                         TableHeaderRow(),
-                        SizedBox(height: 800, child: Loancoll()),
+                        SizedBox(height: 425.h, child: Loancoll()),
                       ],
                     )
             ],
           ),
         ),
       );
+    });
     });
   }
 }
@@ -447,7 +572,7 @@ class SavingAccount extends StatelessWidget {
                   : Column(
                       children: [
                         AccountTableHeader(),
-                        SizedBox(height: 800, child: DepositData()),
+                        SizedBox(height: 425.h, child: DepositData()),
                       ],
                     )
             ],
@@ -480,7 +605,7 @@ class LoanAccount extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Text(
                   "Loan Accounts",
                   style: TextStyle(
@@ -495,7 +620,7 @@ class LoanAccount extends StatelessWidget {
                   : Column(
                       children: [
                         AccountTableHeader(),
-                        SizedBox(height: 800, child: LoanData()),
+                        SizedBox(height: 425.h, child: LoanData()),
                       ],
                     )
             ],

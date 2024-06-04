@@ -7,6 +7,7 @@ class MyInputField extends StatelessWidget {
   final String labelText;
   final TextEditingController? controller;
   final Widget? widget;
+  final bool? obstruct;
   final bool? ismultiline;
   final bool? enabled;
   final bool? obscuretext;
@@ -32,6 +33,7 @@ class MyInputField extends StatelessWidget {
     this.widget,
     this.ismultiline = false,
     this.suffix,
+    this.obstruct,
     this.validator,
     this.enabled = true,
     this.inputType = TextInputType.multiline,
@@ -65,7 +67,7 @@ class MyInputField extends StatelessWidget {
                 minLines: ismultiline! ? 2 : 1,
                 maxLines: ismultiline! ? 6 : 1,
                 textAlignVertical: TextAlignVertical.center,
-                obscureText: obscuretext!,
+                obscureText: obstruct ?? false,
                 onTap: ontap,
                 maxLength: maxLength,
                 decoration: InputDecoration(

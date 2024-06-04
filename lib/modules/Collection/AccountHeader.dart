@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:moneycollection/provider/controller/deposite_state.dart';
+import 'package:provider/provider.dart';
 
 class AccountTableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Consumer<LoanStateProvider>(
+        builder: (context, loanacc, child) {  
+            return  const Column(
       children: [
         SizedBox(
 
@@ -40,6 +46,7 @@ class AccountTableHeader extends StatelessWidget {
         Horizentaldiv()
       ],
     );
+        });
   }
 }
 

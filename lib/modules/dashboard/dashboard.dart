@@ -11,8 +11,10 @@ import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
+import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DashboardHome extends StatefulWidget {
   const DashboardHome({super.key});
@@ -29,11 +31,15 @@ class _DashboardHomeState extends State<DashboardHome> {
       isContentVisible = !isContentVisible;
     });
   }
-
+Future<dynamic> _getTotalDeposits() async {
+  DatabaseHelper databaseHelper = DatabaseHelper.instance;
+  Database db = await databaseHelper.database;
+  return await databaseHelper.getTotalDeposits(db);
+}
   @override
   void initState() {
     super.initState();
-
+_getTotalDeposits();
     Provider.of<DepositAccountsProvider>(context, listen: false)
         .fetchDepositAccounts();
 
@@ -397,6 +403,10 @@ class FirstContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Consumer<ProfileDataProvider>(
+      
+          builder: (context, profiledata, child) {
+            
     return Container(
       padding: const EdgeInsets.all(0.0),
       child: Text(
@@ -408,6 +418,8 @@ class FirstContent extends StatelessWidget {
             fontWeight: FontWeight.w900),
       ),
     );
+  }
+   );
   }
 }
 

@@ -147,20 +147,39 @@ Future<int> updateAmount(String account, String newAmount) async {
         res.isNotEmpty ? res.map((c) => Entries.fromJson(c)).toList() : [];
     return list;
   }
+Future<int> updateloancollection(String account, String newAmount) async {
+  final db = await database;
+  return await db.update(
+    "POSTLOANCOLLECTION",
+    {"DEPOSIT": newAmount},
+    where: "account = ?",
+    whereArgs: [account],
+  );
+}
 
-  updateloancollection(Entries newEntries) async {
-    final db = await database;
-    var res = await db.update("POSTLOANCOLLECTION", newEntries.toJson(),
-        where: "account = ?", whereArgs: [newEntries]);
-    return res;
-  }
 deleteloancollection(String account) async {
     final db = await database;
     db.delete("POSTLOANCOLLECTION", where: "account = ?", whereArgs: [account]);
   }
 
 
+Future<dynamic> getTotalDeposits(Database db) async {
+  // Execute a query to get the sum of deposits from POSTSAVINGCOLLECTION
+  List<Map> savingResult = await db.rawQuery('SELECT SUM(DEPOSIT) AS saving_total FROM POSTSAVINGCOLLECTION');
+  // Extract the sum of deposits from POSTSAVINGCOLLECTION
+  dynamic savingTotal = savingResult[0]['saving_total'] ?? 0.0;
 
+  // Execute a query to get the sum of deposits from POSTLOANCOLLECTION
+  List<Map> loanResult = await db.rawQuery('SELECT SUM(DEPOSIT) AS loan_total FROM POSTLOANCOLLECTION');
+  // Extract the sum of deposits from POSTLOANCOLLECTION
+  dynamic loanTotal = loanResult[0]['loan_total'] ?? 0.0;
+
+  // Calculate the total sum by adding both savingTotal and loanTotal
+  dynamic total = savingTotal + loanTotal;
+  print("this is what it is${total}");
+
+  return total;
+}
 
 //account
 newaccount(DepositAccounts newAccount) async {

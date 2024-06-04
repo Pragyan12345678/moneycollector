@@ -124,6 +124,7 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
                                 datebs: widget.datebs,
                                 account: widget.account,
                                 amount: widget.amount,
+                                isSaving: widget.isSaving,
                               ),
                             ),
                           );
@@ -200,6 +201,8 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
           ),
         ),
         const Horizentaldiv(),
+
+     
       ],
     );
   }

@@ -60,7 +60,7 @@ class LoanStateProvider with ChangeNotifier {
         }
       });
     } catch (error) {
-      // Handle error if any
+   
       print("Error fetching profile data: $error");
     }
     //  PostDeposit();
@@ -70,14 +70,9 @@ class LoanStateProvider with ChangeNotifier {
 
   List<ProfileData> get ProfileDatas => _profiledata;
 
- 
-
-
-  Future<void>depositAccount(BuildContext context) async {
-    final authServices = ApiBaseHelper();
-
-    DatabaseHelper dbHelper = DatabaseHelper.instance;
-
+ Future<void>databasedeposit(BuildContext context)async{
+      DatabaseHelper dbHelper = DatabaseHelper.instance;
+      
     loadingAuth = true;
     notifyListeners();
      List<Map<String, dynamic>> entriesList = [];
@@ -125,11 +120,123 @@ if (result == -1) {
         name.clear();
      notifyListeners();
   }
+  else{
+    Utilities.showCustomSnackBar("Successfully  Added");
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Collectionsheets(),
+            ),
+            (route) => false,
+          );
+        }
+        accountnumber.clear();
+        clientid.clear();
+        depositecode.clear();
+        trandatead.clear();
+        trandatebs.clear();
+        amount.clear();
+        depositeby.clear();
+        sourceIncome.clear();
+        name.clear();
+  }
+    entriesList.add(body);
+    
+ }
+ Future<void>databaseloan(BuildContext context)async{
+      DatabaseHelper dbHelper = DatabaseHelper.instance;
+      
+    loadingAuth = true;
+    notifyListeners();
+     List<Map<String, dynamic>> entriesList = [];
+
+    var body = {
+      "BRANCHCODE": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}",
+      "ACCOUNT": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}-${loanaccountnumber.text}",
+      "CUSTID": ProfileDatas.isEmpty ?? true
+          ? ""
+          : "${ProfileDatas.first.branchCode}-${loanclientid.text}",
+      "DEPOSITCODE": loandepositecode.text,
+      "tran_date_ad": loantrandatead.text,
+      "tran_date_bs": loantrandatebs.text,
+      "CUSTOMERNAME": loanname.text,
+      "DEPOSIT": loanamount.text,
+    };
+    var entry = Entries.fromJson(body);
+    var result = await DatabaseHelper.instance.newloancollection(entry);
+
+if (result == -1) {
+    // Duplicate entry
+    Utilities.showCustomSnackBar("Duplicate entry");
+    loadingAuth = false;
+    notifyListeners();
+      if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Collectionsheets(),
+            ),
+            (route) => false,
+          );
+        }
+      loanaccountnumber.clear();
+        loanclientid.clear();
+        loandepositecode.clear();
+        loantrandatead.clear();
+        loantrandatebs.clear();
+        loanamount.clear();
+        loandepositeby.clear();
+        loansourceIncome.clear();
+        loanname.clear();
+     notifyListeners();
+  }
+  else{
+    Utilities.showCustomSnackBar("Successfully  Added Loan ");
+
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Collectionsheets(),
+            ),
+            (route) => false,
+          );
+        }
+        loanaccountnumber.clear();
+        loanclientid.clear();
+        loandepositecode.clear();
+        loantrandatead.clear();
+        loantrandatebs.clear();
+        loanamount.clear();
+        loandepositeby.clear();
+        loansourceIncome.clear();
+        loanname.clear();
+  }
 
 
 
     entriesList.add(body);
-    var data = {"entries":entriesList};
+    
+ }
+
+
+  Future<void>depositAccount(BuildContext context) async {
+    final authServices = ApiBaseHelper();
+
+    DatabaseHelper dbHelper = DatabaseHelper.instance;
+
+    loadingAuth = true;
+    notifyListeners();
+     List<Entries> values = await dbHelper.getAllgetsavingcollection();
+     print("this is data${values}");
+
+  
+    var data = {"entries":values};
 
     // String bodyJson = jsonEncode(body);
     // Preference.storedepositaccount(bodyJson);
@@ -139,10 +246,12 @@ if (result == -1) {
 
     print("collectisssonsheetbodys:${data}");
     // online = false;
+     var token = await Preference.getUser();
+    print("thisois token${token}");
     var value = await authServices.postMethod(
         ApiUrl.collectionsheet,
         jsonEncode(data),
-        "73|16MKWGBV8Xctjzteu42C1f5vPn9Oyk35JzRm8q7Dd0d4fe39");
+        "${token}");
     print("tssshi body${value}");
     loadingAuth = false;
 
@@ -158,6 +267,9 @@ if (result == -1) {
         loadingAuth = false;
 
         Utilities.showCustomSnackBar(value['message']);
+        for (Entries entry in values) {
+        await dbHelper.deletesavingcollection(entry.aCCOUNT??'');
+      }
         if (context.mounted) {
           Navigator.pushAndRemoveUntil(
             context,
@@ -167,6 +279,7 @@ if (result == -1) {
             (route) => false,
           );
         }
+         
         accountnumber.clear();
         clientid.clear();
         depositecode.clear();
@@ -191,67 +304,24 @@ if (result == -1) {
   ///post loan collection
   Future<void>loanAccount(BuildContext context) async {
     final authServices = ApiBaseHelper();
-
+    DatabaseHelper dbHelper = DatabaseHelper.instance;
     loadingAuth = true;
     notifyListeners();
-    List<Map<String, dynamic>> entriesList = [];
-     var body = {
-      "BRANCHCODE": ProfileDatas.isEmpty ?? true
-          ? ""
-          : "${ProfileDatas.first.branchCode}",
-      "ACCOUNT": ProfileDatas.isEmpty ?? true
-          ? ""
-          : "${ProfileDatas.first.branchCode}-${loanaccountnumber.text}",
-      "CUSTID": ProfileDatas.isEmpty ?? true
-          ? ""
-          : "${ProfileDatas.first.branchCode}-${loanclientid.text}",
-      "DEPOSITCODE": loandepositecode.text,
-      "tran_date_ad": loantrandatead.text,
-      "tran_date_bs": loantrandatebs.text,
-      "CUSTOMERNAME": loanname.text,
-      "DEPOSIT": loanamount.text,
-    };
-   var entry = Entries.fromJson(body);
-    var result = await DatabaseHelper.instance.newloancollection(entry);
-  if (result == -1) {
-    // Duplicate entry
-    Utilities.showCustomSnackBar("Duplicate entry");
-    loadingAuth = false;
-    notifyListeners();
- if (context.mounted) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Collectionsheets(),
-            ),
-            (route) => false,
-          );
-        }
-        accountnumber.clear();
-        clientid.clear();
-        depositecode.clear();
-        trandatead.clear();
-        trandatebs.clear();
-        amount.clear();
-        depositeby.clear();
-        sourceIncome.clear();
-        name.clear();
-
-        notifyListeners();
-  }
- entriesList.add(body);
-    var data = {"entries":entriesList};
+   List<Entries> loanvalues = await dbHelper.getAllgetloancollection();
+   var data = {"entries":loanvalues};
 
 
     bool online = true;
     List<Map<String, dynamic>> _getloanaccount = [data];
 
-    print("collectionsheetbodys:${_getloanaccount}");
+    print("loan collection:${_getloanaccount}");
     online = false;
+     var token = await Preference.getUser();
+    print("thisois token${token}");
     var value = await authServices.postMethod(
         ApiUrl.loanEntry,
         jsonEncode(data),
-        "73|16MKWGBV8Xctjzteu42C1f5vPn9Oyk35JzRm8q7Dd0d4fe39");
+        "${token}");
     print("tssshi body${value}");
     loadingAuth = false;
 
@@ -267,6 +337,9 @@ if (result == -1) {
         loadingAuth = false;
 
         Utilities.showCustomSnackBar(value['message']);
+         for (Entries entry in loanvalues) {
+        await dbHelper.deleteloancollection(entry.aCCOUNT??'');
+      }
         if (context.mounted) {
           Navigator.pushAndRemoveUntil(
             context,

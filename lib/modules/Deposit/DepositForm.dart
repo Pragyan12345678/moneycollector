@@ -8,6 +8,7 @@ import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/both.dart';
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
@@ -185,34 +186,28 @@ class _DepositFormState extends State<DepositForm> {
                                 print('tranad: $depositby');
                                  print('tranbs: $depositecode');
                                 print('tranad: $clientid');
-                                      print('tranad: $name');
+                               print('tranad: $name');
                                 print('tranbs: $sourceIncome');
 
-                                if (tranad.isNotEmpty ||
-                                    clientid.isNotEmpty ||
-                                      name.isNotEmpty ||
-                                     tranbs.isNotEmpty ||
-                                      depositecode.isNotEmpty ||
-                                    accountno.isNotEmpty ||
-                                    amount.isNotEmpty ||
-                                    depositby.isNotEmpty ||
-                                    sourceIncome.isNotEmpty) {
-                                  // loan.trandatebs.text = "";
-                                  // loan.trandatebs.text == "";
-                                  // loan.accountnumber.text == "";
-                                  // loan.amount.text == "";
-                                  // loan.depositeby.text == "";
-                                  // loan.sourceIncome.text == "";
-                                  loan.depositAccount(context);
-                                  // depositentries.add(DepositeEntries(tranad: tranad,tranbs: tranbs,accountno: accountno,amount: amount, depositby: depositby,sourceIncome: sourceIncome));
-                                  // ReadFromspDeposite();
 
-
-
-
-
+                                  if (tranad.isEmpty ||
+                                    tranbs.isEmpty ||
+                                    accountno.isEmpty ||
+                                    name.isEmpty ||
+                                    clientid.isEmpty ||
+                                    amount.isEmpty ||
+                                    depositecode.isEmpty ||
+                                    depositby.isEmpty ||
+                                    sourceIncome.isEmpty) {
+                                Utilities.showCustomSnackBar("Fields are empty");
                                 }
+                                else {
+                                  loan.databasedeposit(context);                                
+                                  }
                               },
+
+                              
+                              
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),

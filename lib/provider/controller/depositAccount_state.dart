@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:moneycollection/Model/DepositAccounts.dart';
+import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/service/services.dart';
 
@@ -10,8 +11,11 @@ class DepositAccountsProvider with ChangeNotifier {
 
 
   Future<void> fetchDepositAccounts() async {
+    var token = await Preference.getUser();
+    print("thisois token${token}");
     var data = await ApiBaseHelper().getdepositeaccount(
-        "71|yyVsTgA3hxlYMhRzUi6vFSP9VZGhjIBlmPAF3uSDfb02bae9");
+        "${token}");
+        print(" This is token ${Preference.getUser()}");
     print("Depositaccount state: fetching the account:${data}");
     DatabaseHelper dbHelper = DatabaseHelper.instance;
     if (data != null) {
