@@ -9,6 +9,9 @@ import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
 class SavingCollection extends StatefulWidget {
+   final void Function() navigatetosavingcollection;
+
+  const SavingCollection({super.key, required this.navigatetosavingcollection});
   @override
   State<SavingCollection> createState() => _SavingCollectionState();
 }
@@ -44,7 +47,9 @@ class _SavingCollectionState extends State<SavingCollection> {
           child: ListView.builder(
             itemCount: savingCollections.length,
             itemBuilder: (context, index) {
-              return TableBodyRow(
+              return TableBodyRow( 
+                navigatetosavingcollection: widget.navigatetosavingcollection,
+
                 indexxx: index + 1,
                 sn: "${index + 1}",
                 customer: "${savingCollections[index].cUSTOMERNAME}",

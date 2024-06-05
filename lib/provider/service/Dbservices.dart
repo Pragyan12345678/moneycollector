@@ -163,23 +163,36 @@ deleteloancollection(String account) async {
   }
 
 
-Future<dynamic> getTotalDeposits(Database db) async {
-  // Execute a query to get the sum of deposits from POSTSAVINGCOLLECTION
-  List<Map> savingResult = await db.rawQuery('SELECT SUM(DEPOSIT) AS saving_total FROM POSTSAVINGCOLLECTION');
-  // Extract the sum of deposits from POSTSAVINGCOLLECTION
-  dynamic savingTotal = savingResult[0]['saving_total'] ?? 0.0;
 
-  // Execute a query to get the sum of deposits from POSTLOANCOLLECTION
-  List<Map> loanResult = await db.rawQuery('SELECT SUM(DEPOSIT) AS loan_total FROM POSTLOANCOLLECTION');
-  // Extract the sum of deposits from POSTLOANCOLLECTION
-  dynamic loanTotal = loanResult[0]['loan_total'] ?? 0.0;
 
-  // Calculate the total sum by adding both savingTotal and loanTotal
-  dynamic total = savingTotal + loanTotal;
-  print("this is what it is${total}");
+Future<dynamic> getTotalDeposit() async {
+  var totalDeposit;
 
-  return total;
+
+  final Database db = await openDatabase('postcollection.db');
+
+
+  final savingCollectionResult = await db.rawQuery('SELECT SUM(DEPOSIT) AS total FROM POSTSAVINGCOLLECTION');
+
+  final loanCollectionResult = await db.rawQuery('SELECT SUM(DEPOSIT) AS total FROM POSTLOANCOLLECTION');
+
+  final savingCollectionDeposit = savingCollectionResult.isNotEmpty ? savingCollectionResult.first['total']?? 0 : 0;
+
+  final loanCollectionDeposit = loanCollectionResult.isNotEmpty ? loanCollectionResult.first['total'] ?? 0: 0;
+
+
+  
+  if (savingCollectionDeposit is num && loanCollectionDeposit is num) {
+    totalDeposit = savingCollectionDeposit + loanCollectionDeposit;
+  } else {
+
+    totalDeposit = null;
+  }
+
+
+  return totalDeposit;
 }
+
 
 //account
 newaccount(DepositAccounts newAccount) async {

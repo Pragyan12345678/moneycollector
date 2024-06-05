@@ -10,11 +10,11 @@ import 'package:moneycollection/modules/Collection/AccountHeader.dart';
 import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
 import 'package:moneycollection/modules/Collection/loancollection.dart';
 import 'package:moneycollection/modules/Collection/table.dart';
-import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
 import 'package:moneycollection/modules/Loan/LoanDataTable.dart';
+import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/modules/landingPage/bottomNav.dart';
 
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
@@ -64,6 +64,17 @@ class _CollectionsheetsState extends State<Collectionsheets> {
       savingCollections = collections;
     });
   }
+
+void navigateToLoancollection() {
+  setState(() {
+    _currentIndex = 2; // Index of the Loan Account page
+  });
+}
+void navigateTosavingcollection() {
+  setState(() {
+    _currentIndex = 0; // Index of the Loan Account page
+  });
+}
 
   Future<void> _loadLoanCollections() async {
     List<Entries> loancollections =
@@ -119,7 +130,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const MainPage()),
+                                  builder: (context) => const DashboardHome()),
                             );
                           },
                           icon: const Icon(
@@ -243,16 +254,20 @@ class _CollectionsheetsState extends State<Collectionsheets> {
       case 0:
         return Collection(
           savingCollections: savingCollections,
+           navigatetosavingcollection: navigateTosavingcollection,
         );
       case 1:
         return SavingAccount(
           depositaccountcollections: accountDepositCollections,
         );
       case 2:
-        return LoanCollection(loanCollects: loanCollections);
+        return LoanCollection(loanCollects: loanCollections,
+         navigatetoloancollection: navigateToLoancollection
+        );
       case 3:
         return LoanAccount(
           loanaccountcollections: accountLoanCollections,
+          navigatetoloancollection: navigateToLoancollection
         );
       default:
         return const SizedBox.shrink();
@@ -314,17 +329,19 @@ class CustomCollectionsheet extends StatelessWidget {
 }
 
 class Collection extends StatelessWidget {
-  
+     final void Function() navigatetosavingcollection;
   final List<Entries> savingCollections;
   const Collection({
     super.key,
-    required this.savingCollections,
+    required this.savingCollections, required this.navigatetosavingcollection,
   });
 
   @override
   Widget build(BuildContext context) {
     return Consumer<DepositAccountsProvider>(
+      
         builder: (context, loanacc, child) {
+          print(navigatetosavingcollection);
       return Container(
         alignment: Alignment.center,
         child: Container(
@@ -418,7 +435,10 @@ class Collection extends StatelessWidget {
                         
                   
                         TableHeaderRow(),
-                        SizedBox(height: 425.h, child: SavingCollection()),
+                        SizedBox(height: 425.h, child: SavingCollection(
+ navigatetosavingcollection:navigatetosavingcollection,
+                          
+                        )),
                         
                       ],
                     )
@@ -432,9 +452,10 @@ class Collection extends StatelessWidget {
 
 class LoanCollection extends StatelessWidget {
   final List<Entries> loanCollects;
+   final void Function() navigatetoloancollection;
   const LoanCollection({
     super.key,
-    required this.loanCollects,
+    required this.loanCollects, required this.navigatetoloancollection,
   });
 
   @override
@@ -523,7 +544,10 @@ class LoanCollection extends StatelessWidget {
                   : Column(
                       children: [
                         TableHeaderRow(),
-                        SizedBox(height: 425.h, child: Loancoll()),
+                        SizedBox(height: 425.h, child: Loancoll(
+                           navigatetoloancollection: navigatetoloancollection
+
+                        )),
                       ],
                     )
             ],
@@ -585,9 +609,10 @@ class SavingAccount extends StatelessWidget {
 
 class LoanAccount extends StatelessWidget {
   final List<DepositAccounts> loanaccountcollections;
+   final void Function() navigatetoloancollection;
   const LoanAccount({
     super.key,
-    required this.loanaccountcollections,
+    required this.loanaccountcollections, required this.navigatetoloancollection,
   });
 
   @override
@@ -620,7 +645,10 @@ class LoanAccount extends StatelessWidget {
                   : Column(
                       children: [
                         AccountTableHeader(),
-                        SizedBox(height: 425.h, child: LoanData()),
+                        SizedBox(height: 425.h, child: LoanData(
+
+                        //  navigatetoloancollection: navigatetoloancollection
+                        )),
                       ],
                     )
             ],

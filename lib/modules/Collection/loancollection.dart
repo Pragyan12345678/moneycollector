@@ -10,6 +10,9 @@ import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
 class Loancoll extends StatefulWidget {
+   final void Function() navigatetoloancollection;
+
+  const Loancoll({super.key, required this.navigatetoloancollection});
   @override
   State<Loancoll> createState() => _LoancollState();
 }
@@ -51,6 +54,7 @@ class _LoancollState extends State<Loancoll> {
            loancollectionsheet.length ,
           itemBuilder: (context, index) {
           return TableBodyRow(
+             navigatetoloancollection: widget.navigatetoloancollection,
               indexxx:index,
               sn: "${index + 1}",
                customer: "${loancollectionsheet[index].cUSTOMERNAME}",

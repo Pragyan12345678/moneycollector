@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart' as nepali;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 class CalenderField extends StatefulWidget {
   final TextEditingController controller;
+  final DateTime? initialDate;
+  final void Function(DateTime?)? onDateSelected;
+  
   final String label;
   final bool
       useNepaliCalendar; // Dynamic parameter to determine whether to use Nepali calendar
@@ -14,7 +18,7 @@ class CalenderField extends StatefulWidget {
     Key? key,
     required this.controller,
     required this.label,
-    required this.useNepaliCalendar,
+    required this.useNepaliCalendar, this.initialDate, this.onDateSelected,
   });
 
   @override
@@ -50,6 +54,11 @@ class _CalenderFieldState extends State<CalenderField> {
         });
       }
     } else {
+ final englishDate = _selectedNepaliDate.toDateTime();
+    widget.controller.text = DateFormat("yyyy-MM-dd").format(englishDate);
+    print("${widget.controller.text }");
+
+
       final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: _selectedDate,

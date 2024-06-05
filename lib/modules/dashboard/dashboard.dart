@@ -14,7 +14,6 @@ import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
 
 class DashboardHome extends StatefulWidget {
   const DashboardHome({super.key});
@@ -25,6 +24,7 @@ class DashboardHome extends StatefulWidget {
 
 class _DashboardHomeState extends State<DashboardHome> {
   bool isContentVisible = false;
+    late dynamic totalDepositValue = 0; 
 
   void toggleContentVisibility() {
     setState(() {
@@ -33,8 +33,12 @@ class _DashboardHomeState extends State<DashboardHome> {
   }
 Future<dynamic> _getTotalDeposits() async {
   DatabaseHelper databaseHelper = DatabaseHelper.instance;
-  Database db = await databaseHelper.database;
-  return await databaseHelper.getTotalDeposits(db);
+
+  var total= await databaseHelper.getTotalDeposit();
+  print("Today collection:${total}");
+  setState(() {
+      totalDepositValue = total; // Store the fetched total deposit value
+    });
 }
   @override
   void initState() {
@@ -136,7 +140,9 @@ _getTotalDeposits();
                                               height: 4.h,
                                             ),
                                             isContentVisible
-                                                ? const FirstContent()
+                                                ?  FirstContent(
+                                                  totalDepositValue: totalDepositValue
+                                                )
                                                 : const SecondContent(),
                                           ],
                                         ),
@@ -399,7 +405,8 @@ class DashboardAppBAr extends StatelessWidget {
 }
 
 class FirstContent extends StatelessWidget {
-  const FirstContent({super.key});
+    final dynamic totalDepositValue; 
+  const FirstContent({super.key, this.totalDepositValue});
 
   @override
   Widget build(BuildContext context) {
@@ -410,7 +417,7 @@ class FirstContent extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(0.0),
       child: Text(
-        "Rs.10,000",
+        "Rs.$totalDepositValue",
         style: TextStyle(
             fontSize: 20.sp,
             color: AppColors.primaryColor,

@@ -7,6 +7,11 @@ import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
 class LoanData extends StatefulWidget {
+  //  final void Function() navigatetoloancollection;
+
+  const LoanData({super.key,
+  //  required this.navigatetoloancollection
+   });
   @override
   State<LoanData> createState() => _LoanDataState();
 }
@@ -48,11 +53,13 @@ class _LoanDataState extends State<LoanData> {
                   MaterialPageRoute(
                       builder: (context) => LoanForm(
                             index: index,
+                            // navigatetoloancollection: widget.navigatetoloancollection,
                             accountno: "${loanAccountsheet[index].aCCOUNT}",
                             clientid: "${loanAccountsheet[index].cUSTID}",
                             depositecode:
                                 "${loanAccountsheet[index].dEPOSITCODE}",
                             name: "${loanAccountsheet[index].cUSTOMERNAME}",
+                            
                           )),
                 );
               },

@@ -6,10 +6,16 @@ class FormCustomTextField extends StatefulWidget {
   final String label;
   final String? hintText;
   final TextEditingController? controller;
+  final TextInputType? textInputType;
+  final TextInputAction? textInputAction;
 
   const FormCustomTextField(String s, 
     {
-    super.key, required this.label, required this.controller, this.hintText,
+    super.key,
+    this.textInputType,
+    this.textInputAction,
+     required this.label, 
+     required this.controller, this.hintText,
     
   });
 
@@ -49,6 +55,8 @@ class _FormCustomTextFieldState extends State<FormCustomTextField> {
           child: TextFormField(
             style: subtitleStyle,
             controller: widget.controller,
+            keyboardType: widget.textInputType,
+            textInputAction: widget.textInputAction,
             decoration: InputDecoration(
               fillColor: Colors.white,
               errorStyle: subtitleStyle.copyWith(

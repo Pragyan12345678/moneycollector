@@ -186,7 +186,11 @@ class _ProfileviewState extends State<Profileview> {
                               label: "Logout",
                               sublabel: "Logout of this app",
                               imagePath: AppImages.logout,
-                              onTap: () {},
+                              onTap: () {
+
+
+                                
+                              },
                             ),
                           ],
                         ),

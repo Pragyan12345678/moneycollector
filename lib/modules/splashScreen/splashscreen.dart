@@ -1,13 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 import 'package:moneycollection/constant/image.dart';
-import 'package:moneycollection/main.dart';
 import 'package:moneycollection/modules/auth/login.dart';
-import 'package:moneycollection/modules/dashboard/dashboard.dart';
-import 'package:moneycollection/modules/landingPage/bottomNav.dart';
-import 'package:moneycollection/modules/landingPage/landingPage.dart';
 
 class ViewSplashScreen extends StatefulWidget {
   const ViewSplashScreen({Key? key}) : super(key: key);

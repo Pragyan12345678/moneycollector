@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
@@ -19,13 +18,15 @@ class LoanForm extends StatefulWidget {
   final String clientid;
   final String depositecode;
   final String name;
+  // final void Function() navigatetoloancollection;
   LoanForm({
     Key? key,
     required this.accountno,
     required this.clientid,
     required this.depositecode,
     required this.index,
-    required this.name,
+    required this.name, 
+    // required this.navigatetoloancollection,
     // required this.datas
   }) : super(key: key);
 
@@ -141,6 +142,7 @@ class _LoanFormState extends State<LoanForm> {
                             "0.00",
                             label: "Amount",
                             controller: loan.loanamount,
+                             textInputType: TextInputType.number,
                           ),
                           const SizedBox(height: 20),
                           FormCustomTextField(

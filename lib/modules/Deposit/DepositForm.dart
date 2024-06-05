@@ -29,7 +29,13 @@ class DepositForm extends StatefulWidget {
 
 class _DepositFormState extends State<DepositForm> {
 
+  @override
+  void initState() {
+    super.initState();
 
+
+    LoanStateProvider();
+  }
 
    
   @override
@@ -46,6 +52,7 @@ class _DepositFormState extends State<DepositForm> {
       
         return SafeArea(
           child: Scaffold(
+            resizeToAvoidBottomInset: true,
               body: SingleChildScrollView(
             child: Stack(
               children: [
@@ -94,6 +101,7 @@ class _DepositFormState extends State<DepositForm> {
                             label: " Tran Date(Ad)",
                             useNepaliCalendar: false,
                             controller: loan.trandatead,
+                            
                           ),
                           const SizedBox(
                             height: 10,
@@ -103,7 +111,9 @@ class _DepositFormState extends State<DepositForm> {
                             widget.name,
                             label: "Name",
                             controller: loan.name,
+                            textInputAction: TextInputAction.next,
                           ),
+                          const SizedBox(height: 10),
                           Text(
                             "Account Number",
                             style: TextStyle(
@@ -136,22 +146,27 @@ class _DepositFormState extends State<DepositForm> {
                               controller: loan.clientid),
                           const SizedBox(height: 10),
                           FormCustomTextField(
-                            "0.00",
-                            label: "Amount",
-                            controller: loan.amount,
-                          ),
-                           const SizedBox(height: 20),
-                          FormCustomTextField(
                             "",
                             label: "Deposite Code",
                             controller: loan.depositecode,
+                            
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
+                          FormCustomTextField(
+                            "0.00",
+                            label: "Amount",
+                            controller: loan.amount,
+                             textInputType: TextInputType.number,
+                             textInputAction: TextInputAction.next,
+                          ),
+                           const SizedBox(height: 10),
+                          
 
                           FormCustomTextField(
                             "",
                             label: "Deposite By",
                             controller: loan.depositeby,
+                            textInputAction: TextInputAction.next,
                           ),
                           const SizedBox(
                             height: 10,

@@ -10,9 +10,7 @@ import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 
 import 'package:moneycollection/provider/controller/Profile_state.dart';
-import 'package:moneycollection/provider/controller/collectionsheet_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
-import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 class EditCollectionForm extends StatefulWidget {
@@ -22,6 +20,8 @@ class EditCollectionForm extends StatefulWidget {
   final String account;
   final String amount;
     final bool isSaving;
+     final void  Function()? navigatetoloancollection;
+     final void  Function()? navigatetosavingcollection;
 
   const EditCollectionForm({
     Key? key,
@@ -29,7 +29,9 @@ class EditCollectionForm extends StatefulWidget {
     required this.datead,
     required this.datebs,
     required this.account,
-    required this.amount, required this.isSaving,
+    required this.amount, required this.isSaving, 
+     this.navigatetoloancollection,
+     this.navigatetosavingcollection
   }) : super(key: key);
 
   @override
@@ -40,7 +42,8 @@ class EditCollectionForm extends StatefulWidget {
         amount: amount,
       );
 }
-
+void Function()? navigatetosavingcollection;
+void Function()? navigatetoloancollection;
 
 class _EditCollectionFormState extends State<EditCollectionForm> {
   @override
@@ -220,6 +223,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                 FormCustomTextField(
                                   "0.00",
                                   label: "Amount",
+                                   textInputType: TextInputType.number,
                                   controller: 
                                     (widget.isSaving == true)?
                                   collectionn.amount
@@ -249,13 +253,13 @@ if   (widget.isSaving == true){
                                        collectionn.trandatead.clear();
                                         collectionn.accountnumber.clear();
                                          collectionn.amount.clear();
-}
-else{
-   double newAmount = double.parse(
-                                        collectionn.amount.text,
+                                              }
+                                              else{
+                                                double loanAmount = double.parse(
+                                        collectionn.loanamount.text,
                                       );
                                       String newAmountString =
-                                          newAmount.toString();
+                                          loanAmount.toString();
 
                                       databaseHelper.updateloancollection(
                                         widget.account,
@@ -265,19 +269,37 @@ else{
                                        collectionn.loantrandatead.clear();
                                         collectionn.loanaccountnumber.clear();
                                          collectionn.loanamount.clear();
+                                      
 }
                                       
-                                     
+                                      setState(() {
+                                        print("printing indesx${widget.navigatetoloancollection}");
+                                        (widget.isSaving == true)?
+                                        _loadSavingCollections()
+                                       : _loadLoanCollections();
+      //                                   // (widget.isSaving == true)?
+      //                                    if (widget.isSaving == true) {
+      //   // Navigate if it's saving collection
+      //   if (widget.navigatetosavingcollection != null) {
+      //     widget.navigatetosavingcollection!(); // Call the function to navigate
+      //   }
+      // } else {
+      //   // Navigate if it's loan collection
+      //   if (widget.navigatetoloancollection != null) {
+      //     widget.navigatetoloancollection!(); // Call the function to navigate
+      //   }
+      // }
 
                                         
-
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Collectionsheets(),
-                                        ),
-                                      );
+                                         Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Collectionsheets(),
+        ),
+      );
+                                      
+                                      
+                                      });
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

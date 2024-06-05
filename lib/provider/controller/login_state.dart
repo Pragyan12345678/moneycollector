@@ -8,10 +8,10 @@ import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/glonal_constant.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/constant/utils.dart';
+import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/modules/landingPage/bottomNav.dart';
 import 'package:moneycollection/modules/splashScreen/splashscreen.dart';
 import 'package:moneycollection/provider/utils/api_helper/api_base_helper.dart';
-
 
 class AuthState extends ChangeNotifier {
   final TextEditingController loginEmail = TextEditingController();
@@ -92,10 +92,7 @@ class AuthState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void showConformPassword() {
-  //   hideConformPassword = !hideConformPassword;
-  //   notifyListeners();
-  // }
+ 
   bool isFirstTime = true;
   bool loadingAuth = false;
 
@@ -119,11 +116,8 @@ class AuthState extends ChangeNotifier {
       "branch": selectedLocation,
       "device_name": "ANDRIOD",
     };
-    print("trhi body${body}");
-
+    print("printing login body${body}");
     var value = await authServices.postMethod(ApiUrl.login, jsonEncode(body));
-    print("tssshi body${value["user"]}");
-    print("tssshi body${value["user"]}");
     loadingAuth = false;
     notifyListeners();
     if (value == null) {
@@ -147,7 +141,7 @@ class AuthState extends ChangeNotifier {
           // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
-            builder: (context) => const MainPage(),
+            builder: (context) => const DashboardHome(),
           ),
           (route) => false,
         );

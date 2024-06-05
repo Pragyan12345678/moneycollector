@@ -15,6 +15,8 @@ class TableBodyRow extends StatefulWidget {
   final String datead;
   final String datebs;
   final bool isSaving;
+   final void Function()? navigatetoloancollection;
+   final void Function()?navigatetosavingcollection;
 
   const TableBodyRow({
     super.key,
@@ -25,7 +27,8 @@ class TableBodyRow extends StatefulWidget {
     required this.indexxx,
     required this.isSaving,
     required this.datead,
-    required this.datebs,
+    required this.datebs, 
+    this.navigatetoloancollection, this.navigatetosavingcollection,
   });
 
   @override
@@ -119,6 +122,7 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditCollectionForm(
+                                 navigatetoloancollection: widget.navigatetoloancollection,
                                 inde: widget.indexxx,
                                 datead: widget.datead,
                                 datebs: widget.datebs,
@@ -165,13 +169,16 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
                                             DatabaseHelper.instance;
 
                                         if (widget.isSaving == true) {
-                                          _loadSavingCollections();
+                                        
                                           databaseHelper.deletesavingcollection(
                                               widget.account);
+                                               _loadSavingCollections();
                                         } else {
                                           databaseHelper.deleteloancollection(
                                               widget.account);
-                                          _loadLoanCollections();
+                                          _loadLoanCollections(
+                                            
+                                          );
                                         }
                                       } catch (error) {
                                         print("Error deleting entry: $error");
