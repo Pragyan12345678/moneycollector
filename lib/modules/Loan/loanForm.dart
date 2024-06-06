@@ -45,6 +45,9 @@ class _LoanFormState extends State<LoanForm> {
         loan.loanclientid.text = widget.clientid.substring(7);
         loan.loandepositecode.text = widget.depositecode;
         loan.loanname.text = widget.name;
+              loan.loanaccountnumberadd.text = widget.accountno;
+      loan.loanclientidadd.text = widget.clientid;
+      loan.loanbranch.text =  widget.accountno.substring(0, 6);
         return SafeArea(
           child: Scaffold(
               body: SingleChildScrollView(
@@ -95,7 +98,7 @@ class _LoanFormState extends State<LoanForm> {
                           CalenderField(
                             label: " Tran Date(Ad)",
                             useNepaliCalendar: false,
-                            controller: loan.loantrandatead,
+                            controller2: loan.loantrandatead,
                           ),
                           const SizedBox(
                             height: 10,
@@ -181,6 +184,9 @@ class _LoanFormState extends State<LoanForm> {
                                 String depositby = loan.loandepositeby.text;
                                 String sourceIncome =
                                     loan.loansourceIncome.text;
+                                    String clientidadd = loan.loanclientidadd.text;
+                                String accountnoadd = loan.loanaccountnumberadd.text;
+                                  String branch = loan.loanbranch.text;
 
                                 print('tranad: $tranad');
                                 print('tranbs: $tranbs');
@@ -191,6 +197,9 @@ class _LoanFormState extends State<LoanForm> {
                                 print('amount: $amount');
                                 print('deposit: $depositby');
                                 print('sourceicome: $sourceIncome');
+                                 print('tranad: $clientidadd');
+                               print('tranad: $accountnoadd');
+                                print('tranbs: $branch');
 
                                 if (tranad.isEmpty ||
                                     tranbs.isEmpty ||

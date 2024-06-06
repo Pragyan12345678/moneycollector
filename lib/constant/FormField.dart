@@ -25,7 +25,6 @@ class FormCustomTextField extends StatefulWidget {
 
 class _FormCustomTextFieldState extends State<FormCustomTextField> {
   bool _isFocused = false;
-    bool _hasData = false;
 
 
   @override
@@ -78,16 +77,7 @@ class _FormCustomTextFieldState extends State<FormCustomTextField> {
                   color: AppColors.textColorBlack,
                 ),
               ),
-              // enabledBorder: const OutlineInputBorder(
-              //   borderSide: BorderSide(
-              //     color: Color.fromARGB(255, 110, 98, 98),
-              //   ),
-              // ),
-              // errorBorder: const OutlineInputBorder(
-              //   borderSide: BorderSide(
-              //     color: Colors.red,
-              //   ),
-              // ),
+          
             ),
             onTap: () {
               setState(() {

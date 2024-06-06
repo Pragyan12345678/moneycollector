@@ -6,19 +6,23 @@ import 'package:nepali_date_picker/nepali_date_picker.dart' as nepali;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 class CalenderField extends StatefulWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
+  final TextEditingController? controller2;
   final DateTime? initialDate;
   final void Function(DateTime?)? onDateSelected;
-  
+
   final String label;
   final bool
       useNepaliCalendar; // Dynamic parameter to determine whether to use Nepali calendar
 
   const CalenderField({
     Key? key,
-    required this.controller,
+    this.controller,
+    this.controller2,
     required this.label,
-    required this.useNepaliCalendar, this.initialDate, this.onDateSelected,
+    required this.useNepaliCalendar,
+    this.initialDate,
+    this.onDateSelected,
   });
 
   @override
@@ -48,17 +52,19 @@ class _CalenderFieldState extends State<CalenderField> {
         setState(() {
           _selectedNepaliDate =
               nepali.NepaliDateTime(picked.year, picked.month, picked.day);
-          widget.controller.text =
-              _selectedNepaliDate.toString().split(' ')[0];// Format this as needed
-              
+          widget.controller!.text = _selectedNepaliDate
+              .toString()
+              .split(' ')[0]; // Format this as needed
+
+          
+          // if (widget.controller!= null) {
+          //   var englishDate = _selectedNepaliDate.toDateTime();
+          // print("print ${englishDate}");
+          //   widget.controller2!.text = englishDate.toString().split(' ')[0];
+          // }
         });
       }
     } else {
- final englishDate = _selectedNepaliDate.toDateTime();
-    widget.controller.text = DateFormat("yyyy-MM-dd").format(englishDate);
-    print("${widget.controller.text }");
-
-
       final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: _selectedDate,
@@ -68,10 +74,8 @@ class _CalenderFieldState extends State<CalenderField> {
       if (picked != null && picked != _selectedDate) {
         setState(() {
           _selectedDate = DateTime(picked.year, picked.month, picked.day);
-          widget.controller.text =
+          widget.controller!.text =
               _selectedDate.toString().split(' ')[0]; // Format this as needed
-
-              
         });
       }
     }
@@ -97,9 +101,8 @@ class _CalenderFieldState extends State<CalenderField> {
         Container(
           // height: 6.h, // Set height to 50
           decoration: const BoxDecoration(
-            color: AppColors.greyColor,
-            borderRadius: BorderRadius.all(Radius.circular(5))
-          ),
+              color: AppColors.greyColor,
+              borderRadius: BorderRadius.all(Radius.circular(5))),
           child: Padding(
             padding: const EdgeInsets.all(1.0),
             child: Column(
@@ -110,26 +113,26 @@ class _CalenderFieldState extends State<CalenderField> {
                   readOnly: true,
                   onTap: () => _selectDate(context),
                   decoration: InputDecoration(
-                    hintText: widget.useNepaliCalendar
-                        ? 'Select Nepali Date'
-                        : 'Select Date',
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20), // Adjust vertical padding
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.calendar_today),
-                      onPressed: () => _selectDate(context),
-                      color: Colors.grey,
-                    ),
-                    border: InputBorder.none
-            
-                    // border: const OutlineInputBorder(
-                      
-                    
-                    //   borderSide: BorderSide(
-                    //     color: AppColors.textColorBlack,
-                    //   ),
-                    // ),
-                  ),
+                      hintText: widget.useNepaliCalendar
+                          ? 'Select Nepali Date'
+                          : 'Select Date',
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 20), // Adjust vertical padding
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.calendar_today),
+                        onPressed: () => _selectDate(context),
+                        color: Colors.grey,
+                      ),
+                      border: InputBorder.none
+
+                      // border: const OutlineInputBorder(
+
+                      //   borderSide: BorderSide(
+                      //     color: AppColors.textColorBlack,
+                      //   ),
+                      // ),
+                      ),
                 ),
               ],
             ),

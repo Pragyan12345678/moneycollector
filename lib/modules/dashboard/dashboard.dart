@@ -43,12 +43,16 @@ Future<dynamic> _getTotalDeposits() async {
   @override
   void initState() {
     super.initState();
-_getTotalDeposits();
-    Provider.of<DepositAccountsProvider>(context, listen: false)
-        .fetchDepositAccounts();
 
-    Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
+    
+       var profiledata = Provider.of<ProfileDataProvider>(context, listen: false);
+       profiledata.fetchProfiledata();
+       profiledata.loadProfileData();
+
+Provider.of<DepositAccountsProvider>(context, listen: false)
+        .fetchDepositAccounts();
     LoanStateProvider();
+    _getTotalDeposits();
   }
 
   @override

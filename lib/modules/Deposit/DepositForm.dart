@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
@@ -19,6 +18,7 @@ class DepositForm extends StatefulWidget {
      final String clientid;
       final String depositecode;
       final String  name;
+      
  
 
   const DepositForm({Key? key, required this.index, required this.accountno, required this.clientid, required this.depositecode, required this.name, }) : super(key: key);
@@ -28,14 +28,14 @@ class DepositForm extends StatefulWidget {
 }
 
 class _DepositFormState extends State<DepositForm> {
-
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
 
-
-    LoanStateProvider();
+LoanStateProvider();
   }
+
 
    
   @override
@@ -49,6 +49,10 @@ class _DepositFormState extends State<DepositForm> {
       loan.clientid.text = widget.clientid.substring(7);
       loan.depositecode.text = widget.depositecode;
       loan.name.text = widget.name;
+      loan.accountnumberadd.text = widget.accountno;
+      loan.clientidadd.text = widget.clientid;
+      loan.branch.text =  widget.accountno.substring(0, 6);
+
       
         return SafeArea(
           child: Scaffold(
@@ -193,7 +197,9 @@ class _DepositFormState extends State<DepositForm> {
                                 String sourceIncome = loan.sourceIncome.text;
                                  String depositecode = loan.depositecode.text;
                                 String clientid = loan.clientid.text;
-
+                                String clientidadd = loan.clientidadd.text;
+                                String accountnoadd = loan.accountnumberadd.text;
+                                  String branch = loan.branch.text;
                                 print('tranad: $tranad');
                                 print('tranbs: $tranbs');
                                 print('tranad: $accountno');
@@ -203,6 +209,9 @@ class _DepositFormState extends State<DepositForm> {
                                 print('tranad: $clientid');
                                print('tranad: $name');
                                 print('tranbs: $sourceIncome');
+                                print('tranad: $clientidadd');
+                               print('tranad: $accountnoadd');
+                                print('tranbs: $branch');
 
 
                                   if (tranad.isEmpty ||

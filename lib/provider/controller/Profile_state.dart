@@ -9,34 +9,46 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileDataProvider with ChangeNotifier {
 
-
-
-
-ProfileDataProvider()  {
-  try {
-    String? profile; 
-     Preference.getProfile().then((result){
-      profile = result;
+String? profileData;
+  Future<void> loadProfileData() async {
+    String? data = await Preference.getProfile();
    
-    if (profile != null && profile is String) {
-      print("printing the valueddddd${profile}");
-      Map<String, dynamic> profileData = json.decode(profile!);
-      _profiledata.add(ProfileData.fromJson(profileData));
-    } else {
-      // Handle null or invalid profile data
-      print("Profile ${_profiledata}");
-    }
-     });
-  } catch (error) {
-    // Handle error if any
-    print("Error fetching profile data: $error");
+      profileData = data;
+      print(" Profile page :Profile data load from preference: ${profileData}");
+  notifyListeners();
   }
-}
 
-//   ProfileDataProvider()  {
-//   var profile =  Preference.getProfile(); // Wait for the future to complete
-//   _profiledata.add(ProfileData.fromJson(profile));
+  Future<void> loadDepositeData() async {
+    String? data = await Preference.getDepositeaccount();
+
+      profileData = data;
+      print("Profile page: Deposit account load from preference:${profileData}");
+      notifyListeners();
+  
+  }
+
+// initializationorifu()  {
+//   try {
+//     String? profile; 
+//      Preference.getProfile().then((result){
+//       profile = result;
+   
+//     if (profile != null && profile is String) {
+//       print("printing the valueddddd${profile}");
+//       Map<String, dynamic> profileData = json.decode(profile!);
+//       _profiledata.add(ProfileData.fromJson(profileData));
+//     } else {
+//       // Handle null or invalid profile data
+//       print("Profile ${_profiledata}");
+//     }
+//      });
+//   } catch (error) {
+//     // Handle error if any
+//     print("Error fetching profile data: $error");
+//   }
 // }
+
+
   List<ProfileData> _profiledata = [];
 
   List<ProfileData> get ProfileDatas => _profiledata;

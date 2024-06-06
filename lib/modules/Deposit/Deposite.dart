@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/Nodata.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
@@ -18,118 +17,185 @@ class DepositList extends StatefulWidget {
 }
 
 class _DepositListState extends State<DepositList> {
-
-    Future<void> _refresh() async {
+  Future<void> _refresh() async {
     // Fetch deposit accounts data
-    await Provider.of<DepositAccountsProvider>(context, listen: false).fetchDepositAccounts();
+    await Provider.of<DepositAccountsProvider>(context, listen: false)
+        .fetchDepositAccounts();
   }
 
   @override
   Widget build(BuildContext context) {
-     
     return SafeArea(
-      child: Consumer<AuthState>(builder: (context, authController, child) {
-      return Consumer<DepositAccountsProvider>(
-        builder: (context, provider, _) {
-
-          // var depositProvider = Provider.of<DepositAccountsProvider>(context); // Access the provider
-    var depositAccounts = provider.depositAccounts; 
-    String? selectedLocation;
-
-   
-          return Scaffold(
-            body: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Container(
-                    height: 170.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5.r), bottomRight: Radius.circular(5.r)),
-                      color: AppColors.primaryBlue,
-                    ),
-                  ),
-                  const CustomAppBar(
-                    label: "Deposit",
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0, left: 260, right: 10),
-                    child: GestureDetector(
-                                        onTap: () {
-                                         provider.fetchDepositAccounts();
-                    _refresh();
-                                  
-                                         
-                                        },
-                                         child: Container(
-                              height: 40.h,
-                              //  width: 130.w,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 154, 204, 157),
-                                borderRadius: BorderRadius.circular(
-                                  10.r),
-                                 
-                               
-                              ),
-                               child : Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: SizedBox(
-                                      height :20.h,
-                                      width: 20.w,
-                                      child: Image.asset(AppImages.sync)),
-                                  ),
-                                     SizedBox(
-                                      width: 1.w,
-                                    ),
-                                     Padding(
-                                       padding: const EdgeInsets.only(right: 8.0),
-                                       child: Text("Sync", style: TextStyle(
-                                        fontSize: 14.sp, fontWeight:FontWeight.w500,
-                                                                           ),),
-                                     )
-                                    
-                                ],
-                               )
-                            ),
-                                       ),
-                  ),
-                  (provider.depositAccounts.isEmpty)
-                    ? Padding(
-                        padding: EdgeInsets.only(
-                          top: 252.h,
+      child: Consumer<AuthState>(
+        builder: (context, authController, child) {
+          return Consumer<DepositAccountsProvider>(
+            builder: (context, provider, _) {
+              return Scaffold(
+                body: SingleChildScrollView(
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 170.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(5.r),
+                              bottomRight: Radius.circular(5.r)),
+                          color: AppColors.primaryBlue,
                         ),
-                        child: const Nodata(),
-                      )
-                    :
-                   
-                  Padding(
-                    padding: EdgeInsets.only(top: 90.h, right: 10.w, left: 10.w),
-                    child: Container(
-                      height: 650.h,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      child:Column(
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
                             children: [
-                             
-                              AccountTableHeader(),
-                              SizedBox(height: 580.h, child: DepositData()),
-                              // LoanTable()),
+                              Expanded(
+                                flex: 1,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back_ios_new_rounded,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 6,
+                                child: Text(
+                                  "Deposit", // Correcting string interpolation
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                      // child: Text(" length : ${provider.depositAccounts.first.aCCOUNT?? ""}"),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                        ),
+                      ),
+                      (provider.depositAccounts.isEmpty)
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                top: 252.h,
+                              ),
+                              child: const Nodata(),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.only(
+                                  top: 70.h, right: 10.w, left: 10.w),
+                              child: Container(
+                                height: 680.h,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 7,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 15.0,
+                                                bottom: 15,
+                                                left: 20),
+                                            child: Center(
+                                              child: Text(
+                                                " Loan Collection Sheet",
+                                                style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    color: Colors.grey,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                        "Confirm Syncing"),
+                                                    content: const Text(
+                                                        "Are you sure you want to Sync the Collection?"),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Text(
+                                                            "Cancel"),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          provider
+                                                              .fetchDepositAccounts();
+                                                          _refresh();
+                                                          Navigator
+                                                              .pushAndRemoveUntil(
+                                                            // ignore: use_build_context_synchronously
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const DepositList(),
+                                                            ),
+                                                            (route) => false,
+                                                          );
+                                                        },
+                                                        child:
+                                                            const Text("Sync"),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                  height: 20.h,
+                                                  width: 20.h,
+                                                  color: Colors.white,
+                                                  child: Image.asset(
+                                                    AppImages.sync,
+                                                    color: Colors.grey,
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    AccountTableHeader(),
+                                    SizedBox(
+                                        height: 580.h, child: DepositData()),
+                                    // LoanTable()),
+                                  ],
+                                ),
+                              ),
+                            )
+                    ],
+                  ),
+                ),
+              );
+            },
           );
         },
-      );
-       },
       ),
     );
   }

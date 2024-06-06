@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Postdeposite.dart';
+import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 import 'package:moneycollection/modules/Collection/editcollection.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
+import 'package:provider/provider.dart';
 
 class TableBodyRow extends StatefulWidget {
   final int indexxx;
@@ -36,35 +39,20 @@ class TableBodyRow extends StatefulWidget {
 }
 
 class _AccountTableBodyRowState extends State<TableBodyRow> {
-  List<Entries> savingCollections = [];
-  List<Entries> loanCollections = [];
+ 
 
   @override
   void initState() {
     super.initState();
-    _loadSavingCollections();
-    _loadLoanCollections();
+     var collection = Provider.of<LoanStateProvider>(context, listen: false);
+    collection.loadSavingCollections();
+    collection.loadLoanCollections();
   }
 
-  Future<void> _loadSavingCollections() async {
-    List<Entries> collections =
-        await DatabaseHelper.instance.getAllgetsavingcollection();
-    setState(() {
-      savingCollections = collections;
-    });
-  }
-
-  Future<void> _loadLoanCollections() async {
-    List<Entries> loancollections =
-        await DatabaseHelper.instance.getAllgetloancollection();
-
-    setState(() {
-      loanCollections = loancollections;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+       return Consumer<LoanStateProvider>(builder: (context, collect, child) {
     return Column(
       children: [
         SizedBox(
@@ -172,13 +160,30 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
                                         
                                           databaseHelper.deletesavingcollection(
                                               widget.account);
-                                               _loadSavingCollections();
+                                               collect.loadSavingCollections();
+                                                 Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Collectionsheets(
+            index: 0,
+          ),
+        ),
+      );                              
+
                                         } else {
                                           databaseHelper.deleteloancollection(
                                               widget.account);
-                                          _loadLoanCollections(
+                                          collect.loadLoanCollections(
                                             
                                           );
+                                            Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Collectionsheets(
+            index: 2,
+          ),
+        ),
+      );                              
                                         }
                                       } catch (error) {
                                         print("Error deleting entry: $error");
@@ -213,6 +218,9 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
       ],
     );
   }
+   );
+  
+}
 }
 
 class Horizentaldiv extends StatelessWidget {

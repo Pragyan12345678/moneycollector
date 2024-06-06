@@ -7,7 +7,7 @@ class Nodata extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
+      child: SizedBox(
         height: 180,
         width: 120,
          
@@ -15,8 +15,8 @@ class Nodata extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(AppImages.nodata),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
               child: Text("No data", style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500

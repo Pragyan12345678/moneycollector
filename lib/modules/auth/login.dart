@@ -125,45 +125,45 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        child: Text(
-                          'Forgot password?',
-                          style: subtitleStyle.copyWith(
-                              color: AppColors.logoblueColor, fontSize: 12.sp),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgotPasswordView(),
-                            ),
-                          );
-                        },
-                      ),
-                      Expanded(
-                        child: CheckboxListTile(
-                          activeColor: AppColors.textColorBlack,
-                          value: rememberMeValue,
-                          onChanged: (value) {
-                            setState(() {
-                              rememberMeValue = value!;
-                              // AppStorage.saveRememberme(value);
-                            });
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(
-                            'Remember Me',
-                            style: subtitleStyle.copyWith(fontSize: 12.sp),
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisSize: MainAxisSize.min,
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     TextButton(
+                  //       child: Text(
+                  //         'Forgot password?',
+                  //         style: subtitleStyle.copyWith(
+                  //             color: AppColors.logoblueColor, fontSize: 12.sp),
+                  //       ),
+                  //       onPressed: () {
+                  //         Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //             builder: (context) => ForgotPasswordView(),
+                  //           ),
+                  //         );
+                  //       },
+                  //     ),
+                  //     Expanded(
+                  //       child: CheckboxListTile(
+                  //         activeColor: AppColors.textColorBlack,
+                  //         value: rememberMeValue,
+                  //         onChanged: (value) {
+                  //           setState(() {
+                  //             rememberMeValue = value!;
+                  //             // AppStorage.saveRememberme(value);
+                  //           });
+                  //         },
+                  //         contentPadding: EdgeInsets.zero,
+                  //         title: Text(
+                  //           'Remember Me',
+                  //           style: subtitleStyle.copyWith(fontSize: 12.sp),
+                  //           textAlign: TextAlign.right,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                  
                   const SizedBox(
                     height: 20,

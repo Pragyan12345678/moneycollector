@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/colors.dart';
 
@@ -19,7 +18,7 @@ class AccountTextField extends StatelessWidget {
       padding: const EdgeInsets.all(0.0),
       decoration: BoxDecoration(
         color:AppColors.greyColor,
-        // border: Border.all(color: AppColors.textColorBlack,), // Border color set to black
+      
         borderRadius: BorderRadius.circular(5.0),
         
       ),
@@ -32,10 +31,10 @@ class AccountTextField extends StatelessWidget {
             child: Container(
               height: 50.h,
             
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.grey,
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),topLeft: Radius.circular(5))),
-              padding: EdgeInsets.only(right: 10.0,left: 10),
+              padding: const EdgeInsets.only(right: 10.0,left: 10),
 
               child: Center(
                 child:
@@ -53,21 +52,18 @@ class AccountTextField extends StatelessWidget {
             flex: 4,
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
-              child: Container(
-                // color: Colors.white, // Background color set to grey
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: 'xxxxx-xxxx-xx',
-                    hintStyle: subtitleStyle.copyWith(
-                    color: Colors.grey,
-
-                    ),
-                    
-                    border: InputBorder.none,
+              child: TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: 'xxxxx-xxxx-xx',
+                  hintStyle: subtitleStyle.copyWith(
+                  color: Colors.grey,
+              
                   ),
-                  controller: controller,
+                  
+                  border: InputBorder.none,
                 ),
+                controller: controller,
               ),
             ),
           ),

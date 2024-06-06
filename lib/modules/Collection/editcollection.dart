@@ -226,8 +226,8 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                    textInputType: TextInputType.number,
                                   controller: 
                                     (widget.isSaving == true)?
-                                  collectionn.amount
-                                  :collectionn.loanamount
+                                  collectionn.updateamount
+                                  :collectionn.updateloanamount
                                 ),
                                 const SizedBox(height: 20),
                                 Padding(
@@ -240,7 +240,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
 
 if   (widget.isSaving == true){
    double newAmount = double.parse(
-                                        collectionn.amount.text,
+                                        collectionn.updateamount.text,
                                       );
                                       String newAmountString =
                                           newAmount.toString();
@@ -253,10 +253,20 @@ if   (widget.isSaving == true){
                                        collectionn.trandatead.clear();
                                         collectionn.accountnumber.clear();
                                          collectionn.amount.clear();
+                                         collectionn.updateamount.clear();
+                                         _loadSavingCollections();
+                                           Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Collectionsheets(
+            index: 0,
+          ),
+        ),
+      );
                                               }
                                               else{
                                                 double loanAmount = double.parse(
-                                        collectionn.loanamount.text,
+                                        collectionn.updateloanamount.text,
                                       );
                                       String newAmountString =
                                           loanAmount.toString();
@@ -269,37 +279,21 @@ if   (widget.isSaving == true){
                                        collectionn.loantrandatead.clear();
                                         collectionn.loanaccountnumber.clear();
                                          collectionn.loanamount.clear();
-                                      
-}
-                                      
-                                      setState(() {
-                                        print("printing indesx${widget.navigatetoloancollection}");
-                                        (widget.isSaving == true)?
-                                        _loadSavingCollections()
-                                       : _loadLoanCollections();
-      //                                   // (widget.isSaving == true)?
-      //                                    if (widget.isSaving == true) {
-      //   // Navigate if it's saving collection
-      //   if (widget.navigatetosavingcollection != null) {
-      //     widget.navigatetosavingcollection!(); // Call the function to navigate
-      //   }
-      // } else {
-      //   // Navigate if it's loan collection
-      //   if (widget.navigatetoloancollection != null) {
-      //     widget.navigatetoloancollection!(); // Call the function to navigate
-      //   }
-      // }
-
-                                        
-                                         Navigator.pushReplacement(
+                                         collectionn.updateloanamount.clear();
+                                         _loadLoanCollections();
+                                                  Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Collectionsheets(),
+          builder: (context) => const Collectionsheets(
+            index: 2,
+          ),
         ),
-      );
+      );                              
+}
+                                                        
+                                        print("printing indesx${widget.navigatetoloancollection}");
+     
                                       
-                                      
-                                      });
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

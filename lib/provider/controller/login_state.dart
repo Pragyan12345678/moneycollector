@@ -148,6 +148,10 @@ class AuthState extends ChangeNotifier {
 
         notifyListeners();
       }
+      else{
+        Utilities.showCustomSnackBar(
+                              "Invalid Email and Password.");
+      }
       loadingAuth = false;
       notifyListeners();
     }

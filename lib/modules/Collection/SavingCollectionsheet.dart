@@ -9,31 +9,24 @@ import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
 class SavingCollection extends StatefulWidget {
-   final void Function() navigatetosavingcollection;
+  
 
-  const SavingCollection({super.key, required this.navigatetosavingcollection});
+  const SavingCollection({super.key, });
   @override
   State<SavingCollection> createState() => _SavingCollectionState();
 }
 
 class _SavingCollectionState extends State<SavingCollection> {
-  List<Entries> savingCollections = [];
+ 
   String? postLoanData;
 
   @override
   void initState() {
     super.initState();
-
-    _loadSavingCollections();
+ var collection =Provider.of<LoanStateProvider>(context, listen: false);
+    collection.loadSavingCollections();
   }
 
-  Future<void> _loadSavingCollections() async {
-    List<Entries> collections =
-        await DatabaseHelper.instance.getAllgetsavingcollection();
-    setState(() {
-      savingCollections = collections;
-    });
-  }
 
 // LoanStateProvider() {
   @override
@@ -45,18 +38,18 @@ class _SavingCollectionState extends State<SavingCollection> {
         return Container(
           constraints: BoxConstraints.expand(),
           child: ListView.builder(
-            itemCount: savingCollections.length,
+            itemCount: postdeposite.savingCollections.length,
             itemBuilder: (context, index) {
               return TableBodyRow( 
-                navigatetosavingcollection: widget.navigatetosavingcollection,
+               
 
                 indexxx: index + 1,
                 sn: "${index + 1}",
-                customer: "${savingCollections[index].cUSTOMERNAME}",
-                account: "${savingCollections[index].aCCOUNT}",
-                amount: "${savingCollections[index].dEPOSIT}",
-                datead: "${savingCollections[index].tranDateAd}",
-                datebs: "${savingCollections[index].tranDateBs}",
+                customer: "${postdeposite.savingCollections[index].cUSTOMERNAME}",
+                account: "${postdeposite.savingCollections[index].aCCOUNT}",
+                amount: "${postdeposite.savingCollections[index].dEPOSIT}",
+                datead: "${postdeposite.savingCollections[index].tranDateAd}",
+                datebs: "${postdeposite.savingCollections[index].tranDateBs}",
                 isSaving: true,
               );
             },

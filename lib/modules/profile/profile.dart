@@ -7,7 +7,6 @@ import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/modules/profile/Information.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
-import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:provider/provider.dart';
 
@@ -23,26 +22,13 @@ class _ProfileviewState extends State<Profileview> {
   @override
   void initState() {
     super.initState();
-    loadProfileData();
-    loadDepositeData();
-    Provider.of<ProfileDataProvider>(context, listen: false).fetchProfiledata();
+   
+    var profiledata =Provider.of<ProfileDataProvider>(context, listen: false);
+    profiledata.fetchProfiledata();
+     profiledata.loadProfileData();
+    profiledata.loadDepositeData();
   }
 
-  Future<void> loadProfileData() async {
-    String? data = await Preference.getProfile();
-    setState(() {
-      profileData = data;
-      print(" Profile page :Profile data load from preference: ${profileData}");
-    });
-  }
-
-  Future<void> loadDepositeData() async {
-    String? data = await Preference.getDepositeaccount();
-    setState(() {
-      profileData = data;
-      print("Profile page: Deposit account load from preference:${profileData}");
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
