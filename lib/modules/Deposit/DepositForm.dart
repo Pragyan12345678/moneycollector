@@ -30,13 +30,19 @@ class DepositForm extends StatefulWidget {
 class _DepositFormState extends State<DepositForm> {
   @override
   void initState() {
-    // TODO: implement initState
+ var loan = Provider.of<LoanStateProvider>(context, listen: false);
+    
     super.initState();
+    if (loan.trandatebs.text.isNotEmpty) {
+      setState(() {
+        initialDate = DateTime.now();
+      });
+    }
 
 LoanStateProvider();
   }
-
-
+    DateTime? initialDate;
+ 
    
   @override
   Widget build(BuildContext context) {
@@ -93,6 +99,8 @@ LoanStateProvider();
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
+                          
                           CalenderField(
                             label: " Tran Date(Bs)",
                             useNepaliCalendar: true,
@@ -101,11 +109,11 @@ LoanStateProvider();
                           const SizedBox(
                             height: 10,
                           ),
+                      //  if(loan.trandatebs.text.isNotEmpty)
                           CalenderField(
                             label: " Tran Date(Ad)",
                             useNepaliCalendar: false,
-                            controller: loan.trandatead,
-                            
+                             controller: loan.trandatead,
                           ),
                           const SizedBox(
                             height: 10,

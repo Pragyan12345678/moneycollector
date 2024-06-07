@@ -34,7 +34,7 @@ class DepositAccountsProvider with ChangeNotifier {
   }
 
   int currentIndex = 0;
-  void changePage(int index) {
+   changePage(int index) {
     currentIndex = index; 
     notifyListeners();
   }

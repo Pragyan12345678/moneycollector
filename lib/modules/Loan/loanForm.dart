@@ -98,7 +98,7 @@ class _LoanFormState extends State<LoanForm> {
                           CalenderField(
                             label: " Tran Date(Ad)",
                             useNepaliCalendar: false,
-                            controller2: loan.loantrandatead,
+                            controller: loan.loantrandatead,
                           ),
                           const SizedBox(
                             height: 10,

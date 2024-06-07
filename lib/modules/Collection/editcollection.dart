@@ -86,24 +86,24 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
   int _currentIndex = 0;
 
   void _changePage(int index) {
-    setState(() {
+    
       _currentIndex = index;
-    });
+
   }
 
   Future<void> _loadSavingCollections() async {
     List<Entries> collections =
         await DatabaseHelper.instance.getAllgetsavingcollection();
-    setState(() {
+ 
       savingCollections = collections;
-    });
+ 
   }
   Future<void> _loadLoanCollections() async {
     List<Entries> loancollections =
         await DatabaseHelper.instance.getAllgetloancollection();
-    setState(() {
+
       loanCollections = loancollections;
-    });
+ 
   }
 
 

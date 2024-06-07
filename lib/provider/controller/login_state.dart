@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/glonal_constant.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
@@ -149,11 +150,33 @@ class AuthState extends ChangeNotifier {
         notifyListeners();
       }
       else{
-        Utilities.showCustomSnackBar(
-                              "Invalid Email and Password.");
+        Utilities.showCustomSnackBar(value['message']);
       }
+
+loginEmail.clear();
+loginPassword.clear();
+// selectedLocation= "";
+
+
+
       loadingAuth = false;
       notifyListeners();
     }
   }
+ signOut() {
+    _isLoggedIn = false;
+    Constant.loginToken = "";
+    _getProfileData = null;
+    Preference.clearAuth();
+
+    notifyListeners();
+  }
+  ProfileData? get profileData => _getProfileData;
+  ProfileData? _getProfileData;
+
+
+
+
+
+
 }

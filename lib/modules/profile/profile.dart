@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
+import 'package:moneycollection/constant/CustomShowDialog.dart';
 import 'package:moneycollection/constant/colors.dart';
 import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/constant/user_sharepreference.dart';
 import 'package:moneycollection/modules/profile/Information.dart';
+import 'package:moneycollection/modules/splashScreen/splashscreen.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:provider/provider.dart';
@@ -174,7 +176,21 @@ class _ProfileviewState extends State<Profileview> {
                               imagePath: AppImages.logout,
                               onTap: () {
 
-
+customShowDialog(
+                              context: context,
+                              title: "Logout?",
+                              content: "Are you sure you want to logout?",
+                              onNoPressed: () {
+                                Navigator.pop(context);
+                              },
+                              onYesPressed: () {
+                                auuth.signOut();
+                              Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => const ViewSplashScreen()),
+);
+                              },
+                            );
                                 
                               },
                             ),

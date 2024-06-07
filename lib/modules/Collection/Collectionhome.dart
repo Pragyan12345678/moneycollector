@@ -37,11 +37,15 @@ class _CollectionsheetsState extends State<Collectionsheets> {
     var depositeaccount =
         Provider.of<DepositAccountsProvider>(context, listen: false);
     var collection = Provider.of<LoanStateProvider>(context, listen: false);
-    depositeaccount.changePage(widget.index ?? 0);
+    
     collection.loadSavingCollections();
     depositeaccount.loadDepositAccountCollections();
     depositeaccount.loadLoanAccountCollections();
     collection.loadLoanCollections();
+    Future.delayed(const Duration(seconds: 2),(){
+
+ depositeaccount.changePage(widget.index ?? 0);
+    });
   }
 
   @override

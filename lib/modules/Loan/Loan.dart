@@ -6,6 +6,7 @@ import 'package:moneycollection/constant/image.dart';
 import 'package:moneycollection/modules/Collection/AccountHeader.dart';
 
 import 'package:moneycollection/modules/Loan/LoanDataTable.dart';
+import 'package:moneycollection/modules/dashboard/dashboard.dart';
 
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,13 @@ class _LoanListState extends State<LoanList> {
                           flex: 1,
                           child: IconButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const DashboardHome(),
+                                ),
+                                (route) => false,
+                              );
                             },
                             icon: const Icon(
                               Icons.arrow_back_ios_new_rounded,
@@ -79,7 +86,7 @@ class _LoanListState extends State<LoanList> {
                 Padding(
                   padding: EdgeInsets.only(top: 70.h, right: 10.w, left: 10.w),
                   child: Container(
-                    height: 680.h,
+                    height: 690.h,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5))),

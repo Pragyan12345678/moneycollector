@@ -67,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 40,
                   ),
                   DropdownButtonFormField<String>(
+                    
                     value: authController.selectedLocation,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -84,6 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: InputDecoration(
                       labelText: 'Location',
                       border: OutlineInputBorder(),
+                      
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
                     ),
                     validator: (value) {

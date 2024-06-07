@@ -88,7 +88,7 @@ class _DepositListState extends State<DepositList> {
                               padding: EdgeInsets.only(
                                   top: 70.h, right: 10.w, left: 10.w),
                               child: Container(
-                                height: 680.h,
+                                height: 690.h,
                                 decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius:
@@ -107,7 +107,7 @@ class _DepositListState extends State<DepositList> {
                                                 left: 20),
                                             child: Center(
                                               child: Text(
-                                                " Loan Collection Sheet",
+                                                " Deposite Account",
                                                 style: TextStyle(
                                                     fontSize: 16.sp,
                                                     color: Colors.grey,
