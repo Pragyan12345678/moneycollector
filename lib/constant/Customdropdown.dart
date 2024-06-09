@@ -68,7 +68,7 @@ class CustomDropdownButton extends StatelessWidget {
             ),
             contentPadding: EdgeInsets.only(
               left: 5.w,
-              right: 5.w,
+              right: 2.w,
             ),
           ),
           style: TextStyle(

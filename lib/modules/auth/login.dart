@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                     labelText: 'Username',
                     controller: authController.loginEmail,
                     textInputAction: TextInputAction.next,
-                    // validator: CustomValidator.validateEmail,
+                    validator: CustomValidator.validateName,
                   ),
                   const SizedBox(
                     height: 20,
