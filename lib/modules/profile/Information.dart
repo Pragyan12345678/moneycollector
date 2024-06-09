@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Profile.dart';
-import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:provider/provider.dart';
 

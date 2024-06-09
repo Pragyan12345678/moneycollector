@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/AppColors.dart';
 
 class CustomCircularIcon extends StatelessWidget {
   const CustomCircularIcon({

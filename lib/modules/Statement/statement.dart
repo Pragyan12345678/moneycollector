@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
-import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/constant/AppColors.dart';
+import 'package:moneycollection/constant/AppImageDirectory.dart';
 
 class Statement extends StatefulWidget {
   const Statement({super.key});

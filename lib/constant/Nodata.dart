@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/constant/AppImageDirectory.dart';
 
 class Nodata extends StatelessWidget {
   const Nodata({super.key});

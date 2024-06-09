@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/AppColors.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart' as nepali;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 

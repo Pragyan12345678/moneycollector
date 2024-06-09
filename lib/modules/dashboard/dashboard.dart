@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/modules/Collection/Collectionhome.dart';
-import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/constant/AppColors.dart';
+import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/modules/Deposit/Deposite.dart';
 import 'package:moneycollection/modules/Loan/Loan.dart';
-import 'package:moneycollection/modules/Notification/Notification.dart';
 import 'package:moneycollection/modules/profile/profile.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';

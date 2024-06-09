@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
-import 'package:moneycollection/constant/user_sharepreference.dart';
-import 'package:moneycollection/constant/utils.dart';
+import 'package:moneycollection/constant/UserSharepreference.dart';
+import 'package:moneycollection/constant/Utils.dart';
 import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 

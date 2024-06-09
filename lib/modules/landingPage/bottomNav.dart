@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:moneycollection/constant/CustomShowDialog.dart';
-import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/constant/AppColors.dart';
+import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/modules/Statement/statement.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/modules/profile/profile.dart';

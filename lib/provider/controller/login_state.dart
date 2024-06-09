@@ -6,9 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
-import 'package:moneycollection/constant/glonal_constant.dart';
-import 'package:moneycollection/constant/user_sharepreference.dart';
-import 'package:moneycollection/constant/utils.dart';
+import 'package:moneycollection/constant/Global_Constant.dart';
+import 'package:moneycollection/constant/UserSharepreference.dart';
+import 'package:moneycollection/constant/Utils.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/modules/landingPage/bottomNav.dart';
 import 'package:moneycollection/modules/splashScreen/splashscreen.dart';
@@ -134,6 +134,7 @@ class AuthState extends ChangeNotifier {
         Preference.storeUser(value["user"]["TOKEN"].toString());
 
         loadingAuth = false;
+        notifyListeners();
 
         Utilities.showCustomSnackBar(value['message']);
         print("object");

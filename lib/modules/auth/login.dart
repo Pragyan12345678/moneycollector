@@ -3,12 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/Button.dart';
-import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/image.dart';
-import 'package:moneycollection/constant/textfield.dart';
-import 'package:moneycollection/constant/utils.dart';
-import 'package:moneycollection/constant/validation.dart';
-import 'package:moneycollection/remove/forgetPassword.dart';
+import 'package:moneycollection/constant/AppColors.dart';
+import 'package:moneycollection/constant/AppImageDirectory.dart';
+import 'package:moneycollection/constant/LoginTextField.dart';
+import 'package:moneycollection/constant/Utils.dart';
+import 'package:moneycollection/constant/Validation.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:provider/provider.dart';
 
@@ -124,51 +123,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     obstruct :authController.hidePassword
                   ),
+                
                   const SizedBox(
-                    height: 20,
-                  ),
-                  // Row(
-                  //   mainAxisSize: MainAxisSize.min,
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     TextButton(
-                  //       child: Text(
-                  //         'Forgot password?',
-                  //         style: subtitleStyle.copyWith(
-                  //             color: AppColors.logoblueColor, fontSize: 12.sp),
-                  //       ),
-                  //       onPressed: () {
-                  //         Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //             builder: (context) => ForgotPasswordView(),
-                  //           ),
-                  //         );
-                  //       },
-                  //     ),
-                  //     Expanded(
-                  //       child: CheckboxListTile(
-                  //         activeColor: AppColors.textColorBlack,
-                  //         value: rememberMeValue,
-                  //         onChanged: (value) {
-                  //           setState(() {
-                  //             rememberMeValue = value!;
-                  //             // AppStorage.saveRememberme(value);
-                  //           });
-                  //         },
-                  //         contentPadding: EdgeInsets.zero,
-                  //         title: Text(
-                  //           'Remember Me',
-                  //           style: subtitleStyle.copyWith(fontSize: 12.sp),
-                  //           textAlign: TextAlign.right,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                 
-                  const SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   SizedBox(
                     height: 50,

@@ -12,23 +12,19 @@ class DepositData extends StatefulWidget {
 }
 
 class _DepositDataState extends State<DepositData> {
-  List<DepositAccounts> savingAccountsheet = [];
+  
 
   @override
   void initState() {
     super.initState();
+     var depositeaccount =
+        Provider.of<DepositAccountsProvider>(context, listen: false);
+        depositeaccount.loadDepositAccountCollections();
 
-    _loadSavingAccountCollections();
+   
   }
+  
 
-  Future<void> _loadSavingAccountCollections() async {
-    List<DepositAccounts> depositcollections =
-        await DatabaseHelper.instance.getAlldepositeaccount("DEPOSIT");
-
-    setState(() {
-      savingAccountsheet = depositcollections;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +33,7 @@ class _DepositDataState extends State<DepositData> {
       return Container(
         constraints: const BoxConstraints.expand(),
         child: ListView.builder(
-          itemCount: savingAccountsheet.length,
+          itemCount: loanacc.accountDepositCollections.length,
           itemBuilder: (context, index) {
             return AccountTableBodyRow(
               ontap: () {
@@ -46,21 +42,21 @@ class _DepositDataState extends State<DepositData> {
                   MaterialPageRoute(
                       builder: (context) => DepositForm(
                             index: index,
-                            accountno: "${savingAccountsheet[index].aCCOUNT}",
-                            clientid: "${savingAccountsheet[index].cUSTID}",
+                            accountno: "${loanacc.accountDepositCollections[index].aCCOUNT}",
+                            clientid: "${loanacc.accountDepositCollections[index].cUSTID}",
                             depositecode:
-                                "${savingAccountsheet[index].dEPOSITCODE}",
-                            name: "${savingAccountsheet[index].cUSTOMERNAME}",
+                                "${loanacc.accountDepositCollections[index].dEPOSITCODE}",
+                            name: "${loanacc.accountDepositCollections[index].cUSTOMERNAME}",
                           )),
                 );
               },
               indexxx: index,
-              accountno: "${savingAccountsheet[index].aCCOUNT}",
-              type: "${savingAccountsheet[index].dEPOSITTYPE}",
-              id: "${savingAccountsheet[index].cUSTID}",
-              name: "${savingAccountsheet[index].cUSTOMERNAME}",
-              mobile: "${savingAccountsheet[index].mOBILE}",
-              depositcode: "${savingAccountsheet[index].dEPOSITCODE}",
+              accountno: "${loanacc.accountDepositCollections[index].aCCOUNT}",
+              type: "${loanacc.accountDepositCollections[index].dEPOSITTYPE}",
+              id: "${loanacc.accountDepositCollections[index].cUSTID}",
+              name: "${loanacc.accountDepositCollections[index].cUSTOMERNAME}",
+              mobile: "${loanacc.accountDepositCollections[index].mOBILE}",
+              depositcode: "${loanacc.accountDepositCollections[index].dEPOSITCODE}",
             );
           },
         ),

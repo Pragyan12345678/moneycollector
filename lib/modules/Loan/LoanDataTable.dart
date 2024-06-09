@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:moneycollection/Model/DepositAccounts.dart';
 import 'package:moneycollection/modules/Collection/AccountBody.dart';
 import 'package:moneycollection/modules/Loan/loanForm.dart';
+
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
-import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
 class LoanData extends StatefulWidget {
-  //  final void Function() navigatetoloancollection;
+ 
 
-  const LoanData({super.key,
-  //  required this.navigatetoloancollection
-   });
+  const LoanData({
+    super.key,
+ 
+  });
   @override
   State<LoanData> createState() => _LoanDataState();
 }
@@ -19,22 +19,12 @@ class LoanData extends StatefulWidget {
 class _LoanDataState extends State<LoanData> {
   String? postLoanData;
 
-  List<DepositAccounts> loanAccountsheet = [];
-
   @override
   void initState() {
     super.initState();
-
-    _loadLoanAccountCollections();
-  }
-
-  Future<void> _loadLoanAccountCollections() async {
-    List<DepositAccounts> loancollections =
-        await DatabaseHelper.instance.getAlldepositeaccount("LOAN");
-
-    setState(() {
-      loanAccountsheet = loancollections;
-    });
+    var depositeaccount =
+        Provider.of<DepositAccountsProvider>(context, listen: false);
+    depositeaccount.loadLoanAccountCollections();
   }
 
   @override
@@ -44,7 +34,7 @@ class _LoanDataState extends State<LoanData> {
       return Container(
         constraints: const BoxConstraints.expand(),
         child: ListView.builder(
-          itemCount: loanAccountsheet.length,
+          itemCount: loanacc.accountLoanCollections.length,
           itemBuilder: (context, index) {
             return AccountTableBodyRow(
               ontap: () {
@@ -53,23 +43,26 @@ class _LoanDataState extends State<LoanData> {
                   MaterialPageRoute(
                       builder: (context) => LoanForm(
                             index: index,
-                            // navigatetoloancollection: widget.navigatetoloancollection,
-                            accountno: "${loanAccountsheet[index].aCCOUNT}",
-                            clientid: "${loanAccountsheet[index].cUSTID}",
+                         
+                            accountno:
+                                "${loanacc.accountLoanCollections[index].aCCOUNT}",
+                            clientid:
+                                "${loanacc.accountLoanCollections[index].cUSTID}",
                             depositecode:
-                                "${loanAccountsheet[index].dEPOSITCODE}",
-                            name: "${loanAccountsheet[index].cUSTOMERNAME}",
-                            
+                                "${loanacc.accountLoanCollections[index].dEPOSITCODE}",
+                            name:
+                                "${loanacc.accountLoanCollections[index].cUSTOMERNAME}",
                           )),
                 );
               },
-              indexxx: index+1,
-              accountno: "${loanAccountsheet[index].aCCOUNT}",
-              type: "${loanAccountsheet[index].dEPOSITTYPE}",
-              id: "${loanAccountsheet[index].cUSTID}",
-              name: "${loanAccountsheet[index].cUSTOMERNAME}",
-              mobile: "${loanAccountsheet[index].mOBILE}",
-              depositcode: "${loanAccountsheet[index].dEPOSITCODE}",
+              indexxx: index + 1,
+              accountno: "${loanacc.accountLoanCollections[index].aCCOUNT}",
+              type: "${loanacc.accountLoanCollections[index].dEPOSITTYPE}",
+              id: "${loanacc.accountLoanCollections[index].cUSTID}",
+              name: "${loanacc.accountLoanCollections[index].cUSTOMERNAME}",
+              mobile: "${loanacc.accountLoanCollections[index].mOBILE}",
+              depositcode:
+                  "${loanacc.accountLoanCollections[index].dEPOSITCODE}",
             );
           },
         ),

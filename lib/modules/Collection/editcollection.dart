@@ -4,13 +4,13 @@ import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
-import 'package:moneycollection/constant/both.dart';
 
-import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/englishdate.dart';
+import 'package:moneycollection/constant/AppColors.dart';
+import 'package:moneycollection/constant/EnglishDate.dart';
 import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 
 import 'package:moneycollection/provider/controller/Profile_state.dart';
+
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';

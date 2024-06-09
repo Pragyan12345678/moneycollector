@@ -1,7 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/AppColors.dart';
 
 
 Future<dynamic> customShowDialog({

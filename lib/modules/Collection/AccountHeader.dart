@@ -1,52 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/provider/controller/depositAccount_state.dart';
+import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
+
 import 'package:provider/provider.dart';
 
 class AccountTableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoanStateProvider>(
-        builder: (context, loanacc, child) {  
-            return  const Column(
-      children: [
-        SizedBox(
-
-          child: Row(
-            children: [
-              AccountCell(
-                label: "Acc",
-              ),
-              Div(),
-              AccountCell(
-                label: "Type",
-              ),
-              Div(),
-              AccountCell(
-                label: "ID",
-              ),
-              Div(),
-              AccountCell(
-                label: "Name",
-              ),
-              Div(),
-              AccountCell(
-                label: "Phone",
-              ),
-              Div(),
-              AccountCell(
-                label: "Code",
-              ),
-            ],
+    return Consumer<LoanStateProvider>(builder: (context, loanacc, child) {
+      return const Column(
+        children: [
+          SizedBox(
+            child: Row(
+              children: [
+                AccountCell(
+                  label: "Acc",
+                ),
+                Div(),
+                AccountCell(
+                  label: "Type",
+                ),
+                Div(),
+                AccountCell(
+                  label: "ID",
+                ),
+                Div(),
+                AccountCell(
+                  label: "Name",
+                ),
+                Div(),
+                AccountCell(
+                  label: "Phone",
+                ),
+                Div(),
+                AccountCell(
+                  label: "Code",
+                ),
+              ],
+            ),
           ),
-        ),
-        Horizentaldiv()
-      ],
-    );
-        });
+          Horizentaldiv()
+        ],
+      );
+    });
   }
 }
 
@@ -81,9 +79,9 @@ class Div extends StatelessWidget {
 class AccountCell extends StatefulWidget {
   final String label;
   const AccountCell({
-    Key? key, 
+    Key? key,
     required this.label,
-  }) : super(key: key); 
+  }) : super(key: key);
 
   @override
   State<AccountCell> createState() => _AccountCellState();
@@ -106,12 +104,12 @@ class _AccountCellState extends State<AccountCell> {
           children: [
             Center(
               child: Text(
-                widget.label, 
+                widget.label,
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 10.sp),
-                             ),
+              ),
             ),
           ],
         ),

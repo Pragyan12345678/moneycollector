@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/constant/image.dart';
-import 'package:moneycollection/modules/auth/login.dart';
+import 'package:moneycollection/constant/AppImageDirectory.dart';
+import 'package:moneycollection/modules/auth/Login.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});

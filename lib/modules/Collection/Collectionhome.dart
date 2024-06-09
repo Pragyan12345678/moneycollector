@@ -10,11 +10,12 @@ import 'package:moneycollection/modules/Collection/AccountHeader.dart';
 import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
 import 'package:moneycollection/modules/Collection/loancollection.dart';
 import 'package:moneycollection/modules/Collection/table.dart';
-import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/constant/AppColors.dart';
+import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
 import 'package:moneycollection/modules/Loan/LoanDataTable.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
+
 
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
@@ -42,7 +43,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
     depositeaccount.loadDepositAccountCollections();
     depositeaccount.loadLoanAccountCollections();
     collection.loadLoanCollections();
-    Future.delayed(const Duration(seconds: 2),(){
+    Future.delayed(const Duration(seconds: 1),(){
 
  depositeaccount.changePage(widget.index ?? 0);
     });
@@ -148,6 +149,7 @@ class _CollectionsheetsState extends State<Collectionsheets> {
                                   GestureDetector(
                                     onTap: () {
                                       deposit.changePage(1);
+                                      deposit.loadDepositAccountCollections();
                                     },
                                     child: CustomCollectionsheet(
                                       imagePath: AppImages.moneycollection,

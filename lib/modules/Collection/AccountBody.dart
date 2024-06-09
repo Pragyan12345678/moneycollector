@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/AppColors.dart';
+
 class AccountTableBodyRow extends StatefulWidget {
   final int indexxx;
-    final VoidCallback ontap; 
-
+  final VoidCallback ontap;
 
   final String accountno;
   final String type;
   final String id;
   final String name;
-    final String mobile;
-    final String depositcode;
+  final String mobile;
+  final String depositcode;
 
-  const AccountTableBodyRow({super.key, 
- required this.indexxx, required this.accountno, required this.type, required this.id, required this.name, required this.mobile, required this.ontap, required this.depositcode,
+  const AccountTableBodyRow({
+    super.key,
+    required this.indexxx,
+    required this.accountno,
+    required this.type,
+    required this.id,
+    required this.name,
+    required this.mobile,
+    required this.ontap,
+    required this.depositcode,
   });
 
   @override
@@ -34,7 +42,6 @@ class _AccountTableBodyRowState extends State<AccountTableBodyRow> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                 
                   Cell(
                     label: widget.accountno,
                   ),
@@ -47,22 +54,17 @@ class _AccountTableBodyRowState extends State<AccountTableBodyRow> {
                     label: widget.id,
                   ),
                   const Div(),
-                   Cell(
+                  Cell(
                     label: widget.name,
                   ),
-              
                   const Div(),
-                   Cell(
+                  Cell(
                     label: widget.mobile,
                   ),
-                    const Div(),
-                   Cell(
+                  const Div(),
+                  Cell(
                     label: widget.depositcode,
                   ),
-                  
-              
-                 
-                         
                 ],
               ),
             ),
@@ -74,7 +76,6 @@ class _AccountTableBodyRowState extends State<AccountTableBodyRow> {
   }
 }
 
-
 class Horizentaldiv extends StatelessWidget {
   const Horizentaldiv({
     super.key,
@@ -83,10 +84,8 @@ class Horizentaldiv extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Divider(
-      
-              thickness: 1,
-             color: AppColors.greyColor,
-           
+      thickness: 1,
+      color: AppColors.greyColor,
     );
   }
 }
@@ -108,9 +107,9 @@ class Div extends StatelessWidget {
 class Cell extends StatefulWidget {
   final String label;
   const Cell({
-    Key? key, // Add Key? key here
+    Key? key,
     required this.label,
-  }) : super(key: key); // Call super constructor with the provided key
+  }) : super(key: key);
 
   @override
   State<Cell> createState() => _CellState();
@@ -128,15 +127,15 @@ class _CellState extends State<Cell> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding:  const EdgeInsets.only(right: 0.0),
+              padding: const EdgeInsets.only(right: 0.0),
               child: Text(
-                widget.label, // Access label through widget instance
-               style:  TextStyle(
-              fontSize: 10.sp,
-              color: Colors.black,
-              decoration: TextDecoration.none,
-              fontWeight: FontWeight.w400,
-                          ),
+                widget.label,
+                style: TextStyle(
+                  fontSize: 10.sp,
+                  color: Colors.black,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ],

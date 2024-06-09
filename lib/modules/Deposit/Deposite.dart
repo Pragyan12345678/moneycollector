@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/Nodata.dart';
-import 'package:moneycollection/constant/colors.dart';
-import 'package:moneycollection/constant/image.dart';
+import 'package:moneycollection/constant/AppColors.dart';
+import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/modules/Collection/AccountHeader.dart';
 import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
+import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:provider/provider.dart';
@@ -44,39 +45,45 @@ class _DepositListState extends State<DepositList> {
                         ),
                       ),
                       Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_back_ios_new_rounded,
-                                    size: 20,
-                                    color: Colors.white,
-                                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const DashboardHome(),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 6,
-                                child: Text(
-                                  "Deposit", // Correcting string interpolation
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
+                                (route) => false,
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              size: 20,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
+                        Expanded(
+                          flex: 6,
+                          child: Text(
+                            "Deposit", // Correcting string interpolation
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                       (provider.depositAccounts.isEmpty)
                           ? Padding(
                               padding: EdgeInsets.only(
@@ -182,7 +189,14 @@ class _DepositListState extends State<DepositList> {
                                       ],
                                     ),
                                     AccountTableHeader(),
-                                    SizedBox(
+                                     (provider.depositAccounts.isEmpty)
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                  top: 150.h,
+                                ),
+                                child: const Nodata(),
+                              )
+                                    :SizedBox(
                                         height: 580.h, child: DepositData()),
                                     // LoanTable()),
                                   ],

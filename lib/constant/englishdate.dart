@@ -2,9 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/Customdropdown.dart';
-import 'package:moneycollection/constant/colors.dart';
 
-import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
 import 'package:nepali_utils/nepali_utils.dart';
