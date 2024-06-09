@@ -177,7 +177,9 @@ Provider.of<DepositAccountsProvider>(context, listen: false)
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const Collectionsheets()),
+                                                    const Collectionsheets(
+                                                      index: 0,
+                                                    )),
                                           );
                                         },
                                       ),

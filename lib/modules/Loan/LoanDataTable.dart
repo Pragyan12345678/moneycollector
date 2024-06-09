@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:moneycollection/modules/Collection/AccountBody.dart';
 import 'package:moneycollection/modules/Loan/loanForm.dart';
-
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';
 
 class LoanData extends StatefulWidget {
- 
-
   const LoanData({
     super.key,
- 
   });
   @override
   State<LoanData> createState() => _LoanDataState();
@@ -43,7 +39,6 @@ class _LoanDataState extends State<LoanData> {
                   MaterialPageRoute(
                       builder: (context) => LoanForm(
                             index: index,
-                         
                             accountno:
                                 "${loanacc.accountLoanCollections[index].aCCOUNT}",
                             clientid:

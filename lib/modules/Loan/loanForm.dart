@@ -97,19 +97,7 @@ class _LoanFormState extends State<LoanForm> {
                           ),
                           const SizedBox(height: 5),
                           const DateDropdownEnglish(),
-                                                    // CalenderField(
-                          //   label: " Tran Date(Bs)",
-                          //   useNepaliCalendar: true,
-                          //   controller: loan.loantrandatebs,
-                          // ),
-                          // const SizedBox(
-                          //   height: 10,
-                          // ),
-                          // CalenderField(
-                          //   label: " Tran Date(Ad)",
-                          //   useNepaliCalendar: false,
-                          //   controller: loan.loantrandatead,
-                          // ),
+                               
                           const SizedBox(
                             height: 10,
                           ),

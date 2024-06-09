@@ -15,32 +15,36 @@ import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 class EditCollectionForm extends StatefulWidget {
-  final int inde;
-  final String datead;
-  final String datebs;
-  final String account;
-  final String amount;
-    final bool isSaving;
+  final int?inde;
+  final String ?datead;
+  final String ?datebs;
+  final String ?account;
+  final String ?amount;
+    final bool ?isSaving;
+    final String ? name;
      final void  Function()? navigatetoloancollection;
      final void  Function()? navigatetosavingcollection;
 
   const EditCollectionForm({
     Key? key,
-    required this.inde,
-    required this.datead,
-    required this.datebs,
-    required this.account,
-    required this.amount, required this.isSaving, 
+     this.inde,
+     this.datead,
+     this.name,
+     this.amount, 
+     this.isSaving, 
+     this.datebs,
+     this.account,
      this.navigatetoloancollection,
      this.navigatetosavingcollection
   }) : super(key: key);
 
   @override
   State<EditCollectionForm> createState() => _EditCollectionFormState(
-        datead: datead,
-        datebs: datebs,
-        account: account,
-        amount: amount,
+        datead: datead?? "0",
+        datebs: datebs?? "0",
+        account: account?? "0",
+        amount: amount?? "0",
+        name: name?? "0",
       );
 }
 void Function()? navigatetosavingcollection;
@@ -63,18 +67,21 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
   late TextEditingController trandatebsController;
   late TextEditingController accountnumberController;
   late TextEditingController amountController;
+  late TextEditingController nameController;
 
   _EditCollectionFormState({
     required String datead,
     required String datebs,
     required String account,
     required String amount,
+    required String name,
   }) {
     trandateadController = TextEditingController(text: datead);
     trandatebsController = TextEditingController(text: datebs);
     accountnumberController = TextEditingController(
     text: account.length >= 7 ? account.substring(7) : "Invalid Account");
     amountController = TextEditingController(text: amount);
+    nameController = TextEditingController(text: name);
   }
 
     List<Entries> savingCollections = [];
@@ -165,6 +172,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                           collectionn.accountnumber.text =
                               accountnumberController.text;
                           collectionn.amount.text = amountController.text;
+                           collectionn.name.text = nameController.text;
                           }else{
                             collectionn.loantrandatead.text =
                               trandateadController.text;
@@ -173,6 +181,8 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                           collectionn.loanaccountnumber.text =
                               accountnumberController.text;
                           collectionn.loanamount.text = amountController.text;
+                           
+                          collectionn.loanname.text = nameController.text;
                           }
                     
 
@@ -205,6 +215,13 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                 const SizedBox(
                                   height: 10,
                                 ),
+                                FormCustomTextField(
+                            widget.name??"0",
+                            label: "Name",
+                            controller:  (widget.isSaving == true)?
+                                  collectionn.name
+                                  :collectionn.loanname
+                          ),
                                 // CalenderField(
                                 //   label: " Tran Date(Ad)",
                                 //   useNepaliCalendar: false,
@@ -260,7 +277,7 @@ if   (widget.isSaving == true ){
                                           newAmount.toString();
 
                                       databaseHelper.updateAmount(
-                                        widget.account,
+                                        widget.account??"0",
                                         newAmountString,
                                       );
                                       collectionn.trandatebs.clear();
@@ -286,7 +303,7 @@ if   (widget.isSaving == true ){
                                           loanAmount.toString();
 
                                       databaseHelper.updateloancollection(
-                                        widget.account,
+                                        widget.account??"0",
                                         newAmountString,
                                       );
                                       collectionn.loantrandatebs.clear();

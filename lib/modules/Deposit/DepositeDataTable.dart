@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moneycollection/Model/DepositAccounts.dart';
 import 'package:moneycollection/modules/Collection/AccountBody.dart';
 import 'package:moneycollection/modules/Deposit/DepositForm.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
-import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:provider/provider.dart';
 
 class DepositData extends StatefulWidget {
@@ -12,19 +10,13 @@ class DepositData extends StatefulWidget {
 }
 
 class _DepositDataState extends State<DepositData> {
-  
-
   @override
   void initState() {
     super.initState();
-     var depositeaccount =
+    var depositeaccount =
         Provider.of<DepositAccountsProvider>(context, listen: false);
-        depositeaccount.loadDepositAccountCollections();
-
-   
+    depositeaccount.loadDepositAccountCollections();
   }
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +34,15 @@ class _DepositDataState extends State<DepositData> {
                   MaterialPageRoute(
                       builder: (context) => DepositForm(
                             index: index,
-                            accountno: "${loanacc.accountDepositCollections[index].aCCOUNT}",
-                            clientid: "${loanacc.accountDepositCollections[index].cUSTID}",
+                            accountno:
+                                "${loanacc.accountDepositCollections[index].aCCOUNT}",
+                            clientid:
+                                "${loanacc.accountDepositCollections[index].cUSTID}",
                             depositecode:
                                 "${loanacc.accountDepositCollections[index].dEPOSITCODE}",
-                            name: "${loanacc.accountDepositCollections[index].cUSTOMERNAME}",
+                            name:
+                                "${loanacc.accountDepositCollections[index].cUSTOMERNAME}",
+                                
                           )),
                 );
               },
@@ -56,7 +52,8 @@ class _DepositDataState extends State<DepositData> {
               id: "${loanacc.accountDepositCollections[index].cUSTID}",
               name: "${loanacc.accountDepositCollections[index].cUSTOMERNAME}",
               mobile: "${loanacc.accountDepositCollections[index].mOBILE}",
-              depositcode: "${loanacc.accountDepositCollections[index].dEPOSITCODE}",
+              depositcode:
+                  "${loanacc.accountDepositCollections[index].dEPOSITCODE}",
             );
           },
         ),

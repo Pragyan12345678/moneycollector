@@ -110,12 +110,14 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditCollectionForm(
+
                                  navigatetoloancollection: widget.navigatetoloancollection,
                                 inde: widget.indexxx,
                                 datead: widget.datead,
                                 datebs: widget.datebs,
                                 account: widget.account,
                                 amount: widget.amount,
+                                name:widget.customer,
                                 isSaving: widget.isSaving,
                               ),
                             ),

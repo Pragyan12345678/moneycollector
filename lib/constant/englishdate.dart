@@ -75,6 +75,7 @@ class _DateDropdownEnglishState extends State<DateDropdownEnglish> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
+                    flex: 4,
                     child: CustomDropdownButton(
                       value: selectedMonth,
                       hint: Text(
@@ -107,6 +108,7 @@ class _DateDropdownEnglishState extends State<DateDropdownEnglish> {
                     width: 5.w,
                   ),
                   Expanded(
+                    flex: 3,
                     child: CustomDropdownButton(
                       value: selectedDay,
                       items: englishDaysList.map((int day) {
@@ -133,6 +135,7 @@ class _DateDropdownEnglishState extends State<DateDropdownEnglish> {
                     width: 5.w,
                   ),
                   Expanded(
+                    flex: 3,
                     child: CustomDropdownButton(
                       value: selectedYear,
                       items: yearsList.map((int year) {
