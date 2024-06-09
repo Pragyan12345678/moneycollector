@@ -46,6 +46,22 @@ class LoanStateProvider with ChangeNotifier {
   final TextEditingController loanclientidadd = TextEditingController();
 
   bool loadingAuth = false;
+     int min = 0;
+  int sec = 0;
+  int day = 1;
+  int month = 1;
+  int year = 2024;
+  // int hours = 1;
+  // int min = 0;
+  // int sec = 0;
+  int dayNepali = 1;
+  int monthNeplali = 1;
+  int yearNepali = 2024;
+
+    int dayEnglish = 1;
+  int monthEnglish = 1;
+  int yearEnglish = DateTime.now().year;
+
 
   bool? get isAuthenticated => _isLoggedIn;
   bool _isLoggedIn = false;
@@ -108,8 +124,8 @@ class LoanStateProvider with ChangeNotifier {
       "ACCOUNT": accountnumberadd.text,
       "CUSTID": clientidadd.text,
       "DEPOSITCODE": depositecode.text,
-      "tran_date_ad": trandatead.text,
-      "tran_date_bs": trandatebs.text,
+      "tran_date_ad": "$yearEnglish-$monthEnglish-$dayEnglish",
+      "tran_date_bs": "$yearNepali-$monthNeplali-$dayNepali",
       "CUSTOMERNAME": name.text,
       "DEPOSIT": amount.text,
     };
@@ -159,6 +175,7 @@ class LoanStateProvider with ChangeNotifier {
       depositecode.clear();
       trandatead.clear();
       trandatebs.clear();
+   
       amount.clear();
       depositeby.clear();
       sourceIncome.clear();
@@ -178,8 +195,8 @@ class LoanStateProvider with ChangeNotifier {
       "ACCOUNT": loanaccountnumberadd.text,
       "CUSTID": loanclientidadd.text,
       "DEPOSITCODE": loandepositecode.text,
-      "tran_date_ad": loantrandatead.text,
-      "tran_date_bs": loantrandatebs.text,
+      "tran_date_ad": "$yearEnglish-$monthEnglish-$dayEnglish",
+      "tran_date_bs": "$yearNepali-$monthEnglish-$dayEnglish",
       "CUSTOMERNAME": loanname.text,
       "DEPOSIT": loanamount.text,
     };

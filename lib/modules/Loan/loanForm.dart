@@ -7,6 +7,7 @@ import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/both.dart';
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/englishdate.dart';
 import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
@@ -87,19 +88,20 @@ class _LoanFormState extends State<LoanForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CalenderField(
-                            label: " Tran Date(Bs)",
-                            useNepaliCalendar: true,
-                            controller: loan.loantrandatebs,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CalenderField(
-                            label: " Tran Date(Ad)",
-                            useNepaliCalendar: false,
-                            controller: loan.loantrandatead,
-                          ),
+                          const DateDropdownEnglish(),
+                                                    // CalenderField(
+                          //   label: " Tran Date(Bs)",
+                          //   useNepaliCalendar: true,
+                          //   controller: loan.loantrandatebs,
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // CalenderField(
+                          //   label: " Tran Date(Ad)",
+                          //   useNepaliCalendar: false,
+                          //   controller: loan.loantrandatead,
+                          // ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -140,6 +142,13 @@ class _LoanFormState extends State<LoanForm> {
                               label:
                                   '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
                               controller: loan.loanclientid),
+                              const SizedBox(height: 10),
+                                 FormCustomTextField(
+                            widget.depositecode,
+                            label: "Deposite Code",
+                            controller: loan.loandepositecode,
+                          ),
+                           
                           const SizedBox(height: 10),
                           FormCustomTextField(
                             "0.00",
@@ -147,12 +156,8 @@ class _LoanFormState extends State<LoanForm> {
                             controller: loan.loanamount,
                              textInputType: TextInputType.number,
                           ),
-                          const SizedBox(height: 20),
-                          FormCustomTextField(
-                            widget.depositecode,
-                            label: "Deposite Code",
-                            controller: loan.loandepositecode,
-                          ),
+                          const SizedBox(height: 10),
+                       
                           FormCustomTextField(
                             "",
                             label: "Deposite By",
@@ -201,8 +206,9 @@ class _LoanFormState extends State<LoanForm> {
                                print('tranad: $accountnoadd');
                                 print('tranbs: $branch');
 
-                                if (tranad.isEmpty ||
-                                    tranbs.isEmpty ||
+                                if (
+                                  // tranad.isEmpty ||
+                                  //   tranbs.isEmpty ||
                                     accountno.isEmpty ||
                                     name.isEmpty ||
                                     clientid.isEmpty ||

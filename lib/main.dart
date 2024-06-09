@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moneycollection/modules/dashboard/dashboard.dart';
 
 import 'package:moneycollection/modules/splashScreen/splashscreen.dart';
 import 'package:moneycollection/provider/app_provider.dart';

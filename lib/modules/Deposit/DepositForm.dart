@@ -7,6 +7,7 @@ import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/both.dart';
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/englishdate.dart';
 import 'package:moneycollection/constant/utils.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
@@ -100,21 +101,21 @@ LoanStateProvider();
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
 
-                          
-                          CalenderField(
-                            label: " Tran Date(Bs)",
-                            useNepaliCalendar: true,
-                            controller: loan.trandatebs,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                      //  if(loan.trandatebs.text.isNotEmpty)
-                          CalenderField(
-                            label: " Tran Date(Ad)",
-                            useNepaliCalendar: false,
-                             controller: loan.trandatead,
-                          ),
+                          const DateDropdownEnglish(),
+                      //     CalenderField(
+                      //       label: " Tran Date(Bs)",
+                      //       useNepaliCalendar: true,
+                      //       controller: loan.trandatebs,
+                      //     ),
+                      //     const SizedBox(
+                      //       height: 10,
+                      //     ),
+                      // //  if(loan.trandatebs.text.isNotEmpty)
+                      //     CalenderField(
+                      //       label: " Tran Date(Ad)",
+                      //       useNepaliCalendar: false,
+                      //        controller: loan.trandatead,
+                      //     ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -222,8 +223,9 @@ LoanStateProvider();
                                 print('tranbs: $branch');
 
 
-                                  if (tranad.isEmpty ||
-                                    tranbs.isEmpty ||
+                                  if (
+                                    // tranad.isEmpty ||
+                                    // tranbs.isEmpty ||
                                     accountno.isEmpty ||
                                     name.isEmpty ||
                                     clientid.isEmpty ||

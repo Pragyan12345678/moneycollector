@@ -7,6 +7,7 @@ import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/both.dart';
 
 import 'package:moneycollection/constant/colors.dart';
+import 'package:moneycollection/constant/englishdate.dart';
 import 'package:moneycollection/modules/Collection/Collectionhome.dart';
 
 import 'package:moneycollection/provider/controller/Profile_state.dart';
@@ -180,33 +181,36 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CalenderField(
-                                  label: " Tran Date(Bs)",
-                                  useNepaliCalendar: true,
-                                  controller: 
-                                  (widget.isSaving == true)?
-                                  collectionn.trandatebs
-                                  :  collectionn.loantrandatebs
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                CalenderField(
-                                  label: " Tran Date(Ad)",
-                                  useNepaliCalendar: false,
+                                const DateDropdownEnglish(
 
-                                  controller:  (widget.isSaving == true)?
-                                  collectionn.trandatead
-                                  :collectionn.loantrandatead
                                 ),
+                                // CalenderField(
+                                //   label: " Tran Date(Bs)",
+                                //   useNepaliCalendar: true,
+                                //   controller: 
+                                //   (widget.isSaving == true)?
+                                //   collectionn.trandatebs
+                                //   :  collectionn.loantrandatebs
+                                // ),
                                 const SizedBox(
                                   height: 10,
                                 ),
+                                // CalenderField(
+                                //   label: " Tran Date(Ad)",
+                                //   useNepaliCalendar: false,
+
+                                //   controller:  (widget.isSaving == true)?
+                                //   collectionn.trandatead
+                                //   :collectionn.loantrandatead
+                                // ),
+                                // const SizedBox(
+                                //   height: 10,
+                                // ),
                                 Text(
                                   "Account Number",
                                   style: TextStyle(
                                     fontSize: 14.sp,
-                                    color: Colors.grey,
+                                    color:Colors.black,
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -238,7 +242,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                   child: GestureDetector(
                                     onTap: () {
 
-if   (widget.isSaving == true){
+if   (widget.isSaving == true ){
    double newAmount = double.parse(
                                         collectionn.updateamount.text,
                                       );
