@@ -181,6 +181,16 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Text(
+                            "Date",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: Colors.black,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
                                 const DateDropdownEnglish(
 
                                 ),
