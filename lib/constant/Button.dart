@@ -2,27 +2,29 @@
 import 'package:flutter/material.dart';
 
 class CustomButtons extends StatelessWidget {
-  final String label;
+  final String ?label;
   final Color btnClr;
   final Color txtClr;
   final VoidCallback ontap;
   final EdgeInsets? margin;
   final double? width;
+  final bool? isloading;
+
 
   const CustomButtons({
     Key? key,
-    required this.label,
+     this.label,
     required this.btnClr,
     required this.txtClr,
     required this.ontap,
     this.margin,
-    this.width,
+    this.width,  this.isloading,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? 200,
+      width: double.infinity,
       child: Container(
         margin: margin ?? const EdgeInsets.symmetric(horizontal: 0),
         padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -32,10 +34,16 @@ class CustomButtons extends StatelessWidget {
           elevation: 5,
           color: btnClr,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Text(
-            label,
+          child: 
+          (isloading == true)?
+          const CircularProgressIndicator(
+            color: Colors.white,
+          )
+          :Text(
+           label!,
             style: TextStyle(color: txtClr), // Assuming you have a TextStyle variable for titleStyle
-          ),
+          )
+
         ),
       ),
     );

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
@@ -7,6 +6,7 @@ import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/EnglishDate.dart';
 import 'package:moneycollection/constant/Utils.dart';
+
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,7 @@ class LoanForm extends StatefulWidget {
     required this.clientid,
     required this.depositecode,
     required this.index,
-    required this.name, 
+    required this.name,
     // required this.navigatetoloancollection,
     // required this.datas
   }) : super(key: key);
@@ -37,6 +37,7 @@ class _LoanFormState extends State<LoanForm> {
   @override
   Widget build(BuildContext context) {
     int selectedIndex = -1;
+    String selectedDateFormat = 'English';
     return Consumer<LoanStateProvider>(builder: (context, loan, child) {
       return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
@@ -44,9 +45,9 @@ class _LoanFormState extends State<LoanForm> {
         loan.loanclientid.text = widget.clientid.substring(7);
         loan.loandepositecode.text = widget.depositecode;
         loan.loanname.text = widget.name;
-              loan.loanaccountnumberadd.text = widget.accountno;
-      loan.loanclientidadd.text = widget.clientid;
-      loan.loanbranch.text =  widget.accountno.substring(0, 6);
+        loan.loanaccountnumberadd.text = widget.accountno;
+        loan.loanclientidadd.text = widget.clientid;
+        loan.loanbranch.text = widget.accountno.substring(0, 6);
         return SafeArea(
           child: Scaffold(
               body: SingleChildScrollView(
@@ -86,7 +87,44 @@ class _LoanFormState extends State<LoanForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           Text(
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          //   children: [
+                          //     Expanded(
+                          //       child: Text(
+                          //         selectedDateFormat == 'Nepali'
+                          //             ? '(BS)'
+                          //             : '(AD)',
+                          //         style: TextStyle(
+                          //           fontWeight: FontWeight.w500,
+                          //           color: AppColors.primaryBrown,
+                          //           fontSize: 14.sp,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     Expanded(
+                          //       child: CustomDropdownButton(
+                          //         items:
+                          //             ['English', 'Nepali'].map((String value) {
+                          //           return DropdownMenuItem<String>(
+                          //             value: value,
+                          //             child: Text(value),
+                          //           );
+                          //         }).toList(),
+                          //         onChanged: (newValue) {
+                          //           print(newValue);
+                          //           setState(() {
+                          //             selectedDateFormat = newValue!;
+                          //             print(
+                          //                 'Selected date format: $selectedDateFormat');
+                          //           });
+                          //         },
+                          //         value: selectedDateFormat,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          Text(
                             "Date",
                             style: TextStyle(
                               fontSize: 14.sp,
@@ -97,7 +135,7 @@ class _LoanFormState extends State<LoanForm> {
                           ),
                           const SizedBox(height: 5),
                           const DateDropdownEnglish(),
-                               
+
                           const SizedBox(
                             height: 10,
                           ),
@@ -119,7 +157,7 @@ class _LoanFormState extends State<LoanForm> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                           AccountTextField(
+                          AccountTextField(
                               label:
                                   '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
                               controller: loan.loanaccountnumber),
@@ -134,26 +172,26 @@ class _LoanFormState extends State<LoanForm> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                                AccountTextField(
+                          AccountTextField(
                               label:
                                   '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
                               controller: loan.loanclientid),
-                              const SizedBox(height: 10),
-                                 FormCustomTextField(
+                          const SizedBox(height: 10),
+                          FormCustomTextField(
                             widget.depositecode,
                             label: "Deposite Code",
                             controller: loan.loandepositecode,
                           ),
-                           
+
                           const SizedBox(height: 10),
                           FormCustomTextField(
                             "0.00",
                             label: "Amount",
                             controller: loan.loanamount,
-                             textInputType: TextInputType.number,
+                            textInputType: TextInputType.number,
                           ),
                           const SizedBox(height: 10),
-                       
+
                           FormCustomTextField(
                             "",
                             label: "Deposite By",
@@ -185,37 +223,39 @@ class _LoanFormState extends State<LoanForm> {
                                 String depositby = loan.loandepositeby.text;
                                 String sourceIncome =
                                     loan.loansourceIncome.text;
-                                    String clientidadd = loan.loanclientidadd.text;
-                                String accountnoadd = loan.loanaccountnumberadd.text;
-                                  String branch = loan.loanbranch.text;
+                                String clientidadd = loan.loanclientidadd.text;
+                                String accountnoadd =
+                                    loan.loanaccountnumberadd.text;
+                                String branch = loan.loanbranch.text;
 
                                 print('tranad: $tranad');
                                 print('tranbs: $tranbs');
                                 print('account: $accountno');
                                 print('account: $clientid');
-                                 print('account: $name');
+                                print('account: $name');
                                 print('account: $depositcode');
                                 print('amount: $amount');
                                 print('deposit: $depositby');
                                 print('sourceicome: $sourceIncome');
-                                 print('tranad: $clientidadd');
-                               print('tranad: $accountnoadd');
+                                print('tranad: $clientidadd');
+                                print('tranad: $accountnoadd');
                                 print('tranbs: $branch');
 
                                 if (
-                                  // tranad.isEmpty ||
-                                  //   tranbs.isEmpty ||
+                                    // tranad.isEmpty ||
+                                    //   tranbs.isEmpty ||
                                     accountno.isEmpty ||
-                                    name.isEmpty ||
-                                    clientid.isEmpty ||
-                                    amount.isEmpty ||
-                                    depositcode.isEmpty ||
-                                    depositby.isEmpty ||
-                                    sourceIncome.isEmpty) {
-                                Utilities.showCustomSnackBar("Fields are empty");
+                                        name.isEmpty ||
+                                        clientid.isEmpty ||
+                                        amount.isEmpty ||
+                                        depositcode.isEmpty ||
+                                        depositby.isEmpty ||
+                                        sourceIncome.isEmpty) {
+                                  Utilities.showCustomSnackBar(
+                                      "Fields are empty");
+                                } else {
+                                  loan.databaseloan(context);
                                 }
-                                else {
-                                  loan.databaseloan(context);                                }
                               },
                               child: Container(
                                 decoration: BoxDecoration(

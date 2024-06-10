@@ -11,6 +11,8 @@ import 'package:moneycollection/provider/controller/Profile_state.dart';
 
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/service/services.dart';
+import 'package:moneycollection/ui/DepositCollection.dart';
+import 'package:moneycollection/ui/LoanCollection.dart';
 
 class LoanStateProvider with ChangeNotifier {
   final TextEditingController trandatead = TextEditingController();
@@ -141,8 +143,8 @@ class LoanStateProvider with ChangeNotifier {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const Collectionsheets(
-              index: 0,
+            builder: (context) => const DepositCollectionSheet(
+              
             ),
           ),
           (route) => false,
@@ -163,8 +165,8 @@ class LoanStateProvider with ChangeNotifier {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const Collectionsheets(
-              index: 0,
+            builder: (context) => const DepositCollectionSheet(
+            
             ),
           ),
           (route) => false,
@@ -202,8 +204,10 @@ class LoanStateProvider with ChangeNotifier {
     };
     var entry = Entries.fromJson(body);
     var result = await DatabaseHelper.instance.newloancollection(entry);
+    print("EWEE");
 
     if (result == -1) {
+      
       // Duplicate entry
       Utilities.showCustomSnackBar("Duplicate entry");
       loadingAuth = false;
@@ -236,8 +240,8 @@ class LoanStateProvider with ChangeNotifier {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const Collectionsheets(
-              index: 2,
+            builder: (context) => const LoanCollectionSheet(
+             
             ),
           ),
           (route) => false,
@@ -299,8 +303,8 @@ class LoanStateProvider with ChangeNotifier {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const Collectionsheets(
-                index: 0,
+              builder: (context) => const DepositCollectionSheet(
+             
               ),
             ),
             (route) => false,
@@ -343,6 +347,7 @@ class LoanStateProvider with ChangeNotifier {
     DatabaseHelper dbHelper = DatabaseHelper.instance;
     loadingAuth = true;
     notifyListeners();
+    print("sssssssssssss");
     List<Entries> loanvalues = await dbHelper.getAllgetloancollection();
     var data = {"entries": loanvalues};
 
@@ -368,12 +373,13 @@ class LoanStateProvider with ChangeNotifier {
         for (Entries entry in loanvalues) {
           await dbHelper.deleteloancollection(entry.aCCOUNT ?? '');
         }
+
         if (context.mounted) {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const Collectionsheets(
-                index: 2,
+              builder: (context) => const LoanCollectionSheet(
+                
               ),
             ),
             (route) => false,
@@ -401,8 +407,8 @@ class LoanStateProvider with ChangeNotifier {
       // ignore: use_build_context_synchronously
       context,
       MaterialPageRoute(
-        builder: (context) => const Collectionsheets(
-          index: 2,
+        builder: (context) => const LoanCollectionSheet(
+          
         ),
       ),
       (route) => false,

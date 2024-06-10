@@ -12,6 +12,7 @@ class AppImages {
   static const request = 'assets/icons/request.png';
   static const sync = 'assets/icons/sync.png';
 
+ static const loanentry = 'assets/icons/loanissue.png';
   
 
   static const topup = 'assets/icons/topup.png';
@@ -22,6 +23,7 @@ static const circleavaters = 'assets/icons/circleavater.png';
 static const notification = 'assets/icons/notification.png';
 static const more = 'assets/icons/more.png';
 static const moneycollection = 'assets/icons/collection.png'; 
+static const collection = 'assets/icons/collectionsheet.png'; 
 static const pull = 'assets/icons/pull.png';
 static const push = 'assets/icons/push.png'; 
 static const nodata = 'assets/icons/nodata.png'; 
@@ -36,5 +38,6 @@ static const logout = 'assets/icons/logout.png';
 static const edit = 'assets/icons/edit.png'; 
 static const remove = 'assets/icons/remove.png'; 
 static const saving = 'assets/icons/saving.png'; 
+static const withdraw = 'assets/icons/withdraw.png'; 
 
 }

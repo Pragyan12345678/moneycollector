@@ -12,6 +12,10 @@ import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/controller/login_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
+import 'package:moneycollection/ui/DepositCollection.dart';
+import 'package:moneycollection/ui/Depositentry.dart';
+import 'package:moneycollection/ui/LoanCollection.dart';
+import 'package:moneycollection/ui/Loanentry.dart';
 import 'package:provider/provider.dart';
 
 class DashboardHome extends StatefulWidget {
@@ -42,11 +46,13 @@ Future<dynamic> _getTotalDeposits() async {
   @override
   void initState() {
     super.initState();
-
-    
+var collection = Provider.of<LoanStateProvider>(context, listen: false);
+        collection.loadLoanCollections();
+        collection.loadSavingCollections();
        var profiledata = Provider.of<ProfileDataProvider>(context, listen: false);
        profiledata.fetchProfiledata();
        profiledata.loadProfileData();
+
 
 Provider.of<DepositAccountsProvider>(context, listen: false)
         .fetchDepositAccounts();
@@ -89,7 +95,7 @@ Provider.of<DepositAccountsProvider>(context, listen: false)
                           padding: EdgeInsets.only(
                               left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
                           child: Container(
-                            height: 270.h,
+                            height: 600.h,
                             width: double.infinity,
                             decoration: const BoxDecoration(
                               color: AppColors.greyColor,
@@ -163,55 +169,153 @@ Provider.of<DepositAccountsProvider>(context, listen: false)
                                   height: 20,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
                                     children: [
-                                      Dashboardbalance(
-                                        width: 90,
-                                        imagePath: AppImages.moneycollection,
-                                        text: "Collection",
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Collectionsheets(
-                                                      index: 0,
-                                                    )),
-                                          );
-                                        },
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                           Dashboardbalance(
+                                          width: 150,
+                                         imagePath:  AppImages.saving,
+                                          text: "Deposit Entry",
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const EntryDeposit(
+                                                      
+                                                      )),
+                                            );
+                                          },
+                                        ),
+                                         Dashboardbalance(
+                                          width: 150,
+                                           imagePath: AppImages.loan,
+                                          text: "Loan Entry",
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const EntryLoan(
+                                                        
+                                                      )),
+                                            );
+                                          },
+                                        ),
+                                        ],
+                                        
                                       ),
-                                      Dashboardbalance(
-                                        width: 90,
-                                        imagePath: AppImages.deposit,
-                                        text: "Deposit",
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const DepositList()),
-                                          );
-                                        },
-                                      ),
-                                      Dashboardbalance(
-                                        width: 90,
-                                        imagePath: AppImages.loan,
-                                        text: "Loan",
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const LoanList()),
-                                          );
-                                        },
-                                      ),
+                                      SizedBox (height: 20,),
+                                        Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                           Dashboardbalance(
+                                          width: 150,
+                                          imagePath: AppImages.moneycollection,
+                                          text: "Deposit Collection ",
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const DepositCollectionSheet(
+                                                        
+                                                      )),
+                                            );
+                                          },
+                                        ),
+                                         Dashboardbalance(
+                                          width: 150,
+                                          imagePath: AppImages.collection,
+                                          text: "Loan Collection  ",
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoanCollectionSheet(
+                                                        
+                                                      )),
+                                            );
+                                          },
+                                        ),
+                                        ],
+                                      )
                                     ],
                                   ),
-                                )
+                                ),
+
+
+
+
+                                // Padding(
+                                //   padding: const EdgeInsets.all(2.0),
+                                //   child: Row(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.spaceBetween,
+                                //     children: [
+                                //       Dashboardbalance(
+                                //         width: 80,
+                                //         imagePath: AppImages.moneycollection,
+                                //         text: "Collection",
+                                //         onTap: () {
+                                //           Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     const Collectionsheets(
+                                //                       index: 0,
+                                //                     )),
+                                //           );
+                                //         },
+                                //       ),
+                                //        Dashboardbalance(
+                                //         width: 80,
+                                //         imagePath: AppImages.moneycollection,
+                                //         text: "Collection",
+                                //         onTap: () {
+                                //           Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     const Collectionsheets(
+                                //                       index: 0,
+                                //                     )),
+                                //           );
+                                //         },
+                                //       ),
+                                //       Dashboardbalance(
+                                //         width: 80,
+                                //         imagePath: AppImages.deposit,
+                                //         text: "Deposit",
+                                //         onTap: () {
+                                //           Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     const DepositList()),
+                                //           );
+                                //         },
+                                //       ),
+                                //       Dashboardbalance(
+                                //         width: 80,
+                                //         imagePath: AppImages.loan,
+                                //         text: "Loan",
+                                //         onTap: () {
+                                //           Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     const LoanList()),
+                                //           );
+                                //         },
+                                //       ),
+                                //     ],
+                                //   ),
+                                // )
                               ],
                             ),
                           ),
@@ -260,39 +364,42 @@ class Dashboardbalance extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25), color: Colors.white),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Image.asset(
-                  imagePath,
-                  width: 30,
-                  height: 30,
-                  color: AppColors.primaryColor,
-                  fit: BoxFit.fill,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25), color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Image.asset(
+                    imagePath,
+                    width: 40,
+                    height: 40,
+                    color: AppColors.primaryColor,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Center(
-              child: Text(
-                text,
-                style: TextStyle(
-                    fontSize: 12.sp,
-                    color: AppColors.primaryColor,
-                    decoration: TextDecoration.none,
-                    fontWeight: FontWeight.w500),
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+              Center(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                      fontSize: 12.sp,
+                      color: AppColors.primaryColor,
+                      decoration: TextDecoration.none,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+            ],
+          ),
         ),
       ),
     );

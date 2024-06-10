@@ -51,6 +51,8 @@ class AuthState extends ChangeNotifier {
   bool hidePassword = true;
   bool hideConformPassword = true;
 
+  bool loginLoading = true;
+
   // AuthState() {
   //   debugPrint("this is iniit");
   //   _checkAuth();
@@ -120,6 +122,7 @@ class AuthState extends ChangeNotifier {
     print("printing login body${body}");
     var value = await authServices.postMethod(ApiUrl.login, jsonEncode(body));
     loadingAuth = false;
+    
     notifyListeners();
     if (value == null) {
       loadingAuth = false;
@@ -130,6 +133,7 @@ class AuthState extends ChangeNotifier {
         print("printting Token: ${value["user"]["TOKEN"]}");
 
         _isLoggedIn = false;
+        
         Constant.loginToken = value["user"]["TOKEN"].toString();
         Preference.storeUser(value["user"]["TOKEN"].toString());
 

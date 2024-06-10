@@ -201,9 +201,9 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                                const DateDropdownEnglish(
+                                // const DateDropdownEnglish(
 
-                                ),
+                                // ),
                                 // CalenderField(
                                 //   label: " Tran Date(Bs)",
                                 //   useNepaliCalendar: true,

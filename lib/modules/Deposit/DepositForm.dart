@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
+import 'package:moneycollection/constant/Customdropdown.dart';
 import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/EnglishDate.dart';
 import 'package:moneycollection/constant/Utils.dart';
+import 'package:moneycollection/constant/date_dropdown_nepali.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +51,7 @@ LoanStateProvider();
     return Consumer<LoanStateProvider>(builder: (context, loan, child) {
       return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
+        String selectedDateFormat = 'English';
      
       loan.accountnumber.text = widget.accountno.substring(7); 
       loan.clientid.text = widget.clientid.substring(7);
@@ -98,6 +101,8 @@ LoanStateProvider();
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                           
+                              
 Text(
                             "Date",
                             style: TextStyle(
@@ -108,21 +113,9 @@ Text(
                             ),
                           ),
                           const SizedBox(height: 5),
+                          
                           const DateDropdownEnglish(),
-                      //     CalenderField(
-                      //       label: " Tran Date(Bs)",
-                      //       useNepaliCalendar: true,
-                      //       controller: loan.trandatebs,
-                      //     ),
-                      //     const SizedBox(
-                      //       height: 10,
-                      //     ),
-                      // //  if(loan.trandatebs.text.isNotEmpty)
-                      //     CalenderField(
-                      //       label: " Tran Date(Ad)",
-                      //       useNepaliCalendar: false,
-                      //        controller: loan.trandatead,
-                      //     ),
+                      
                           const SizedBox(
                             height: 10,
                           ),
