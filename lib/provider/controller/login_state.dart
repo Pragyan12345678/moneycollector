@@ -10,8 +10,7 @@ import 'package:moneycollection/constant/Global_Constant.dart';
 import 'package:moneycollection/constant/UserSharepreference.dart';
 import 'package:moneycollection/constant/Utils.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
-import 'package:moneycollection/remove/landingPage/bottomNav.dart';
-import 'package:moneycollection/modules/splashScreen/splashscreen.dart';
+
 import 'package:moneycollection/provider/utils/api_helper/api_base_helper.dart';
 
 class AuthState extends ChangeNotifier {

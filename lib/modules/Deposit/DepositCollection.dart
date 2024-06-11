@@ -7,7 +7,7 @@ import 'package:moneycollection/modules/Deposit/SavingCollectionsheet.dart';
 import 'package:moneycollection/modules/Collection/table.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
-import 'package:moneycollection/modules/Collection/otp.dart';
+import 'package:moneycollection/modules/Collection/pin.dart';
 import 'package:provider/provider.dart';
 
 class DepositCollectionSheet extends StatefulWidget {

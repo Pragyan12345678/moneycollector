@@ -3,15 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
-import 'package:moneycollection/constant/Customdropdown.dart';
-import 'package:moneycollection/constant/EnglishDate.dart';
 import 'package:moneycollection/constant/FormField.dart';
 
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/calender.dart';
-import 'package:moneycollection/remove/date_dropdown_nepali.dart';
-import 'package:moneycollection/remove/landingPage/Collectionhome.dart';
-import 'package:moneycollection/modules/Deposit/DepositForm.dart';
 
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 

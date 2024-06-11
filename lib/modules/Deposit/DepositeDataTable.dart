@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moneycollection/modules/Collection/AccountBody.dart';
+import 'package:moneycollection/constant/AccountBody.dart';
 import 'package:moneycollection/modules/Deposit/DepositForm.dart';
 import 'package:moneycollection/provider/controller/depositAccount_state.dart';
 import 'package:provider/provider.dart';

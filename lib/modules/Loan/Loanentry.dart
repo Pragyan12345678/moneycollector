@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/constant/Nodata.dart';
-import 'package:moneycollection/modules/Collection/AccountHeader.dart';
+import 'package:moneycollection/constant/AccountHeader.dart';
 import 'package:moneycollection/modules/Deposit/DepositeDataTable.dart';
 import 'package:moneycollection/modules/Loan/LoanDataTable.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';

@@ -6,7 +6,6 @@ import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/UserSharepreference.dart';
 import 'package:moneycollection/constant/Utils.dart';
-import 'package:moneycollection/remove/landingPage/Collectionhome.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 
 import 'package:moneycollection/provider/service/Dbservices.dart';
@@ -186,6 +185,8 @@ class LoanStateProvider with ChangeNotifier {
       name.clear();
     }
     entriesList.add(body);
+      await loadSavingCollections();
+    
   }
 
   Future<void> databaseloan(BuildContext context) async {
@@ -263,6 +264,7 @@ class LoanStateProvider with ChangeNotifier {
     }
 
     entriesList.add(body);
+    await loadLoanCollections();
   }
 
   Future<void> depositAccount(BuildContext context) async {
