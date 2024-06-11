@@ -144,8 +144,9 @@ class _OtpAuthenticationViewState extends State<OtpAuthenticationView> {
           );
         },
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -196,18 +197,12 @@ class _OtpAuthenticationViewState extends State<OtpAuthenticationView> {
                   onChanged: (v) {},
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
      
-                const SizedBox(
-                  height: 20,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: CustomButtons(
+                
+               
+                 CustomButtons(
                     label: 'Continue',
                     btnClr: AppColors
                         .logoblueColor,
@@ -218,7 +213,7 @@ class _OtpAuthenticationViewState extends State<OtpAuthenticationView> {
                       
                     },
                   ),
-                )
+                
               ],
             ),
           ),
