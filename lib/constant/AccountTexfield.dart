@@ -6,8 +6,9 @@ import 'package:moneycollection/constant/AppColors.dart';
 class AccountTextField extends StatelessWidget {
  final TextEditingController? controller;
   final String? label;
+    final bool? read;
 
-  const AccountTextField({super.key, this.controller,  required this.label});
+  const AccountTextField({super.key, this.controller,  required this.label,  this.read});
   @override
   Widget build(BuildContext context) {
 
@@ -53,6 +54,7 @@ class AccountTextField extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: TextField(
+                readOnly:  read!= null ? true: false,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'xxxxx-xxxx-xx',

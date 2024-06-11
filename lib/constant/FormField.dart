@@ -8,12 +8,14 @@ class FormCustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
+   final bool? read;
 
   const FormCustomTextField(String s, 
     {
     super.key,
     this.textInputType,
     this.textInputAction,
+     this.read,
      required this.label, 
      required this.controller, this.hintText,
     
@@ -56,6 +58,7 @@ class _FormCustomTextFieldState extends State<FormCustomTextField> {
             controller: widget.controller,
             keyboardType: widget.textInputType,
             textInputAction: widget.textInputAction,
+            readOnly: widget.read!= null ? true: false,
             decoration: InputDecoration(
               fillColor: Colors.white,
               errorStyle: subtitleStyle.copyWith(

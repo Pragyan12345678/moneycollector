@@ -67,7 +67,7 @@ class _DateDropdownEnglishState extends State<DateDropdownEnglish> {
   @override
   Widget build(BuildContext context) {
     return Consumer<LoanStateProvider>(
-      builder: (context, kundaliState, child) {
+      builder: (context, dateState, child) {
         return Consumer<ThemeModel>(builder: (context, theme, child) {
           return Column(
             children: [
@@ -95,11 +95,11 @@ class _DateDropdownEnglishState extends State<DateDropdownEnglish> {
                       onChanged: (selected) {
                         setState(() {
                           selectedMonth = selected;
-                          kundaliState.monthEnglish = selectedMonth!.id;
+                          dateState.monthEnglish = selectedMonth!.id;
                           selectedMonthId = selectedMonth!.id;
-                          kundaliState.yearNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().year;
-                           kundaliState.monthNeplali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().month;
-                           kundaliState.dayNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().day;
+                          dateState.yearNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().year;
+                           dateState.monthNeplali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().month;
+                           dateState.dayNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().day;
                         });
                       },
                     ),
@@ -122,11 +122,11 @@ class _DateDropdownEnglishState extends State<DateDropdownEnglish> {
                       onChanged: (selected) {
                         setState(() {
                           selectedDay = selected!;
-                          kundaliState.dayEnglish = selectedDay;
-                          kundaliState.yearNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().year;
-                           kundaliState.monthNeplali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().month;
-                           kundaliState.dayNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().day;
-                           print("create day : ${kundaliState.yearEnglish}");
+                          dateState.dayEnglish = selectedDay;
+                          dateState.yearNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().year;
+                           dateState.monthNeplali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().month;
+                           dateState.dayNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().day;
+                           print("create day : ${dateState.yearEnglish}");
                         });
                       },
                     ),
@@ -147,10 +147,10 @@ class _DateDropdownEnglishState extends State<DateDropdownEnglish> {
                       onChanged: (selected) {
                         setState(() {
                           selectedYear = selected!;
-                          kundaliState.yearEnglish = selectedYear;
-                           kundaliState.yearNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().year;
-                           kundaliState.monthNeplali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().month;
-                           kundaliState.dayNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().day;
+                          dateState.yearEnglish = selectedYear;
+                           dateState.yearNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().year;
+                           dateState.monthNeplali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().month;
+                           dateState.dayNepali = DateTime(selectedYear, selectedMonthId, selectedDay).toNepaliDateTime().day;
                         });
                       },
                     ),

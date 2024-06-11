@@ -3,31 +3,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/constant/Nodata.dart';
-import 'package:moneycollection/modules/Collection/loancollection.dart';
+import 'package:moneycollection/modules/Deposit/SavingCollectionsheet.dart';
 import 'package:moneycollection/modules/Collection/table.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
-import 'package:moneycollection/remove/otp.dart';
+import 'package:moneycollection/modules/Collection/otp.dart';
 import 'package:provider/provider.dart';
 
-class LoanCollectionSheet extends StatefulWidget {
+class DepositCollectionSheet extends StatefulWidget {
   
-  const LoanCollectionSheet({super.key});
+  const DepositCollectionSheet({super.key});
 
   @override
-  State<LoanCollectionSheet> createState() => _LoanCollectionSheetState();
+  State<DepositCollectionSheet> createState() => _DepositCollectionSheetState();
 }
 
-class _LoanCollectionSheetState extends State<LoanCollectionSheet> {
+class _DepositCollectionSheetState extends State<DepositCollectionSheet> {
   void initState() {
     super.initState();
 
-  
-    var collection = Provider.of<LoanStateProvider>(context, listen: false);
     
-    collection.loadLoanCollections();
- 
- 
+    var collection = Provider.of<LoanStateProvider>(context, listen: false);
+
+    collection.loadSavingCollections();
   
   }
   @override
@@ -74,7 +72,7 @@ class _LoanCollectionSheetState extends State<LoanCollectionSheet> {
                           Expanded(
                             flex: 6,
                             child: Text(
-                              "Loan Collection Sheet", 
+                              "Deposit Collection Sheet", // Correcting string interpolation
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 color: Colors.white,
@@ -102,7 +100,7 @@ class _LoanCollectionSheetState extends State<LoanCollectionSheet> {
                                   top: 15.0, bottom: 15, left: 20),
                               child: Center(
                                 child: Text(
-                                  " Loan Collection Sheet",
+                                  " Deposit Collection Sheet",
                                   style: TextStyle(
                                       fontSize: 16.sp,
                                       color: Colors.grey,
@@ -137,11 +135,11 @@ class _LoanCollectionSheetState extends State<LoanCollectionSheet> {
                                                 Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const OtpAuthenticationView(
-                savingcollect: false,
+                savingcollect: true,
               )),
             );
+                                              // loan.depositAccount(context);
                                             },
-                                            
                                             child: const Text("Push"),
                                           ),
                                         ],
@@ -165,13 +163,13 @@ class _LoanCollectionSheetState extends State<LoanCollectionSheet> {
                           ),
                         ],
                                      ),
-                                     loanacc.loancollectionsheet .isEmpty
+                                     loanacc.savingCollections.isEmpty
                   ? const Nodata()
                   : Column(
                       children: [
                         TableHeaderRow(),
                         SizedBox(
-                            height: 425.h, child: const Loancoll()),
+                            height: 425.h, child: const SavingCollection()),
                       ],
                     )
                      ],

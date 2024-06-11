@@ -6,13 +6,13 @@ import 'package:moneycollection/Model/Profile.dart';
 import 'package:moneycollection/config/app_url.dart';
 import 'package:moneycollection/constant/UserSharepreference.dart';
 import 'package:moneycollection/constant/Utils.dart';
-import 'package:moneycollection/modules/Collection/Collectionhome.dart';
+import 'package:moneycollection/remove/landingPage/Collectionhome.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 
 import 'package:moneycollection/provider/service/Dbservices.dart';
 import 'package:moneycollection/provider/service/services.dart';
-import 'package:moneycollection/ui/DepositCollection.dart';
-import 'package:moneycollection/ui/LoanCollection.dart';
+import 'package:moneycollection/modules/Deposit/DepositCollection.dart';
+import 'package:moneycollection/modules/Loan/LoanCollection.dart';
 
 class LoanStateProvider with ChangeNotifier {
   final TextEditingController trandatead = TextEditingController();
@@ -126,8 +126,10 @@ class LoanStateProvider with ChangeNotifier {
       "ACCOUNT": accountnumberadd.text,
       "CUSTID": clientidadd.text,
       "DEPOSITCODE": depositecode.text,
-      "tran_date_ad": "$yearEnglish-$monthEnglish-$dayEnglish",
-      "tran_date_bs": "$yearNepali-$monthNeplali-$dayNepali",
+      "tran_date_ad":trandatead.text,
+      
+      "tran_date_bs":trandatebs.text,
+      //  "$yearNepali-$monthNeplali-$dayNepali",
       "CUSTOMERNAME": name.text,
       "DEPOSIT": amount.text,
     };
@@ -197,11 +199,13 @@ class LoanStateProvider with ChangeNotifier {
       "ACCOUNT": loanaccountnumberadd.text,
       "CUSTID": loanclientidadd.text,
       "DEPOSITCODE": loandepositecode.text,
-      "tran_date_ad": "$yearEnglish-$monthEnglish-$dayEnglish",
-      "tran_date_bs": "$yearNepali-$monthEnglish-$dayEnglish",
+      "tran_date_ad":loantrandatead.text,
+      
+      "tran_date_bs":loantrandatebs.text,
       "CUSTOMERNAME": loanname.text,
       "DEPOSIT": loanamount.text,
     };
+    print("print body${body}");
     var entry = Entries.fromJson(body);
     var result = await DatabaseHelper.instance.newloancollection(entry);
     print("EWEE");
@@ -216,8 +220,8 @@ class LoanStateProvider with ChangeNotifier {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const Collectionsheets(
-              index: 2,
+            builder: (context) => const LoanCollectionSheet(
+                          
             ),
           ),
           (route) => false,
@@ -273,8 +277,6 @@ class LoanStateProvider with ChangeNotifier {
 
     var data = {"entries": values};
 
-    // String bodyJson = jsonEncode(body);
-    // Preference.storedepositaccount(bodyJson);
     print("printingstore postdata ${data}");
 
     var token = await Preference.getUser();
@@ -324,8 +326,8 @@ class LoanStateProvider with ChangeNotifier {
           // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
-            builder: (context) => const Collectionsheets(
-              index: 0,
+            builder: (context) => const DepositCollectionSheet(
+            
             ),
           ),
           (route) => false,

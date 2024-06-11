@@ -3,54 +3,63 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Postdeposite.dart';
 import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
+import 'package:moneycollection/constant/Customdropdown.dart';
+import 'package:moneycollection/constant/EnglishDate.dart';
 import 'package:moneycollection/constant/FormField.dart';
 
 import 'package:moneycollection/constant/AppColors.dart';
-import 'package:moneycollection/constant/EnglishDate.dart';
-import 'package:moneycollection/modules/Collection/Collectionhome.dart';
+import 'package:moneycollection/constant/calender.dart';
+import 'package:moneycollection/remove/date_dropdown_nepali.dart';
+import 'package:moneycollection/remove/landingPage/Collectionhome.dart';
+import 'package:moneycollection/modules/Deposit/DepositForm.dart';
 
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
+import 'package:moneycollection/modules/Deposit/DepositCollection.dart';
+import 'package:moneycollection/modules/Loan/LoanCollection.dart';
 import 'package:provider/provider.dart';
-class EditCollectionForm extends StatefulWidget {
-  final int?inde;
-  final String ?datead;
-  final String ?datebs;
-  final String ?account;
-  final String ?amount;
-    final bool ?isSaving;
-    final String ? name;
-     final void  Function()? navigatetoloancollection;
-     final void  Function()? navigatetosavingcollection;
 
-  const EditCollectionForm({
-    Key? key,
-     this.inde,
-     this.datead,
-     this.name,
-     this.amount, 
-     this.isSaving, 
-     this.datebs,
-     this.account,
-     this.navigatetoloancollection,
-     this.navigatetosavingcollection
-  }) : super(key: key);
+class EditCollectionForm extends StatefulWidget {
+  final int? inde;
+  final String? datead;
+  final String? datebs;
+  final String? account;
+  final String? amount;
+  final bool? isSaving;
+  final String? name;
+  final void Function()? navigatetoloancollection;
+  final void Function()? navigatetosavingcollection;
+
+  const EditCollectionForm(
+      {Key? key,
+      this.inde,
+      this.datead,
+      this.name,
+      this.amount,
+      this.isSaving,
+      this.datebs,
+      this.account,
+      this.navigatetoloancollection,
+      this.navigatetosavingcollection})
+      : super(key: key);
 
   @override
   State<EditCollectionForm> createState() => _EditCollectionFormState(
-        datead: datead?? "0",
-        datebs: datebs?? "0",
-        account: account?? "0",
-        amount: amount?? "0",
-        name: name?? "0",
+        datead: datead ?? "0",
+        datebs: datebs ?? "0",
+        account: account ?? "0",
+        amount: amount ?? "0",
+        name: name ?? "0",
       );
 }
+
 void Function()? navigatetosavingcollection;
 void Function()? navigatetoloancollection;
 
 class _EditCollectionFormState extends State<EditCollectionForm> {
+  String selectedDateFormat = 'English';
   @override
   void initState() {
     super.initState();
@@ -60,9 +69,8 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
     _loadSavingCollections();
 
     _loadLoanCollections();
-    
-    
   }
+
   late TextEditingController trandateadController;
   late TextEditingController trandatebsController;
   late TextEditingController accountnumberController;
@@ -79,41 +87,35 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
     trandateadController = TextEditingController(text: datead);
     trandatebsController = TextEditingController(text: datebs);
     accountnumberController = TextEditingController(
-    text: account.length >= 7 ? account.substring(7) : "Invalid Account");
+        text: account.length >= 7 ? account.substring(7) : "Invalid Account");
     amountController = TextEditingController(text: amount);
     nameController = TextEditingController(text: name);
   }
 
-    List<Entries> savingCollections = [];
-    List<Entries> loanCollections = [];
+  List<Entries> savingCollections = [];
+  List<Entries> loanCollections = [];
 
   // Track the selected index
-
-  
 
   int _currentIndex = 0;
 
   void _changePage(int index) {
-    
-      _currentIndex = index;
-
+    _currentIndex = index;
   }
 
   Future<void> _loadSavingCollections() async {
     List<Entries> collections =
         await DatabaseHelper.instance.getAllgetsavingcollection();
- 
-      savingCollections = collections;
- 
+
+    savingCollections = collections;
   }
+
   Future<void> _loadLoanCollections() async {
     List<Entries> loancollections =
         await DatabaseHelper.instance.getAllgetloancollection();
 
-      loanCollections = loancollections;
- 
+    loanCollections = loancollections;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -163,65 +165,47 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                         builder: (context, collectionn, child) {
                           // Initialize text fields with widget's data
 
-
-                          if(widget.isSaving == true){
+                          if (widget.isSaving == true) {
                             collectionn.trandatead.text =
-                              trandateadController.text;
-                          collectionn.trandatebs.text =
-                              trandatebsController.text;
-                          collectionn.accountnumber.text =
-                              accountnumberController.text;
-                          collectionn.amount.text = amountController.text;
-                           collectionn.name.text = nameController.text;
-                          }else{
+                                trandateadController.text;
+                            collectionn.trandatebs.text =
+                                trandatebsController.text;
+                            collectionn.accountnumber.text =
+                                accountnumberController.text;
+                            collectionn.amount.text = amountController.text;
+                            collectionn.name.text = nameController.text;
+                          } else {
                             collectionn.loantrandatead.text =
-                              trandateadController.text;
-                          collectionn.loantrandatebs.text =
-                              trandatebsController.text;
-                          collectionn.loanaccountnumber.text =
-                              accountnumberController.text;
-                          collectionn.loanamount.text = amountController.text;
-                           
-                          collectionn.loanname.text = nameController.text;
+                                trandateadController.text;
+                            collectionn.loantrandatebs.text =
+                                trandatebsController.text;
+                            collectionn.loanaccountnumber.text =
+                                accountnumberController.text;
+                            collectionn.loanamount.text = amountController.text;
+
+                            collectionn.loanname.text = nameController.text;
                           }
-                    
 
                           return Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                            "Date",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.black,
-                              decoration: TextDecoration.none,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                                // const DateDropdownEnglish(
-
-                                // ),
-                                // CalenderField(
-                                //   label: " Tran Date(Bs)",
-                                //   useNepaliCalendar: true,
-                                //   controller: 
-                                //   (widget.isSaving == true)?
-                                //   collectionn.trandatebs
-                                //   :  collectionn.loantrandatebs
-                                // ),
+                                (widget.isSaving == true)
+                                    ? const DateConversionExample(
+                                        isSaving: true,
+                                      )
+                                    : const DateConversionExample(
+                                        isSaving: false,
+                                      ),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                FormCustomTextField(
-                            widget.name??"0",
-                            label: "Name",
-                            controller:  (widget.isSaving == true)?
-                                  collectionn.name
-                                  :collectionn.loanname
-                          ),
+                                FormCustomTextField(widget.name ?? "0",
+                                    label: "Name",
+                                    controller: (widget.isSaving == true)
+                                        ? collectionn.name
+                                        : collectionn.loanname),
                                 // CalenderField(
                                 //   label: " Tran Date(Ad)",
                                 //   useNepaliCalendar: false,
@@ -237,29 +221,25 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                   "Account Number",
                                   style: TextStyle(
                                     fontSize: 14.sp,
-                                    color:Colors.black,
+                                    color: Colors.black,
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 const SizedBox(height: 10),
                                 AccountTextField(
-                                  label:
-                                      '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
-                                  controller:  (widget.isSaving == true)?
-                                  collectionn.accountnumber
-                                  :collectionn.loanaccountnumber
-                                ),
+                                    label:
+                                        '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
+                                    controller: (widget.isSaving == true)
+                                        ? collectionn.accountnumber
+                                        : collectionn.loanaccountnumber),
                                 const SizedBox(height: 10),
-                                FormCustomTextField(
-                                  "0.00",
-                                  label: "Amount",
-                                   textInputType: TextInputType.number,
-                                  controller: 
-                                    (widget.isSaving == true)?
-                                  collectionn.updateamount
-                                  :collectionn.updateloanamount
-                                ),
+                                FormCustomTextField("0.00",
+                                    label: "Amount",
+                                    textInputType: TextInputType.number,
+                                    controller: (widget.isSaving == true)
+                                        ? collectionn.updateamount
+                                        : collectionn.updateloanamount),
                                 const SizedBox(height: 20),
                                 Padding(
                                   padding: EdgeInsets.only(
@@ -268,63 +248,62 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
                                   ),
                                   child: GestureDetector(
                                     onTap: () {
+                                      if (widget.isSaving == true) {
+                                        double newAmount = double.parse(
+                                          collectionn.updateamount.text,
+                                        );
+                                        String newAmountString =
+                                            newAmount.toString();
 
-if   (widget.isSaving == true ){
-   double newAmount = double.parse(
-                                        collectionn.updateamount.text,
-                                      );
-                                      String newAmountString =
-                                          newAmount.toString();
-
-                                      databaseHelper.updateAmount(
-                                        widget.account??"0",
-                                        newAmountString,
-                                      );
-                                      collectionn.trandatebs.clear();
-                                       collectionn.trandatead.clear();
+                                        databaseHelper.updateAmount(
+                                          widget.account ?? "0",
+                                          newAmountString,
+                                        );
+                                        collectionn.trandatebs.clear();
+                                        collectionn.trandatead.clear();
                                         collectionn.accountnumber.clear();
-                                         collectionn.amount.clear();
-                                         collectionn.updateamount.clear();
-                                         _loadSavingCollections();
-                                           Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Collectionsheets(
-            index: 0,
-          ),
-        ),
-      );
-                                              }
-                                              else{
-                                                double loanAmount = double.parse(
-                                        collectionn.updateloanamount.text,
-                                      );
-                                      String newAmountString =
-                                          loanAmount.toString();
+                                        collectionn.amount.clear();
+                                        collectionn.updateamount.clear();
+                                        _loadSavingCollections();
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const DepositCollectionSheet(
+                                              
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        double loanAmount = double.parse(
+                                          collectionn.updateloanamount.text,
+                                        );
+                                        String newAmountString =
+                                            loanAmount.toString();
 
-                                      databaseHelper.updateloancollection(
-                                        widget.account??"0",
-                                        newAmountString,
-                                      );
-                                      collectionn.loantrandatebs.clear();
-                                       collectionn.loantrandatead.clear();
+                                        databaseHelper.updateloancollection(
+                                          widget.account ?? "0",
+                                          newAmountString,
+                                        );
+                                        collectionn.loantrandatebs.clear();
+                                        collectionn.loantrandatead.clear();
                                         collectionn.loanaccountnumber.clear();
-                                         collectionn.loanamount.clear();
-                                         collectionn.updateloanamount.clear();
-                                         _loadLoanCollections();
-                                                  Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Collectionsheets(
-            index: 2,
-          ),
-        ),
-      );                              
-}
-                                                        
-                                        print("printing indesx${widget.navigatetoloancollection}");
-     
-                                      
+                                        collectionn.loanamount.clear();
+                                        collectionn.updateloanamount.clear();
+                                        _loadLoanCollections();
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoanCollectionSheet(
+                                           
+                                            ),
+                                          ),
+                                        );
+                                      }
+
+                                      print(
+                                          "printing indesx${widget.navigatetoloancollection}");
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

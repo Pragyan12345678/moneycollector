@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/Customdropdown.dart';
-import 'package:moneycollection/constant/date_dropdown_english.dart';
+import 'package:moneycollection/remove/date_dropdown_english.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/theme/theme.dart';
 import 'package:nepali_utils/nepali_utils.dart';
@@ -82,11 +82,16 @@ class _DateDropdownNepaliState extends State<DateDropdownNepali> {
                           () {
                             selectedMonth = selected;
                             selectedMonthId = selectedMonth!.id;
-                            DateState.month = NepaliDateTime(
+                            DateState.monthNeplali = selectedMonthId;
+                            DateState.monthEnglish = NepaliDateTime(
                               selectedYear,
                               selectedMonthId,
                               selectedDay,
                             ).toDateTime().month;
+
+  print("${DateState.monthEnglish}");
+
+                            
                           },
                         );
                       },
@@ -107,10 +112,14 @@ class _DateDropdownNepaliState extends State<DateDropdownNepali> {
                       onChanged: (selected) {
                         setState(() {
                           selectedDay = selected!;
-                          DateState.day = NepaliDateTime(
+                          DateState.dayNepali = selectedDay;
+                          print(" printing day${DateState.dayNepali }");
+                          DateState.dayEnglish = NepaliDateTime(
                                   selectedYear, selectedMonthId, selectedDay)
                               .toDateTime()
                               .day;
+                                print("${DateState.dayEnglish}");
+
                         });
                       },
                     ),
@@ -130,11 +139,14 @@ class _DateDropdownNepaliState extends State<DateDropdownNepali> {
                       onChanged: (selected) {
                         setState(() {
                           selectedYear = selected!;
-                          DateState.year = NepaliDateTime(
+                          DateState.yearNepali = selectedYear;
+                          DateState.yearEnglish = NepaliDateTime(
                             selectedYear,
                             selectedMonthId,
                             selectedDay,
                           ).toDateTime().year;
+                            print("${DateState.yearEnglish}");
+                       
                         });
                       },
                     ),
@@ -144,14 +156,14 @@ class _DateDropdownNepaliState extends State<DateDropdownNepali> {
               SizedBox(
                 height: 10.h,
               ),
-              Text(
-                "${NepaliDateTime(selectedYear, selectedMonthId, selectedDay).toDateTime().year} - ${NepaliDateTime(selectedYear, selectedMonthId, selectedDay).toDateTime().month} - ${NepaliDateTime(selectedYear, selectedMonthId, selectedDay).toDateTime().day} AD",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.primaryBrown,
-                  fontSize: 16.sp,
-                ),
-              )
+              // Text(
+              //   "${NepaliDateTime(selectedYear, selectedMonthId, selectedDay).toDateTime().year} - ${NepaliDateTime(selectedYear, selectedMonthId, selectedDay).toDateTime().month} - ${NepaliDateTime(selectedYear, selectedMonthId, selectedDay).toDateTime().day} AD",
+              //   style: TextStyle(
+              //     fontWeight: FontWeight.w500,
+              //     color: AppColors.primaryBrown,
+              //     fontSize: 16.sp,
+              //   ),
+              // )
             ],
           );
         });

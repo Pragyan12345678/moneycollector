@@ -4,8 +4,8 @@ import 'package:moneycollection/constant/AccountTexfield.dart';
 import 'package:moneycollection/constant/CustomAppbar.dart';
 import 'package:moneycollection/constant/FormField.dart';
 import 'package:moneycollection/constant/AppColors.dart';
-import 'package:moneycollection/constant/EnglishDate.dart';
 import 'package:moneycollection/constant/Utils.dart';
+import 'package:moneycollection/constant/calender.dart';
 
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
@@ -34,10 +34,11 @@ class LoanForm extends StatefulWidget {
 }
 
 class _LoanFormState extends State<LoanForm> {
+  String selectedDateFormat = 'English';
   @override
   Widget build(BuildContext context) {
     int selectedIndex = -1;
-    String selectedDateFormat = 'English';
+    
     return Consumer<LoanStateProvider>(builder: (context, loan, child) {
       return Consumer<ProfileDataProvider>(builder: (context, profile, child) {
         var profiledetails = profile.ProfileDatas;
@@ -87,54 +88,13 @@ class _LoanFormState extends State<LoanForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //   children: [
-                          //     Expanded(
-                          //       child: Text(
-                          //         selectedDateFormat == 'Nepali'
-                          //             ? '(BS)'
-                          //             : '(AD)',
-                          //         style: TextStyle(
-                          //           fontWeight: FontWeight.w500,
-                          //           color: AppColors.primaryBrown,
-                          //           fontSize: 14.sp,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     Expanded(
-                          //       child: CustomDropdownButton(
-                          //         items:
-                          //             ['English', 'Nepali'].map((String value) {
-                          //           return DropdownMenuItem<String>(
-                          //             value: value,
-                          //             child: Text(value),
-                          //           );
-                          //         }).toList(),
-                          //         onChanged: (newValue) {
-                          //           print(newValue);
-                          //           setState(() {
-                          //             selectedDateFormat = newValue!;
-                          //             print(
-                          //                 'Selected date format: $selectedDateFormat');
-                          //           });
-                          //         },
-                          //         value: selectedDateFormat,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          Text(
-                            "Date",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.black,
-                              decoration: TextDecoration.none,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          const DateDropdownEnglish(),
+                        
+                       
+                              const DateConversionExample(
+                                isSaving:  false,
+                              ),
+                             
+                             
 
                           const SizedBox(
                             height: 10,
@@ -143,6 +103,7 @@ class _LoanFormState extends State<LoanForm> {
                             widget.name,
                             label: "Name",
                             controller: loan.loanname,
+                            read: true,
                           ),
                           const SizedBox(
                             height: 10,
@@ -160,7 +121,8 @@ class _LoanFormState extends State<LoanForm> {
                           AccountTextField(
                               label:
                                   '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
-                              controller: loan.loanaccountnumber),
+                              controller: loan.loanaccountnumber,
+                              read: true,),
                           const SizedBox(height: 10),
                           Text(
                             "Client ID",
@@ -175,12 +137,14 @@ class _LoanFormState extends State<LoanForm> {
                           AccountTextField(
                               label:
                                   '${profiledetails.isNotEmpty ? profiledetails.first.branchCode ?? "" : ""}-',
-                              controller: loan.loanclientid),
+                              controller: loan.loanclientid,
+                              read: true,),
                           const SizedBox(height: 10),
                           FormCustomTextField(
                             widget.depositecode,
                             label: "Deposite Code",
                             controller: loan.loandepositecode,
+                            read:true
                           ),
 
                           const SizedBox(height: 10),

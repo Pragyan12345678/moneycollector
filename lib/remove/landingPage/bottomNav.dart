@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:moneycollection/constant/CustomShowDialog.dart';
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/AppImageDirectory.dart';
-import 'package:moneycollection/modules/Statement/statement.dart';
+import 'package:moneycollection/remove/Statement/statement.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/modules/profile/profile.dart';
 import 'package:moneycollection/provider/controller/home_state.dart';

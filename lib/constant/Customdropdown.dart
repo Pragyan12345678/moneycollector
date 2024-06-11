@@ -45,9 +45,9 @@ class CustomDropdownButton extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(4.r),
               ),
-              borderSide: const BorderSide(
-                color: AppColors.primaryBlack,
-              ),
+              // borderSide: const BorderSide(
+              //   color: AppColors.primaryBlack,
+              // ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(

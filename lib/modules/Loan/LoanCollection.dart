@@ -3,29 +3,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/constant/Nodata.dart';
-import 'package:moneycollection/modules/Collection/SavingCollectionsheet.dart';
-import 'package:moneycollection/modules/Collection/table.dart';
+import 'package:moneycollection/modules/Collection/loancollection.dart';
+import 'package:moneycollection/modules/Loan/loancollectionlist.dart';
+import '../Collection/table.dart';
 import 'package:moneycollection/modules/dashboard/dashboard.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
-import 'package:moneycollection/remove/otp.dart';
+import 'package:moneycollection/modules/Collection/otp.dart';
 import 'package:provider/provider.dart';
 
-class DepositCollectionSheet extends StatefulWidget {
+class LoanCollectionSheet extends StatefulWidget {
   
-  const DepositCollectionSheet({super.key});
+  const LoanCollectionSheet({super.key});
 
   @override
-  State<DepositCollectionSheet> createState() => _DepositCollectionSheetState();
+  State<LoanCollectionSheet> createState() => _LoanCollectionSheetState();
 }
 
-class _DepositCollectionSheetState extends State<DepositCollectionSheet> {
+class _LoanCollectionSheetState extends State<LoanCollectionSheet> {
   void initState() {
     super.initState();
 
-    
+  
     var collection = Provider.of<LoanStateProvider>(context, listen: false);
-
-    collection.loadSavingCollections();
+    
+    collection.loadLoanCollections();
+ 
+ 
   
   }
   @override
@@ -72,7 +75,7 @@ class _DepositCollectionSheetState extends State<DepositCollectionSheet> {
                           Expanded(
                             flex: 6,
                             child: Text(
-                              "Deposit Collection Sheet", // Correcting string interpolation
+                              "Loan Collection Sheet", 
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 color: Colors.white,
@@ -100,7 +103,7 @@ class _DepositCollectionSheetState extends State<DepositCollectionSheet> {
                                   top: 15.0, bottom: 15, left: 20),
                               child: Center(
                                 child: Text(
-                                  " Deposit Collection Sheet",
+                                  " Loan Collection Sheet",
                                   style: TextStyle(
                                       fontSize: 16.sp,
                                       color: Colors.grey,
@@ -135,11 +138,11 @@ class _DepositCollectionSheetState extends State<DepositCollectionSheet> {
                                                 Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const OtpAuthenticationView(
-                savingcollect: true,
+                savingcollect: false,
               )),
             );
-                                              // loan.depositAccount(context);
                                             },
+                                            
                                             child: const Text("Push"),
                                           ),
                                         ],
@@ -163,13 +166,13 @@ class _DepositCollectionSheetState extends State<DepositCollectionSheet> {
                           ),
                         ],
                                      ),
-                                     loanacc.savingCollections.isEmpty
+                                     loanacc.loancollectionsheet .isEmpty
                   ? const Nodata()
                   : Column(
                       children: [
                         TableHeaderRow(),
                         SizedBox(
-                            height: 425.h, child: const SavingCollection()),
+                            height: 425.h, child: const Loancoll()),
                       ],
                     )
                      ],

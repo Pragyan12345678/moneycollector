@@ -57,11 +57,7 @@ class _CalenderFieldState extends State<CalenderField> {
               .split(' ')[0]; // Format this as needed
 
           
-          // if (widget.controller!= null) {
-          //   var englishDate = _selectedNepaliDate.toDateTime();
-          // print("print ${englishDate}");
-          //   widget.controller2!.text = englishDate.toString().split(' ')[0];
-          // }
+         
         });
       }
     } else {

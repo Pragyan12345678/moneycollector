@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class Preference {
   static const String _authData = 'authData';
   static const _getProfile = 'profile';
@@ -9,12 +8,10 @@ class Preference {
   static const String _userType = 'user';
   static const String _getDepositeaccount = 'deposit';
 
-
-
   ///
   static const _getPostloan = 'postloan';
 
-
+//toke
   static Future<void> storeUser(String data) async {
     debugPrint("this is store usertoken $data");
     await saveData(_authData, data);
@@ -32,17 +29,16 @@ class Preference {
   static Future<String?> getUserType() async {
     return getData(_userType);
   }
-///user store profile
+
+  ///user store profile
   static Future<void> storeProfile(String data) async {
     await saveData(_getProfile, data);
     debugPrint("Stored profile lang data: $data");
-  
   }
 
-  static  getProfile() async {
+  static getProfile() async {
     return getData(_getProfile);
   }
-
 
 //deposit account
   static Future<void> storedepositaccount(String data) async {
@@ -54,34 +50,20 @@ class Preference {
     return getData(_getDepositeaccount);
   }
 
-
-
 ////store data
- static Future<void> storepostloan(String data) async {
+  static Future<void> storepostloan(String data) async {
     await saveData(_getPostloan, data);
     debugPrint("Stored Postdeposite lang data: $data");
-  
   }
 
-  static  getPostloan() async {
+  static getPostloan() async {
     return getData(_getPostloan);
   }
 
-
 ////
-///
-///
-///
-
-
-
-
-
-
-
-
-
-
+  ///
+  ///
+  ///
 
   static Future<bool> storeOnBoarding(bool data) async {
     try {
@@ -145,13 +127,5 @@ class Preference {
     }
   }
 
-
-
-
-
-
-
-  saveDepositentry(){
-
-  }
+  saveDepositentry() {}
 }

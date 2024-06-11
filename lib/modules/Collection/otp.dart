@@ -8,6 +8,8 @@ import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/constant/Button.dart';
 import 'package:moneycollection/provider/controller/Profile_state.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
+import 'package:moneycollection/modules/Deposit/DepositCollection.dart';
+import 'package:moneycollection/modules/Loan/LoanCollection.dart';
 
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -58,16 +60,19 @@ class _OtpAuthenticationViewState extends State<OtpAuthenticationView> {
     super.dispose();
   }
 
-  void sendOtp() {
   
-  }
 
   
-  void submitOTP() {
+   submitOTP() {
     if (enteredPin == expectedPin) {
+      var push = Provider.of<LoanStateProvider>(context, listen: false);
+   
+      
       (widget.savingcollect == true )
-      ? Provider.of<LoanStateProvider>(context, listen: false).depositAccount(context)
-       : Provider.of<LoanStateProvider>(context, listen: false).loanAccount(context);
+      ? push.depositAccount(context)
+      : push.loanAccount(context);
+
+      
     } else {
 
       showDialog(
@@ -118,7 +123,19 @@ class _OtpAuthenticationViewState extends State<OtpAuthenticationView> {
                         .logoblueColor, // Set the button's background color
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop(true); // Return true to exit
+                     (widget.savingcollect == true )
+                     ?Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DepositCollectionSheet()),
+                                )
+                                 :Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoanCollectionSheet()),
+                                );
                   },
                   child: const Text('Yes'),
                 ),
@@ -196,12 +213,9 @@ class _OtpAuthenticationViewState extends State<OtpAuthenticationView> {
                         .logoblueColor,
                     txtClr: Colors.white,
                     ontap: () {
+                      print("dd");
         submitOTP();
-                      // controller.optloading.value
-                          // ? null
-                          // : controller
-                          //     .getOtp(controller.otpController.toString());
-                      // Get.to(() => const ResetPasswordView());
+                      
                     },
                   ),
                 )

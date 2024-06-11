@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneycollection/Model/Postdeposite.dart';
-import 'package:moneycollection/modules/Collection/Collectionhome.dart';
+import 'package:moneycollection/remove/landingPage/Collectionhome.dart';
 import 'package:moneycollection/modules/Collection/Editcollection.dart';
 import 'package:moneycollection/constant/AppColors.dart';
 import 'package:moneycollection/constant/AppImageDirectory.dart';
 import 'package:moneycollection/provider/controller/deposite_state.dart';
 import 'package:moneycollection/provider/service/Dbservices.dart';
+import 'package:moneycollection/modules/Deposit/DepositCollection.dart';
+import 'package:moneycollection/modules/Loan/LoanCollection.dart';
 import 'package:provider/provider.dart';
 
 class TableBodyRow extends StatefulWidget {
@@ -166,8 +168,8 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
                                                  Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const Collectionsheets(
-            index: 0,
+          builder: (context) => const DepositCollectionSheet(
+            
           ),
         ),
       );                              
@@ -181,8 +183,8 @@ class _AccountTableBodyRowState extends State<TableBodyRow> {
                                             Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const Collectionsheets(
-            index: 2,
+          builder: (context) => const LoanCollectionSheet(
+            
           ),
         ),
       );                              
